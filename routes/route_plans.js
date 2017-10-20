@@ -8,5 +8,4 @@ const Plan = require('../models/plans');
 const statusLib = require('../config/status');
 
 
-
 module.exports = router;

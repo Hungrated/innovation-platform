@@ -8,5 +8,4 @@ const Blog = require('../models/blogs');
 const statusLib = require('../config/status');
 
 
-
 module.exports = router;

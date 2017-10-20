@@ -19,13 +19,13 @@ app.use(bodyParser.urlencoded({
 
     // session handler
     var arr = [];
-    for(var i = 0; i < 100000; i++) {
+    for (var i = 0; i < 100000; i++) {
         arr.push('keys_' + Math.random());
     }
     app.use(cookieSession({
         name: 'session_id',
         keys: arr,
-        maxAge: 30*3600*1000
+        maxAge: 30 * 3600 * 1000
     }));
 })();
 
@@ -37,14 +37,14 @@ const api = require('./routes/route_api');
 app.use('/api', api);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     console.error(err);
     // render the error page
     res.status(err.status || 500);

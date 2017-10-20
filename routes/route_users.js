@@ -9,14 +9,14 @@ const statusLib = require('../config/status');
 router.post('/', function (req, res) {
     const {action, username, password, identity} = req.body; // receive request data
 
-    switch(action) {
+    switch (action) {
         case 'reg': // register
             (function () {
-                if(!username || !password) {// empty username or password
+                if (!username || !password) {// empty username or password
                     res.json(statusLib.REG_FAILED);
                     console.log('empty username or password');
                 }
-                else if(User.findOne({ where: {username: username} }) !== null) {
+                else if (User.findOne({where: {username: username}}) !== null) {
                     res.json(statusLib.REG_FAILED);
                     console.log('username already exists');
                 }
@@ -31,24 +31,24 @@ router.post('/', function (req, res) {
                         res.json(statusLib.CONNECTION_ERROR);
                     });
             })();
-            break ;
+            break;
 
         case 'login': // log in
             (function () {
-                if(!req.session.isLogin || username !== req.session.username) {
+                if (!req.session.isLogin || username !== req.session.username) {
                     // when not logged in or different user logging in
                     // check if there is a record include username
                     User.findOne({
                         where: {username: username}
                     }).then(function (user) {
-                        if(user.dataValues === null) { //username does not exist
+                        if (user.dataValues === null) { //username does not exist
                             res.json(statusLib.LOGIN_FAILED);
                             console.log('does not exist');
                         }
-                        else if(user.dataValues.password ===
-                                    crypto.createHash('sha256')
-                                    .update(config.salt + password)
-                                    .digest('hex').slice(0,255)) { // password checked
+                        else if (user.dataValues.password ===
+                            crypto.createHash('sha256')
+                                .update(config.salt + password)
+                                .digest('hex').slice(0, 255)) { // password checked
 
                             req.session.isLogin = true;
                             res.json(statusLib.LOGIN_SUCCEEDED);

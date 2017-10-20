@@ -8,5 +8,4 @@ const Rate = require('../models/rates');
 const statusLib = require('../config/status');
 
 
-
 module.exports = router;
