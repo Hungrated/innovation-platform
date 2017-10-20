@@ -26,7 +26,8 @@ const schema = {
     },
     identity: {
         type: Sequelize.ENUM,
-        values: ['student', 'teacher', 'superAdmin']
+        values: ['student', 'teacher', 'superAdmin'],
+        allowNull: false
     },
     // isLogin: {
     //     type: Sequelize.ENUM,

@@ -7,10 +7,6 @@ const statusLib = require('./config/status');
 
 const app = express();
 
-// routes handler
-const api = require('./routes/route_api');
-app.use('/api', api);
-
 //bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -36,6 +32,9 @@ app.use(bodyParser.urlencoded({
 // static pages handler
 app.use(express.static(path.join(__dirname, 'public')));
 
+// routes handler
+const api = require('./routes/route_api');
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
