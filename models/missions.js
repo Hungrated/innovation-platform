@@ -6,14 +6,14 @@ const Sequelize = require('sequelize');
 const mysql = require('../libs/sequelize');
 
 const schema = {
-    content: {
-        type: Sequelize.STRING,
-        allowNull: false
-    }
+  content: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
 };
 
 const options = {
-    underscored: true
+  underscored: true
 };
 
 const Mission = mysql.define('mission', schema, options);
@@ -21,7 +21,7 @@ const Mission = mysql.define('mission', schema, options);
 const User = require('./users');
 
 Mission.belongsTo(User, {
-    foreignKey: 'teacher_id'
+  foreignKey: 'teacher_id'
 });
 
 Mission.sync().then();

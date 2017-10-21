@@ -10,23 +10,23 @@ const app = express();
 //bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: false
+  extended: false
 }));
 
 (function () {
-    // cookie handler
-    app.use(cookieParser());
+  // cookie handler
+  app.use(cookieParser());
 
-    // session handler
-    var arr = [];
-    for (var i = 0; i < 100000; i++) {
-        arr.push('keys_' + Math.random());
-    }
-    app.use(cookieSession({
-        name: 'session_id',
-        keys: arr,
-        maxAge: 30 * 3600 * 1000
-    }));
+  // session handler
+  var arr = [];
+  for (var i = 0; i < 100000; i++) {
+    arr.push('keys_' + Math.random());
+  }
+  app.use(cookieSession({
+    name: 'session_id',
+    keys: arr,
+    maxAge: 30 * 3600 * 1000
+  }));
 })();
 
 // static pages handler
@@ -38,17 +38,17 @@ app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-    console.error(err);
-    // render the error page
-    res.status(err.status || 500);
-    res.json(statusLib.SERVER_INNER_ERROR);
+  console.error(err);
+  // render the error page
+  res.status(err.status || 500);
+  res.json(statusLib.SERVER_INNER_ERROR);
 });
 
 module.exports = app;

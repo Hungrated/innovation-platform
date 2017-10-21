@@ -7,12 +7,10 @@ const mysql = require('../libs/sequelize');
 
 const schema = {
     name: {
-        type: Sequelize.STRING(16),
-        allowNull: false
+        type: Sequelize.STRING(16)
     },
     sex: {
         type: Sequelize.ENUM,
-        allowNull: false,
         values: ['未知', '男', '女']
     },
     school_id: {

@@ -6,14 +6,14 @@ const Sequelize = require('sequelize');
 const mysql = require('../libs/sequelize');
 
 const schema = {
-    content: {
-        type: Sequelize.STRING,
-        allowNull: false
-    }
+  content: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
 };
 
 const options = {
-    underscored: true
+  underscored: true
 };
 
 const Plan = mysql.define('plan', schema, options);
@@ -21,7 +21,7 @@ const Plan = mysql.define('plan', schema, options);
 const User = require('./users');
 
 Plan.belongsTo(User, {
-    foreignKey: 'student_id'
+  foreignKey: 'student_id'
 });
 
 Plan.sync().then();

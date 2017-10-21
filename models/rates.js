@@ -6,21 +6,21 @@ const Sequelize = require('sequelize');
 const mysql = require('../libs/sequelize');
 
 const schema = {
-    teacher_id: {
-        type: Sequelize.INTEGER(11),
-        allowNull: false
-    },
-    rate: {
-        type: Sequelize.STRING(8),
-        allowNull: false
-    },
-    remark: {
-        type: Sequelize.STRING(128)
-    }
+  teacher_id: {
+    type: Sequelize.INTEGER(11),
+    allowNull: false
+  },
+  rate: {
+    type: Sequelize.STRING(8),
+    allowNull: false
+  },
+  remark: {
+    type: Sequelize.STRING(128)
+  }
 };
 
 const options = {
-    underscored: true
+  underscored: true
 };
 
 const Rate = mysql.define('rate', schema, options);
@@ -29,11 +29,11 @@ const User = require('./users');
 const Blog = require('./blogs');
 
 Rate.belongsTo(User, {
-    foreignKey: 'student_id'
+  foreignKey: 'student_id'
 });
 
 Rate.belongsTo(Blog, {
-    foreignKey: 'mission_id'
+  foreignKey: 'mission_id'
 });
 
 Rate.sync().then();
