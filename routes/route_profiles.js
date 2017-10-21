@@ -8,11 +8,23 @@ const Profile = require('../models/profiles');
 const statusLib = require('../config/status');
 
 router.post('/modify', function (req, res) { // modify a profile
-  const {student_id, name, sex, school_id, description} = req.body;
+  const {
+    student_id,
+    name,
+    sex,
+    school_id,
+    academy,
+    birth_date,
+    phone_num,
+    description
+  } = req.body;
   const modData = {
     name: name,
     sex: sex,
     school_id: school_id,
+    academy: academy,
+    birth_date: birth_date,
+    phone_num: phone_num,
     description: description
   };
 
@@ -20,15 +32,15 @@ router.post('/modify', function (req, res) { // modify a profile
     where: {
       student_id: student_id
     }
-  }).then(function (err) {
-    if (err) {
-      res.json(statusLib.PROFILE_MOD_FAILED);
-      console.log('modify error');
-    }
-    else {
+  })
+    .then(function () {
       res.json(statusLib.PROFILE_MOD_SUCCEEDED);
-    }
-  });
+      console.log('modify succeeded');
+    })
+    .catch(function (e) {
+      console.error(e);
+      res.json(statusLib.CONNECTION_ERROR);
+    });
 });
 
 router.post('/getinfo', function (req, res) { // fetch information of a profile
