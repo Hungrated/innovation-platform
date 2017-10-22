@@ -7,7 +7,14 @@ const mysql = require('../libs/sequelize');
 
 const schema = {
   description: {
-    type: Sequelize.STRING(128),
+    type: Sequelize.STRING(128)
+  },
+  filename: {
+    type: Sequelize.STRING(32),
+    allowNull: false
+  },
+  size: {
+    type: Sequelize.INTEGER(32),
     allowNull: false
   },
   url: {
