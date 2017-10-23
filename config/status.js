@@ -108,6 +108,26 @@ module.exports = {
     msg: '资源文件信息错误'
   },
 
+  PLAN_SUBMIT_SUCCEEDED: {
+    status: 801,
+    msg: '计划提交成功'
+  },
+
+  PLAN_SUBMIT_FAILED: {
+    status: 802,
+    msg: '计划提交失败'
+  },
+
+  PLAN_RATE_SUCCEEDED: {
+    status: 901,
+    msg: '计划评价成功'
+  },
+
+  PLAN_RATE_FAILED: {
+    status: 902,
+    msg: '计划评价失败'
+  },
+
   CONNECTION_ERROR: {
     status: 9001,
     msg: '通信故障'

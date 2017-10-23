@@ -7,7 +7,7 @@ const router = express.Router();
 const Comment = require('../models/comments');
 const statusLib = require('../config/status');
 
-router.post('/', function (req, res) {
+router.post('/submit', function (req, res) {
   const {
     student_id,
     article_id,
