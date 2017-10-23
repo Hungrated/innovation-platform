@@ -3,7 +3,7 @@
  */
 const Sequelize = require('sequelize');
 
-const mysql = require('../libs/sequelize');
+const mysql = require('../middlewares/sequelize');
 
 const schema = {
     filename: {

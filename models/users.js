@@ -5,7 +5,7 @@ const config = require('config-lite')(__dirname).database;
 
 const Sequelize = require('sequelize');
 
-const mysql = require('../libs/sequelize');
+const mysql = require('../middlewares/sequelize');
 
 const crypto = require('crypto');
 

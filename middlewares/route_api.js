@@ -4,12 +4,12 @@
 const express = require('express');
 const router = express.Router();
 
-const user = require('./route_users');
-const blog = require('./route_blogs');
-const file = require('./route_files');
-const profile = require('./route_profiles');
-const plan = require('./route_plans');
-const comment = require('./route_comments');
+const user = require('../routes/route_users');
+const blog = require('../routes/route_blogs');
+const file = require('../routes/route_files');
+const profile = require('../routes/route_profiles');
+const plan = require('../routes/route_plans');
+const comment = require('../routes/route_comments');
 
 router.use('/user', user);
 router.use('/blog', blog);

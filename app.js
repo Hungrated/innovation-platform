@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes handler
-const api = require('./routes/route_api');
+const api = require('./middlewares/route_api');
 app.use('/api', api);
 
 // catch 404 and forward to error handler
