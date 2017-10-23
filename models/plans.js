@@ -19,11 +19,10 @@ const schema = {
     allowNull: false
   },
   rate: {
-    type: Sequelize.STRING(8),
+    type: Sequelize.STRING(8)
   },
   remark: {
-    type: Sequelize.STRING(128),
-    allowNull: false
+    type: Sequelize.STRING(128)
   }
 };
 

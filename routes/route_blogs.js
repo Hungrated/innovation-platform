@@ -6,7 +6,7 @@ const router = express.Router();
 
 const Blog = require('../models/blogs');
 const urlLib = require('url');
-const statusLib = require('../config/status');
+const statusLib = require('../libs/status');
 
 router.post('/publish', function (req, res) { // publish a blog(project or event)
   const {

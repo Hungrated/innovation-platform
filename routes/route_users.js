@@ -9,7 +9,7 @@ const router = express.Router();
 
 const User = require('../models/users');
 const Profile = require('../models/profiles');
-const statusLib = require('../config/status');
+const statusLib = require('../libs/status');
 
 router.post('/', function (req, res, next) {
   // receive request data
@@ -80,7 +80,12 @@ router.post('/', function (req, res, next) {
             .then(function () {
               req.session.username = username; // auto login
               req.session.isLogin = true;
-              next();
+              if(req.body.identity === 'student') // a student
+                next();
+              else { // a teacher
+                res.json(statusLib.REG_SUCCEEDED);
+                console.log('student profile created');
+              }
             })
             .catch(function (e) {
               console.error(e);
@@ -102,13 +107,11 @@ router.post('/', function (req, res) {
       username: req.body.username
     }
   })
-    .then(function (user) { // create a profile record for a student
-      if (req.body.identity === 'student') {
+    .then(function (user) {
         const student_id = user.dataValues.id;
         Profile.create({student_id: student_id});
         res.json(statusLib.REG_SUCCEEDED);
         console.log('student profile created');
-      }
     })
     .catch(function (e) {
       console.error(e);

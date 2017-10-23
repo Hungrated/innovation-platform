@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 const Profile = require('../models/profiles');
-const statusLib = require('../config/status');
+const statusLib = require('../libs/status');
 
 router.post('/modify', function (req, res) { // modify a profile
   const {

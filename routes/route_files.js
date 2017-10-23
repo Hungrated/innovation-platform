@@ -8,7 +8,7 @@ const File = require('../models/files');
 const multer = require('multer');
 const fs = require('fs');
 const pathLib = require('path');
-const statusLib = require('../config/status');
+const statusLib = require('../libs/status');
 
 var objMulter = multer({
   dest: './public/upload/' // file upload destination

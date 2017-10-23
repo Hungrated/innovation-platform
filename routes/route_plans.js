@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 const Plan = require('../models/plans');
-const statusLib = require('../config/status');
+const statusLib = require('../libs/status');
 
 router.post('/submit', function (req, res) { // a student create a plan
   const {
@@ -29,7 +29,7 @@ router.post('/submit', function (req, res) { // a student create a plan
     })
     .catch(function (e) {
       console.error(e);
-      res.json(statusLib.COMMENT_FAILED);
+      res.json(statusLib.PLAN_SUBMIT_FAILED);
       console.log('plan submit failed');
     });
 

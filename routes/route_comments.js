@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 const Comment = require('../models/comments');
-const statusLib = require('../config/status');
+const statusLib = require('../libs/status');
 
 router.post('/submit', function (req, res) {
   const {
