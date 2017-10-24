@@ -42,7 +42,12 @@ router.post('/', function (req, res, next) {
               .digest('hex').slice(0, 255)) { // password checked
 
             req.session.isLogin = true;
-            res.json(statusLib.LOGIN_SUCCEEDED);
+            res.json({
+              status: statusLib.LOGIN_SUCCEEDED.status,
+              msg: statusLib.LOGIN_SUCCEEDED.msg,
+              id: user.id,
+              username: user.username
+            });
           }
           else {
             res.json(statusLib.LOGIN_FAILED);
