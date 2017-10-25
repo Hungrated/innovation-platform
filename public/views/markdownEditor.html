@@ -1,0 +1,461 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: wuli等等
+  Date: 2017/9/23
+  Time: 18:51
+  To change this template use File | Settings | File Templates.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../editor/css/editormd.css"/>
+    <title>文章编辑</title>
+    <style>
+        body{
+            background-color: #222222;
+            padding: 50px;
+        }
+        .editormd-code-toolbar select {
+            max-width: 36%;
+            display: inline;
+            height: 2.5em;
+        }
+
+        .editormd-form input[type="text"], .editormd-form input[type="number"]{
+            padding: 0;
+        }
+
+        .editormd-form input[type="text"]{
+            height:2.5em;
+            box-sizing: border-box;
+            margin: 0 0 5px 0;
+            border-radius:3px;
+        }
+
+
+    </style>
+    <!--Beyond styles-->
+
+</head>
+<body>
+<div id="layout">
+    <!-- 页内容 -->
+    <div class="col-lg-6 col-sm-6 col-xs-12"
+         style="display: none;z-index: 998; position: absolute; top: 25%; left: 35%; width: 60%; height: 49%;"
+         id="save">
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="card  blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">发布</span>
+                        <div>
+                            <a class="btn" onclick="selectThis(this)">文章</a>
+                            <a class="btn" onclick="selectThis(this)">公告</a>
+                        </div>
+                        <div class="form-horizontal form-bordered" id="articleF" hidden>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" name="artTitle" id="artTitle" value="${article.art_title}" class="validate">
+                                    <label for="artTitle">文章标题：</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" name="label" id="label" value="${article.label}" class="validate">
+                                    <label for="label">标签（多个用，隔开）</label>
+                                </div>
+                            </div>
+                            <input type="hidden" id="articleId" value="${article.art_id}">
+                       <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="col-xs-8">
+                                        <div class="file-field input-field">
+                                            <input type="file" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" id="file" name="file">
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" id="coverName" value="${article.cover}">
+                                            <label for="file">请选择封面图片</label>
+                                         </div>
+                                        </div>
+                                    </div>
+                                    <button style="background-color: #2bbbad;border-width:1px;" onclick="uploadCover()" >上传封面</button>
+                                    <input type="hidden" id="coverAddress">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-horizontal form-bordered" id="noticeF" hidden>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" name="artTitle" id="notTitle"  class="validate">
+                                    <label for="artTitle">公告标题：</label>
+                                </div>
+                            </div>
+                            <input type="hidden" id="notieId" >
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="col-xs-8">
+                                        <label>
+                                            <input class="checkbox-slider colored-blue" type="checkbox" onchange="change()"
+                                                   id="ispublic">
+                                            <span class="text">公开</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action" id="sub" hidden>
+                        <a class="waves-effect waves-light red-text darken-2" data-dismiss="modal" onclick="cancel()">
+                            取消
+                        </a>
+                        <a class="waves-effect waves-light" id="submitT" data-mode="0" onclick="mySubmit()">提交</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div id="test-editormd">
+            <textarea style="display:none;">${article.content}</textarea>
+        </div>
+    </div>
+    <!-- /Page Body -->
+    <div class="fixed-action-btn" style="bottom: 100px; right: 30px;">
+        <a class="waves-effect waves-light btn-floating btn-large green tooltipped" data-position="left" data-delay="5" data-tooltip="保存" id="submit">
+            <i class="fa fa-location-arrow"></i>
+        </a>
+        <ul>
+            <li>
+                <a class="waves-effect waves-light btn-floating btn-large deep-orange tooltipped" id="back" data-position="left" data-delay="5" data-tooltip="返回" >
+                    <i class="fa fa-reply" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/materialize.min.js"></script>
+<script src="../editor/js/editormd.min.js"></script>
+<script src="../js/ajaxfileupload.js"></script>
+<script type="text/javascript">
+    var testEditor;
+    //取消提交
+    function cancel() {
+        $("#save").css("display", "none");
+    }
+    //是否公开
+    function change() {
+        var is_public = document.getElementById("is_public").value;
+
+    }
+
+    function uploadCover() {
+        var coverName = $("#coverName").val();
+        console.log(coverName);
+        //执行上传文件操作的函数
+        $.ajaxFileUpload({
+            async: false,
+            type: "POST",
+            //处理文件上传操作的服务器端地址
+            url: '/cover/upload',
+            enctype: "multipart/form-data",
+            secureuri: false,                       //是否启用安全提交,默认为false
+            fileElementId: 'file',                        //文件选择框的id属性
+            dataType: "json",                       //服务器返回的格式,可以是json或xml等
+            data: {
+                coverName: coverName
+            },
+            success: function (data) {
+                //debugger;
+                if (data.success == 1) {
+                    console.log('文件上传成功，地址是' + data.url);
+                    $("#coverName").val(data.url);
+                    $("#coverAddress").val(data.url);
+                }
+                else
+                  console.log(data.message)
+            },
+            error: function (msg) {
+                console.log(msg.responseText);
+            }
+        });
+    }
+
+    function selectThis(point) {
+        //debugger;
+        var selectOne;
+        selectOne = $(point).html();
+        if(selectOne == "文章")
+        {
+            $("#articleF").show();
+            $("#noticeF").hide();
+            $("#sub").show();
+            $("#submitT").attr("data-mode","0");
+        }
+        else
+        {
+            $("#articleF").hide();
+            $("#noticeF").show();
+            $("#sub").show();
+            $("#submitT").attr("data-mode","1");
+        }
+    }
+
+    //提交
+    function mySubmit() {
+        var isjudge;
+        isjudge = $("#submitT").attr("data-mode");
+        var file = testEditor.getMarkdown();
+        if(isjudge == "0")
+        {
+            //var articleName = $("#articleName").val();
+            var articleName = document.getElementById("artTitle").value;
+            if (articleName == "") {
+                alert("文章名不能为空");
+                return false;
+            }
+
+            /*
+             var is_public = document.getElementById("is_public").value;
+             if (is_public == "on")is_public = 1;
+             else is_public = 0;
+             */
+
+            var label = document.getElementById("label").value;
+            var coverAddress = document.getElementById("coverAddress").value;
+            console.log(coverAddress);
+            if (label == "") {
+                alert("标签不能为空！");
+                return false;
+            }
+            if (file != null) {
+                var articleId=$("#articleId").val();
+                //alert(articleid);
+                if(articleId==""){
+                    $.ajax({
+                        type: "POST",
+                        url: '/addArticle',
+                        data: {
+                            artContent: file,
+                            artTitle: articleName,
+                            artLabel: label,
+                            cover:coverAddress
+                        },
+                        dataType: "json",
+                        success: function (date) {
+                            if (date.result == "success") {
+                                alert("提交成功，跳转到我的文章列表！");
+                                location.href = "/myArticles";//成功后将页面跳转到我的文章列表
+                            }
+                            else  alert(date.result);
+                        }
+                    })
+                }else {
+                    //alert("编辑文章");
+                    $.ajax({
+                        type: "post",
+                        url: '../modifyBlog',
+                        data: {
+                            artContent: file,
+                            artTitle: articleName,
+                            artLabel: label
+                        },
+                        dataType: "json",
+                        success: function (date) {
+                            if (date.result == "success") {
+                                alert("提交成功，返回文章预览界面！");
+                                location.href = "/postDetail/"+date.artI;//成功后将页面跳转到我的博客
+                            }
+                            else  alert(date.result);
+                        }
+                    })
+                }
+
+            }
+        }
+        else if(isjudge == "1")
+        {
+            var noticeName = document.getElementById("notTitle").value;
+            if (noticeName == "") {
+                alert("公告名不能为空");
+                return false;
+            }
+
+            if (file != null) {
+               // var articleId=$("#articleId").val();
+                // alert(articleid);
+
+                    $.ajax({
+                        type: "POST",
+                        url: '/addNotice',
+                        data: {
+                            ncontext: file,
+                            ntitle: noticeName,
+                        },
+                        dataType: "json",
+                        success: function (date) {
+                            if (date.result == "success") {
+                                alert("提交成功，返回首页！");
+                                location.href = "../index";//成功后将页面跳转到我的博客
+                            }
+                            else  alert(date.result);
+                        }
+                    })
+
+                    //alert("编辑文章");
+                    /*$.ajax({
+                        type: "post",
+                        url: /modifyBlog',
+                        data: {
+                            artContent: file,
+                            artTitle: articleName,
+                            artLabel: label
+                        },
+                        dataType: "json",
+                        success: function (date) {
+                            if (date.result == "success") {
+                                alert("提交成功，返回文章预览界面！");
+                                location.href = "/blogView";//成功后将页面跳转到我的博客
+                            }
+                            else  alert(date.result);
+                        }
+                    })*/
+
+
+            }
+        }
+
+        return false;
+    }
+
+
+    function themeSelect(id, themes, lsKey, callback) {
+        var select = $("#" + id);
+
+        for (var i = 0, len = themes.length; i < len; i++) {
+            var theme = themes[i];
+            var selected = (localStorage[lsKey] == theme) ? " selected=\"selected\"" : "";
+            select.append("<option value=\"" + theme + "\"" + selected + ">" + theme + "</option>");
+        }
+
+        select.bind("change", function () {
+            var theme = $(this).val();
+
+            if (theme === "") {
+                alert("theme == \"\"");
+                return false;
+            }
+
+            console.log("lsKey =>", lsKey, theme);
+
+            localStorage[lsKey] = theme;
+            callback(select, theme);
+        });
+
+        return select;
+    }
+    //渲染编辑器
+    $(function () {
+        $('.tooltipped').tooltip({delay: 5  });
+        testEditor = editormd("test-editormd", {
+            width: "100%",
+            height: 760,
+            path: '../editor/lib/',
+            theme: "default",
+            previewTheme: "default",
+            editorTheme: "default",
+            /*toolbarIcons : function() {
+                // Or return editormd.toolbarModes[name]; // full, simple, mini
+                // Using "||" set icons align right.
+                return ["undo", "redo", "|", "bold", "hr","h1","h2","h3","h4","h5", "|", "image", "fullscreen","preview", "watch", "code-block","|",  "info",  "watch", "fullscreen", "preview"]
+            },*/
+            codeFold: true,
+            //syncScrolling : false,
+            saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+            searchReplace: true,
+            //watch : false,                // 关闭实时预览
+            //toolbar  : false,             //关闭工具栏
+            //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+            emoji: true,
+            taskList: true,
+            tocm: true,         // Using [TOCM]
+            tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+            flowChart: true,             // 开启流程图支持，默认关闭
+            sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+            //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+            //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+            //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+            //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+            //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+            imageUpload: false,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            //imageUploadURL: "/img_upload",
+            onload: function () {
+                console.log('onload', this);
+                //设置工具栏自动固定定位
+                testEditor.setToolbarAutoFixed(true);
+                //this.fullscreen();
+                //this.unwatch();
+                //this.watch().fullscreen();
+
+                //this.setMarkdown("#PHP");
+                //this.width("100%");
+                //this.height(480);
+                //this.resize("100%", 640);
+                var keyMap1 = {
+                    "Ctrl-/": function (cm) {
+                        $.proxy(testEditor.toolbarHandlers.help, testEditor)();
+                    }
+                };
+
+                this.addKeyMap(keyMap1);
+
+            }
+        });
+        //打印
+        /*
+        $("#print-btn").click(function () {
+         /*
+            var html = testEditor.preview.html();
+            document.write('<link rel="stylesheet" href="css/style.css" /><link rel="stylesheet" href="../css/editormd.css" />' + html);
+            window.print();
+        }); */
+
+        //返回
+        $("#back").click(function () {
+            history.back()
+        });
+
+        //提交
+        $("#submit").click(function () {
+                    $("#save").css("display", "block");
+                }
+
+        );
+
+        //主题修改
+        themeSelect("editormd-theme-select", editormd.themes, "theme", function ($this, theme) {
+            testEditor.setTheme(theme);
+        });
+
+        themeSelect("editor-area-theme-select", editormd.editorThemes, "editorTheme", function ($this, theme) {
+            testEditor.setCodeMirrorTheme(theme);
+            // or testEditor.setEditorTheme(theme);
+        });
+
+        themeSelect("preview-area-theme-select", editormd.previewThemes, "previewTheme", function ($this, theme) {
+            testEditor.setPreviewTheme(theme);
+        });
+    });
+
+</script>
+
+</body>
+</html>

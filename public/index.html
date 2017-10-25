@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- <%@ include file="common/header.jsp" %> -->
+	<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<!-- Custom styles for this template -->
+<link href="css/jquery.bxslider.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" href="css/app.css">
+	<link rel="icon" href="images/favicon.ico">
+	<title>首页</title>
+</head>
+
+<body>
+<!-- Navigation -->
+<!-- <%@ include file="common/menu.jsp" %> -->
+<style>
+    .dropdown-menu{
+        background-color: #222222;
+    }
+
+    .dropdown-menu>li>a{
+        color:#fff;
+    }
+
+	.main-slider{
+		margin-top: 80px;
+	}
+</style>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+               <li id="index"><a href="index.html">首页</a></li>
+                <li id="post"><a href="views/postList.html">成果展示</a></li>
+				<li id="activityPage"><a href="views/activity.html">活动展示</a> </li>
+                <li id="resource"><a href="views/resource.html">资源下载</a></li>
+				<li id="commentPage"><a href="views/comments.html">讨论区</a></li>
+				<li><a href="views/markdownEditor.html">发布</a></li>
+				<li><a href="views/renwu.html">老师查看</a></li>
+			</ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                    <li id="userLink" class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">username <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="views/myArticles.html">我的文章</a></li>
+                            <li><a href="views/userInfo.html">个人档案</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="views/login.html">退出</a></li>
+                    <li><a href="views/login.html">登录</a> </li>
+                    <li><a href="views/register.html">注册</a> </li>
+
+            </ul>
+
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+<div class="container">
+	<!--<header>
+		<a href="#"><img src="images/logo.png"></a>
+	</header> -->
+	<section class="main-slider">
+		<div class="slider">
+			<div class="slider-img">
+				<ul class="slider-img-ul">
+					<li><img src="images/creative1.jpg"><h2><a href="post.html" title="Vintage-Inspired Finds for Your Home">Vintage-Inspired Finds for Your Home</a></h2></li>
+					<li><img src="images/creative.jpg"></li>
+					<li><img src="images/1140x500-3.jpg"></li>
+					<li><img src="images/creative1.jpg"></li>
+					<li><img src="images/creative.jpg"></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="row">
+			<div class="col-md-8">
+				<h3 class="sidebar-title">公告</h3>
+				
+						<article class="blog-post">
+							<div class="blog-post-body">
+								<h4><a href="post.jsp">${notice.ntitle}</a></h4>
+								<div class="post-meta"><span>发布者<a href="#">${notice.uname}</a></span>/<span><i class="fa fa-clock-o"></i>${notice.createTime}</span></div>
+								<p>${notice.ncontext}</p>
+									<!--<div class="read-more"><a href="#">详情阅读</a></div>-->
+							</div>
+						</article>
+			
+
+			</div>
+			<div class="col-md-4 sidebar-gutter">
+				<aside>
+					<!-- sidebar-widget -->
+					<div class="sidebar-widget">
+						<h3 class="sidebar-title">人物介绍</h3>
+						<div class="widget-container widget-about">
+							<a href="javascript:void(0)"><img src="images/teacher.jpg" alt=""></a>
+							<h4>XXX</h4>
+							<div class="author-title">导师</div>
+							<p>人物介绍：</p>
+						</div>
+					</div>
+					<!-- sidebar-widget -->
+					<div class="sidebar-widget">
+						<h3 class="sidebar-title">成果展示</h3>
+						<div class="widget-container">
+							<article class="widget-post">
+								<div class="post-body">
+									<h2><a href="post.jsp">各种项目名称</a></h2>
+									<div class="post-meta">
+										<span><i class="fa fa-clock-o"></i> 2017年9月20日</span><span>By CXX</span>
+									</div>
+								</div>
+							</article>
+						</div>
+					</div>
+				</aside>
+			</div>
+		</div>
+	</section>
+</div><!-- /.container -->
+
+<!-- <%@ include file="common/footer.jsp" %> -->
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.bxslider.js"></script>
+<script src="js/mooz.scripts.min.js"></script>
+<script src="js/xSlider.js"></script>
+<script>
+	$("#index").addClass("active");
+</script>
+</body>
+</html>

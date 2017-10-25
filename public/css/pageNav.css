@@ -1,0 +1,8 @@
+
+
+/* 主要代码部分 */
+.shu {left: 20px;list-style: none;margin: 0;position: fixed;top: 50px;}
+.shu li {margin-bottom: 2px;}
+.shu a {background: #ededed;color: #666;display: block;	font-size: 14px;padding: 5px 10px;text-decoration: none;text-transform: uppercase;}
+.shu a:hover {background: #dedede;}
+.shu .current a {background: #666;color: #ededed;}

@@ -1,0 +1,534 @@
+﻿<!DOCTYPE html>
+<!--
+BeyondAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+Purchase: http://wrapbootstrap.com
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>数据统计</title>
+
+    <meta name="description" content="Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="../../images/logo2.png" type="image/x-icon">
+
+
+    <!--Basic Styles-->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="../../css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../css/weather-icons.min.css" rel="stylesheet" />
+
+
+    <!--Beyond styles-->
+    <link href="../../css/beyond.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/demo.min.css" rel="stylesheet" />
+    <link href="../../css/typicons.min.css" rel="stylesheet" />
+    <link href="../../css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+    <link href="../../css/public.css" rel="stylesheet" />
+
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="../../js/skins.min.js"></script>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+    <!-- Loading Container -->
+    <div class="loading-container">
+        <div class="loading-progress">
+            <div class="rotator">
+                <div class="rotator">
+                    <div class="rotator colored">
+                        <div class="rotator">
+                            <div class="rotator colored">
+                                <div class="rotator colored"></div>
+                                <div class="rotator"></div>
+                            </div>
+                            <div class="rotator colored"></div>
+                        </div>
+                        <div class="rotator"></div>
+                    </div>
+                    <div class="rotator"></div>
+                </div>
+                <div class="rotator"></div>
+            </div>
+            <div class="rotator"></div>
+        </div>
+    </div>
+    <!--  /Loading Container -->
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="navbar-container">
+                <!-- Navbar Barnd -->
+                <div class="navbar-header pull-left">
+                    <a href="#" class="navbar-brand">
+                        <small>
+                            <img src="../../images/logoc.png" alt="" />
+                        </small>
+                    </a>
+                </div>
+                <!-- /Navbar Barnd -->
+
+                <!-- Sidebar Collapse -->
+                <div class="sidebar-collapse" id="sidebar-collapse">
+                    <i class="collapse-icon fa fa-bars"></i>
+                </div>
+                <!-- /Sidebar Collapse -->
+                <!-- Account Area and Settings --->
+                <div class="navbar-header pull-right">
+                    <div class="navbar-account">
+                        <ul class="account-area">
+                            <li>
+                                <a class="login-area dropdown-toggle" data-toggle="dropdown">
+                                    <div class="avatar" title="View your public profile">
+                                        <img src="../../images/teacher.jpg">
+                                    </div>
+                                    <section>
+                                        <h2><span class="profile"><span>管理员</span></span></h2>
+                                    </section>
+                                </a>
+                                <!--Login Area Dropdown-->
+                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
+                                    <li class="username"><a>管理员</a></li>
+                                    <li class="email"><a>123456789@qq.com</a></li>
+                                    <!--Avatar Area-->
+                                    <li>
+                                        <div class="avatar-area">
+                                            <img src="../../images/teacher.jpg">
+                                            <span class="caption">更换头像</span>
+                                        </div>
+                                    </li>
+                                    <!--Avatar Area-->
+                                    <li class="edit">
+                                        <a href="#" class="pull-right">设置</a>
+                                    </li>
+                                    <!--Theme Selector Area-->
+                                    <li class="theme-area">
+                                        <ul class="colorpicker" id="skin-changer">
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#5DB2FF;" rel="assets/css/skins/blue.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#2dc3e8;" rel="assets/css/skins/azure.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#03B3B2;" rel="assets/css/skins/teal.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#53a93f;" rel="assets/css/skins/green.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#FF8F32;" rel="assets/css/skins/orange.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#cc324b;" rel="assets/css/skins/pink.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#AC193D;" rel="assets/css/skins/darkred.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#8C0095;" rel="assets/css/skins/purple.min.css"></a></li>
+                                            <li><a class="col4orpick-btn" href="#" style="background-color:#0072C6;" rel="assets/css/skins/darkblue.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#585858;" rel="assets/css/skins/gray.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#474544;" rel="assets/css/skins/black.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#001940;" rel="assets/css/skins/deepblue.min.css"></a></li>
+                                        </ul>
+                                    </li>
+                                    <!--/Theme Selector Area-->
+                                    <li class="dropdown-footer">
+                                        <a href="../login.html">
+                                            退出
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!--/Login Area Dropdown-->
+                            </li>
+                            <!-- /Account Area -->
+                            <!--Note: notice that setting div must start right after account area list.
+                            no space must be between these elements-->
+                            <!-- Settings -->
+                        </ul><div class="setting">
+                        <a id="btn-setting" title="Setting" href="#">
+                            <i class="icon glyphicon glyphicon-cog"></i>
+                        </a>
+                    </div><div class="setting-container">
+                        <label>
+                            <input type="checkbox" id="checkbox_fixednavbar">
+                            <span class="text">固定导航条</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" id="checkbox_fixedsidebar">
+                            <span class="text">固定侧边栏</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" id="checkbox_fixedbreadcrumbs">
+                            <span class="text">固定面包屑导航栏</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" id="checkbox_fixedheader">
+                            <span class="text">固定头部</span>
+                        </label>
+                    </div>
+                        <!-- Settings -->
+                    </div>
+                </div>
+                <!-- /Account Area and Settings -->
+            </div>
+        </div>
+    </div>
+    <!-- /Navbar -->
+    <!-- Main Container -->
+    <div class="main-container container-fluid">
+        <!-- Page Container -->
+        <div class="page-container">
+            <!-- Page Sidebar -->
+            <div class="page-sidebar" id="sidebar">
+                <!-- Page Sidebar Header-->
+                <div class="sidebar-header-wrapper">
+                    <input type="text" class="searchinput" />
+                    <i class="searchicon fa fa-search"></i>
+                    <div class="searchhelper">搜索报告，图表，电子邮件或通知</div>
+                </div>
+                <!-- /Page Sidebar Header -->
+                <!-- Sidebar Menu -->
+                <ul class="nav sidebar-menu">
+                    <!--Dashboard-->
+                    <li   class="active">
+                        <a href="index.html">
+                            <i class="menu-icon glyphicon glyphicon-home"></i>
+                            <span class="menu-text"> 主页 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="activity.html">
+                            <i class="menu-icon fa fa-compass"></i>
+                            <span class="menu-text"> 活动管理 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="notice.html">
+                            <i class="menu-icon fa fa-bullhorn"></i>
+                            <span class="menu-text"> 公告管理 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="article.html">
+                            <i class="menu-icon fa fa-bookmark" aria-hidden="true"></i>
+                            <span class="menu-text">文章管理 </span>
+                        </a>
+                    </li>
+                    <!--资源分享管理-->
+                    <li>
+                        <a href="resource.html">
+                            <i class="menu-icon glyphicon glyphicon-tasks" aria-hidden="true"></i>
+                            <span class="menu-text"> 资源分享管理 </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="users_jur.html">
+                            <i class="menu-icon fa fa-users"></i>
+                            <span class="menu-text">问题管理</span>
+                        </a>
+                    </li>
+                    <!--用户管理-->
+                    <li>
+                        <a href="#" class="menu-dropdown">
+                            <i class="menu-icon fa fa-user"></i>
+                            <span class="menu-text"> 用户管理 </span>
+
+                            <i class="menu-expand"></i>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="users_jur.html">
+                                    <span class="menu-text">基本信息</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="users_file.html">
+                                    <span class="menu-text">个人档案</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /Sidebar Menu -->
+            </div>
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="#">主页</a>
+                        </li>
+                        <li class="active">数据统计</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+                <!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+                <!-- Page Body -->
+                    <div class="page-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="widget">
+                                    <div class="widget-header ">
+                                        <span class="widget-caption">水产之王</span>
+                                        <div class="widget-buttons">
+                                            <a href="#" data-toggle="maximize">
+                                                <i class="fa fa-expand"></i>
+                                            </a>
+                                            <a href="#" data-toggle="collapse">
+                                                <i class="fa fa-minus"></i>
+                                            </a>
+                                            <a href="#" data-toggle="dispose">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div class="table-toolbar">
+
+                                        </div>
+                                        <table class="table table-striped table-hover table-bordered" id="editabledatatable">
+                                            <thead>
+                                            <tr role="row">
+                                                <th>
+                                                    商品编号
+                                                </th>
+                                                <th>
+                                                    商品名称
+                                                </th>
+                                                <th>
+                                                    成本价
+                                                </th>
+                                                <th>
+                                                    管理费用
+                                                </th>
+                                                <th>
+                                                    利润率
+                                                </th>
+                                                <th>
+                                                    销售价
+                                                </th>
+                                                <th>
+                                                    商品简述
+                                                </th>
+                                                <th>
+
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+                                                <td>205</td>
+                                                <td>白虾仁</td>
+                                                <td>￥42.00/斤</td>
+                                                <td>￥2.00/斤</td>
+                                                <td>10%</td>
+                                                <td>￥52.00/斤</td>
+                                                <td class="center ">鲜活冷冻、去肠处理</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> 下架</a>
+                                                    <a href="#" class="btn btn-success btn-xs edit"><i class="fa fa-check"></i>已通过</a>
+                                                    <a href="goods.html" class="btn btn-link btn-xs more"><i class="fa fa-share"></i> 商品详情</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    420
+                                                </td>
+                                                <td>
+                                                    带鱼
+                                                </td>
+                                                <td>￥5.00/斤</td>
+                                                <td>￥1.20/斤</td>
+                                                <td>15%</td>
+                                                <td>
+                                                    ￥12.00/斤
+                                                </td>
+
+                                                <td class="center ">
+                                                    肉质肥嫩、整条或分段
+                                                </td>
+
+                                                <td>
+
+                                                    <a href="#" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> 下架</a>
+                                                    <a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-edit"></i> 审核通过</a>
+                                                    <a href="goods.html" class="btn btn-link btn-xs more"><i class="fa fa-share"></i> 商品详情</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    206
+                                                </td>
+                                                <td>
+                                                    甜虾熟冻
+                                                </td>
+                                                <td>￥39.00/斤</td>
+                                                <td>￥2.50/斤</td>
+                                                <td>8%</td>
+                                                <td>
+                                                    ￥48.00/斤
+                                                </td>
+                                                <td class="center ">
+                                                    粉嫩清甜、肉质紧实
+                                                </td>
+                                                <td>
+
+                                                    <a href="#" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> 下架</a>
+                                                    <a href="#" class="btn btn-success btn-xs edit"><i class="fa fa-check"></i>已通过</a>
+                                                    <a href="goods.html" class="btn btn-link btn-xs more"><i class="fa fa-share"></i> 商品详情</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    111
+                                                </td>
+                                                <td>
+                                                    三文鱼
+                                                </td>
+                                                <td>￥27.00/斤</td>
+                                                <td>￥2.70/斤</td>
+                                                <td>12%</td>
+                                                <td>
+                                                    ￥39.80/斤
+                                                </td>
+                                                <td class="center ">
+                                                    富含脑黄金DHA、EPA等
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> 下架</a>
+                                                    <a href="#" class="btn btn-success btn-xs edit"><i class="fa fa-check"></i>已通过</a>
+                                                    <a href="goods.html" class="btn btn-link btn-xs more"><i class="fa fa-share"></i> 商品详情</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    101
+                                                </td>
+                                                <td>
+                                                    多春鱼
+                                                </td>
+                                                <td>￥6.00/斤</td>
+                                                <td>￥1.20/斤</td>
+                                                <td>20%</td>
+                                                <td>
+                                                    ￥18.80/斤
+                                                </td>
+                                                <td class="center ">
+                                                    鱼肉清甜 雌鱼多鱼卵
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> 下架</a>
+                                                    <a href="#" class="btn btn-success btn-xs edit"><i class="fa fa-check"></i>已通过</a>
+                                                    <a href="goods.html" class="btn btn-link btn-xs more"><i class="fa fa-share"></i> 商品详情</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    208
+                                                </td>
+                                                <td>
+                                                    鲳鱼
+                                                </td>
+                                                <td>￥112.00/斤</td>
+                                                <td>￥5.00/斤</td>
+                                                <td>3.5%</td>
+                                                <td>
+                                                    ￥138.00/斤
+                                                </td>
+                                                <td class="center ">
+                                                    兼具营养与美味
+                                                </td>
+
+                                                <td>
+
+                                                    <a href="#" class="btn btn-danger btn-xs delete"><i class="fa fa-trash-o"></i> 下架</a>
+                                                    <a href="#" class="btn btn-info btn-xs edit"><i class="fa fa-edit"></i> 审核通过</a>
+                                                    <a href="goods_info.html" class="btn btn-link btn-xs more"><i class="fa fa-share"></i> 商品详情</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>
+        <!-- /Page Container -->
+        <!-- Main Container -->
+
+    </div>
+
+    <!--Basic Scripts-->
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <!--Beyond Scripts-->
+    <script src="../../js/beyond.min.js"></script>
+
+
+    <!--Page Related Scripts-->
+    <!--Sparkline Charts Needed Scripts-->
+    <script src="../../js/sparkline/jquery.sparkline.js"></script>
+    <script src="../../js/sparkline/sparkline-init.js"></script>
+
+
+
+
+
+    <script>
+        // If you want to draw your charts with Theme colors you must run initiating charts after that current skin is loaded
+        $(window).bind("load", function () {
+
+            /*Sets Themed Colors Based on Themes*/
+            themeprimary = getThemeColorFromCss('themeprimary');
+            themesecondary = getThemeColorFromCss('themesecondary');
+            themethirdcolor = getThemeColorFromCss('themethirdcolor');
+            themefourthcolor = getThemeColorFromCss('themefourthcolor');
+            themefifthcolor = getThemeColorFromCss('themefifthcolor');
+        })
+
+
+    </script>
+    <!--Google Analytics::Demo Only-->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'http://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-52103994-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+</body>
+<!--  /Body -->
+</html>

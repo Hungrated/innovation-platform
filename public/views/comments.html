@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Custom styles for this template -->
+    <link href="../css/jquery.bxslider.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link rel="icon" href="../images/favicon.ico">
+    <!-- artDialog -->
+    <link href="../css/artDialog_simple.css" rel="stylesheet">
+    <!-- personal styles -->
+    <link href="../styles/postList.css" rel="stylesheet">
+
+    <title>成果展示</title>
+</head>
+<body>
+<!-- Navigation -->
+<style>
+    .dropdown-menu{
+        background-color: #222222;
+    }
+
+    .dropdown-menu>li>a{
+        color:#fff;
+    }
+</style>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li id="index"><a href="../index.html">首页</a></li>
+                <li id="post"><a href="postList.html">成果展示</a></li>
+                <li id="activityPage"><a href="activity.html">活动展示</a> </li>
+                <li id="resource"><a href="resource.html">资源下载</a></li>
+                <li id="commentPage"><a href="comments.html">讨论区</a></li>
+                <li><a href="markdownEditor.html">发布</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li id="userLink" class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">username <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/myArticles">我的文章</a></li>
+                        <li><a href="/setting">个人档案</a></li>
+                    </ul>
+                </li>
+                <li><a href="/logout">退出</a></li>
+                <li><a href="/login">登录</a> </li>
+                <li><a href="/register">注册</a> </li>
+
+            </ul>
+
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+<!-- contanier -->
+<div class="container">
+    <section style="margin-top: 35px;">
+        <div class="col-md-8 ">
+            <article class="blog-post">
+                <div class="blog-post-body">
+                    <h3>
+                        <a href="/postDetail/${article.artiId}">帖子名字</a>
+                    </h3>
+                    <div class="post-meta">
+                        <span>by <a href="#">作者</a></span>
+                        /
+                        <span>${article.artLabel}</span>
+                        /
+                        <span><i class="fa fa-clock-o"></i></span>
+                        /
+                        <span><i class="fa fa-comment-o"></i> 阅读量</span>
+                        <span><i class="fa fa-comment-o"></i>  0 </span>
+
+                    </div>
+                    <!-- <p>最近几年，随着比特币的兴起并不断走高的价格，越来越多的投资者和机构开始对数字货币这一新兴概念产生了兴趣。由比特币创建并使用的区块链技术也获得了从创业公司到金融巨头的广泛关注和参与。</p> -->
+                    <a href="commentDetail.html"><button type="button" class="btn btn-success">查看详情</button></a>
+                </div>
+            </article>
+        </div>
+<div style="text-align:center">
+    <ul class="pagination" id="pagination" ></ul>
+</div>
+<input type="hidden" value="${pageCount}" id="pageCount"/>
+<input type="hidden" value="${postCount}" id="postCount">
+<input type="hidden" value="${currentPage}" id="currentPage">
+<!-- <input type="hidden" value="" id="searchType"/>
+ <input type="hidden" value="" id="searchValue"/>  -->
+</section>
+</div>
+<!-- /.contanier -->
+<footer class="footer">
+    <div class="footer-bottom">
+        <i class="fa fa-copyright"></i> Copyright 2017. 杭州电子科技大学<br>
+    </div>
+</footer>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jqPaginator.js"></script>
+<script src="../js/jquery.artDialog.js"></script>
+<script src="../scripts/comments.js"></script>
+</body>
+</html>
