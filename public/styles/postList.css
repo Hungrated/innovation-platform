@@ -1,3 +1,18 @@
+.post{
+    padding-bottom: 30px;
+    margin-bottom: 60px;
+    border-bottom: 1px solid #CECECE;
+}
+
+.post-body{
+    text-align: center;
+    padding: 20px 0;
+}
+
+.blog-post .blog-post-body p{
+    font-size: 16px;
+}
+
 .blog-post .blog-post-body p{
     text-align: justify;
     font-size: 16px;
