@@ -1,56 +1,89 @@
 /**
- * Created by Administrator on 2017/10/26 0026.
+ * Created by wuli等等 on 2017/10/26.
  */
-/**
- * Created by Administrator on 2017/10/23 0023.
- */
-var interaction = function () {};
-interaction.prototype = {
-    fetch:function (type,url,data,cb,funE) {
-        $.ajax({
-            url: url,
-            method: method,
-            data: data,
-            contentType:"application/json",
-            success: function (json) {
-                cb(json);
-            },
-            error: function (json) {
-                funE(json);
-            }
-        });
-    }
-};
-function sumbitS(obj) {
-    if(obj.status == 3000)
-    {
-        alert("提交成功，跳转到我的文章界面");
-        location.href = "/myArticles";//成功后将页面跳转到我的文章列表
-    }
+var testEditor;
+//取消提交
+function cancel() {
+    $("#save").css("display", "none");
+}
+//是否公开
+function change() {
+    var is_public = document.getElementById("is_public").value;
 
 }
-function editS(obj) {
-    alert("提交成功，返回文章预览界面！");
-    location.href = "/postDetail/"+obj.artI;//成功后将页面跳转到我的博客
+
+function uploadCover() {
+    var coverName = $("#coverName").val();
+    console.log(coverName);
+    //执行上传文件操作的函数
+    $.ajaxFileUpload({
+        async: false,
+        type: "POST",
+        //处理文件上传操作的服务器端地址
+        url: '/cover/upload',
+        enctype: "multipart/form-data",
+        secureuri: false,                       //是否启用安全提交,默认为false
+        fileElementId: 'file',                        //文件选择框的id属性
+        dataType: "json",                       //服务器返回的格式,可以是json或xml等
+        data: {
+            coverName: coverName
+        },
+        success: function (data) {
+            //debugger;
+            if (data.success == 1) {
+                console.log('文件上传成功，地址是' + data.url);
+                $("#coverName").val(data.url);
+                $("#coverAddress").val(data.url);
+            }
+            else
+                console.log(data.message)
+        },
+        error: function (msg) {
+            console.log(msg.responseText);
+        }
+    });
 }
-// 提交按钮
-document.getElementById("submitT").onclick = function mySubmit() {
-    var Ajax = new interaction();
+
+function selectThis(point) {
+    //debugger;
+    var selectOne;
+    selectOne = $(point).html();
+    if(selectOne == "文章")
+    {
+        $("#articleF").show();
+        $("#noticeF").hide();
+        $("#sub").show();
+        $("#submitT").attr("data-mode","0");
+    }
+    else
+    {
+        $("#articleF").hide();
+        $("#noticeF").show();
+        $("#sub").show();
+        $("#submitT").attr("data-mode","1");
+    }
+}
+
+//提交
+function mySubmit() {
     var isjudge;
     isjudge = $("#submitT").attr("data-mode");
     var file = testEditor.getMarkdown();
     if(isjudge == "0")
     {
+        //var articleName = $("#articleName").val();
         var articleName = document.getElementById("artTitle").value;
         if (articleName == "") {
             alert("文章名不能为空");
             return false;
         }
+
         /*
          var is_public = document.getElementById("is_public").value;
          if (is_public == "on")is_public = 1;
          else is_public = 0;
          */
+
         var label = document.getElementById("label").value;
         var coverAddress = document.getElementById("coverAddress").value;
         console.log(coverAddress);
@@ -60,24 +93,45 @@ document.getElementById("submitT").onclick = function mySubmit() {
         }
         if (file != null) {
             var articleId=$("#articleId").val();
+            //alert(articleid);
             if(articleId==""){
-                var data ={
-                    content: file,
-                    title: articleName,
-                    description: label,
-                    cover:coverAddress,
-                    cover_url:'',
-                    photo_url:'',
-                    author_id:''
-                };
-                Ajax.fetch('POST','/publish',data,sumbitS,function(obj){alert(obj.msg);});
+                $.ajax({
+                    type: "POST",
+                    url: '/addArticle',
+                    data: {
+                        artContent: file,
+                        artTitle: articleName,
+                        artLabel: label,
+                        cover:coverAddress
+                    },
+                    dataType: "json",
+                    success: function (date) {
+                        if (date.result == "success") {
+                            alert("提交成功，跳转到我的文章列表！");
+                            location.href = "/myArticles";//成功后将页面跳转到我的文章列表
+                        }
+                        else  alert(date.result);
+                    }
+                })
             }else {
-                var editData = {
-                    artContent: file,
-                    artTitle: articleName,
-                    artLabel: label
-                };
-                Ajax.fetch('POST','/.',data,editS,function(obj){alert(obj.result);});
+                //alert("编辑文章");
+                $.ajax({
+                    type: "post",
+                    url: '../modifyBlog',
+                    data: {
+                        artContent: file,
+                        artTitle: articleName,
+                        artLabel: label
+                    },
+                    dataType: "json",
+                    success: function (date) {
+                        if (date.result == "success") {
+                            alert("提交成功，返回文章预览界面！");
+                            location.href = "/postDetail/"+date.artI;//成功后将页面跳转到我的博客
+                        }
+                        else  alert(date.result);
+                    }
+                })
             }
 
         }
@@ -93,11 +147,24 @@ document.getElementById("submitT").onclick = function mySubmit() {
         if (file != null) {
             // var articleId=$("#articleId").val();
             // alert(articleid);
-            var noticeData =  {
-                ncontext: file,
-                ntitle: noticeName,
-            };
-            Ajax.fetch('POST','/addNotice',data,sumbitS("首页！","../index"),function(obj){alert(obj.result);});
+
+            $.ajax({
+                type: "POST",
+                url: '/addNotice',
+                data: {
+                    ncontext: file,
+                    ntitle: noticeName,
+                },
+                dataType: "json",
+                success: function (date) {
+                    if (date.result == "success") {
+                        alert("提交成功，返回首页！");
+                        location.href = "../index";//成功后将页面跳转到我的博客
+                    }
+                    else  alert(date.result);
+                }
+            })
+
             //alert("编辑文章");
             /*$.ajax({
              type: "post",
