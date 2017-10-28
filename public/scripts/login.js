@@ -25,34 +25,26 @@ $(function () {
         if(username != "" && password != "") {
             $.ajax({
                 type: "POST",                   //类型，POST或者GET
-                url: "/login",        //后台url
+                url: "http://localhost:3000/api/user",        //后台url
                 data: {                          //数据
+                    action:"login",
                     username: username,
                     password: password
                 },
                 dataType: 'json',              //数据返回类型，可以是xml、json等
                 success: function (data) {      //成功，回调函数
                     console.log(data);
-                    if (data.result == '0') {
+                    if (data.status == 1101) {
                         var dialog = art.dialog({
                             title: '提示',
-                            content: '该用户不存在，请重新输入！',
+                            content: data.msg,
                             lock:true,
                             ok:true,
                             follow: document.getElementById('logoNav')
                         });
                         reset();
-                    } else if (data.result == '1') {
-                        var dialog = art.dialog({
-                            title: '提示',
-                            content: '密码错误，请重新输入！',
-                            lock:true,
-                            ok:true,
-                            follow: document.getElementById('logoNav')
-                        });
-                        $("#password").val("");
-                    } else if(data.result == '2'){
-                        location.href = ("/index");
+                    } else if(data.status == 1100){
+                        location.href = ("../index.html");
                     }else {
                         alert('未知错误，登录失败！');
                         reset();
@@ -73,5 +65,10 @@ $(function () {
         }
     });
 
+    //清空input
+    function reset() {
+        $("#username").val("");
+        $("#password").val("");
+    }
 
-})
+});

@@ -6,13 +6,8 @@ var testEditor;
 function cancel() {
     $("#save").css("display", "none");
 }
-//是否公开
-function change() {
-    var is_public = document.getElementById("is_public").value;
 
-}
-
-function uploadCover() {
+/*function uploadCover() {
     var coverName = $("#coverName").val();
     console.log(coverName);
     //执行上传文件操作的函数
@@ -43,7 +38,7 @@ function uploadCover() {
         }
     });
 }
-
+*/
 function selectThis(point) {
     //debugger;
     var selectOne;
@@ -84,33 +79,41 @@ function mySubmit() {
          else is_public = 0;
          */
 
-        var label = document.getElementById("label").value;
-        var coverAddress = document.getElementById("coverAddress").value;
-        console.log(coverAddress);
-        if (label == "") {
+        //var label = document.getElementById("label").value;
+        //var coverAddress = document.getElementById("coverAddress").value;
+        //console.log(coverAddress);
+        /*if (label == "") {
             alert("标签不能为空！");
             return false;
-        }
+        }*/
         if (file != null) {
             var articleId=$("#articleId").val();
             //alert(articleid);
             if(articleId==""){
                 $.ajax({
                     type: "POST",
-                    url: '/addArticle',
+                    url: 'http://localhost:3000/api/blog/publish',
                     data: {
-                        artContent: file,
-                        artTitle: articleName,
-                        artLabel: label,
-                        cover:coverAddress
+                        type:'project',
+                        content: file,
+                        title: articleName,
+                        description:"",
+                        authorID:1
+                        //artLabel: label,
+                        //cover:coverAddress
                     },
                     dataType: "json",
-                    success: function (date) {
-                        if (date.result == "success") {
+                    success: function (data) {
+                        if (data.status == 3000) {
                             alert("提交成功，跳转到我的文章列表！");
-                            location.href = "/myArticles";//成功后将页面跳转到我的文章列表
+                            location.href = "../index.html";//成功后将页面跳转到我的文章列表
                         }
-                        else  alert(date.result);
+                        else {
+                            alert(data.msg);
+                        }
+                    },
+                    error:function (e) {
+                        console.log(e);
                     }
                 })
             }else {
@@ -119,9 +122,11 @@ function mySubmit() {
                     type: "post",
                     url: '../modifyBlog',
                     data: {
-                        artContent: file,
-                        artTitle: articleName,
-                        artLabel: label
+                        type:'project',
+                        content: file,
+                        title: articleName,
+                        description:"",
+                        authorID:1
                     },
                     dataType: "json",
                     success: function (date) {

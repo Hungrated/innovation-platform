@@ -5,7 +5,7 @@ module.exports = {
   database: {
     dbName: 'innovation_platform',
     username: 'root',
-    password: 'z295415658',
+    password: '0901',
     salt: 'Pumas are large, cat-like animals ' +
     'which are found in America. When reports ' +
     'came into London Zoo that a wild puma had ' +
