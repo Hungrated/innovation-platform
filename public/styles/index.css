@@ -73,3 +73,16 @@
     right: 0;
     margin-top: -50px;
 }
+
+/*自己添加*/
+.dropdown-menu{
+    background-color: #222222;
+}
+
+.dropdown-menu>li>a{
+    color:#fff;
+}
+
+.main-slider{
+    margin-top: 80px;
+}

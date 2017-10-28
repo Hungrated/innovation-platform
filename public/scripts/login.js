@@ -44,6 +44,7 @@ $(function () {
                         });
                         reset();
                     } else if(data.status == 1100){
+                        localStorage.username = data.username;
                         location.href = ("../index.html");
                     }else {
                         alert('未知错误，登录失败！');
