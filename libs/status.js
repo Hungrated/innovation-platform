@@ -18,13 +18,18 @@ module.exports = {
     msg: '登录成功'
   },
 
-  LOGIN_FAILED: {
+  LOGIN_FAILED_INVALID_USERNAME: {
     status: 1101,
-    msg: '登录失败'
+    msg: '无此用户名'
+  },
+
+  LOGIN_FAILED_PASSWORD_CHECK_FAILED: {
+    status: 1102,
+    msg: '密码错误'
   },
 
   ALREADY_LOGGED_IN: {
-    status: 1102,
+    status: 1103,
     msg: '已是登录状态'
   },
 

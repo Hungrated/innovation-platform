@@ -33,7 +33,7 @@ router.post('/', function (req, res, next) {
       })
         .then(function (user) { // do further check
           if (user.dataValues === null) { //username does not exist
-            res.json(statusLib.LOGIN_FAILED);
+            res.json(statusLib.LOGIN_FAILED_INVALID_USERNAME);
             console.log('does not exist');
           }
           else if (user.dataValues.password ===
@@ -50,7 +50,7 @@ router.post('/', function (req, res, next) {
             });
           }
           else {
-            res.json(statusLib.LOGIN_FAILED);
+            res.json(statusLib.LOGIN_FAILED_PASSWORD_CHECK_FAILED);
             console.log(user.dataValues.password, password, 'password wrong');
           }
         })
