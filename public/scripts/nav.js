@@ -3,7 +3,7 @@
  */
 //判断登录状态改变nav
 var username = localStorage.username;
-if(username!=""){
+if(username!=""&&username!=undefined){
     document.getElementById("userLink").style.display = "block";
     document.getElementById("login").style.display = "none";
     document.getElementById("username").innerHTML= username + "<b class='caret'></b>";
@@ -29,14 +29,12 @@ document.getElementById("logout").onclick = function () {
             if (data.status == 1200) {
                 localStorage.username = "";
                 location.href = ("views/login.html");
-            }else
-            {
+            }else{
                 var dialog = art.dialog({
                     title: '提示',
                     content: data.msg,
                     lock:true,
                     ok:true,
-                    follow: document.getElementById('logoNav')
                 });
             }
         },

@@ -34,7 +34,11 @@ $(function () {
                 dataType: 'json',              //数据返回类型，可以是xml、json等
                 success: function (data) {      //成功，回调函数
                     console.log(data);
-                    if (data.status == 1101) {
+                    if (data.status == 1100){
+                        localStorage.username = data.username;
+                        location.href = ("../index.html");
+
+                    } else {
                         var dialog = art.dialog({
                             title: '提示',
                             content: data.msg,
@@ -42,12 +46,6 @@ $(function () {
                             ok:true,
                             follow: document.getElementById('logoNav')
                         });
-                        reset();
-                    } else if(data.status == 1100){
-                        localStorage.username = data.username;
-                        location.href = ("../index.html");
-                    }else {
-                        alert('未知错误，登录失败！');
                         reset();
                     }
                 },

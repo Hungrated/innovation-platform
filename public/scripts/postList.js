@@ -5,7 +5,7 @@ $("#post").addClass("active");
 // var searchType = $("#searchType");
 //var searchValue = $("#searchValue");
 // console.log($("#postCount").val());
-$('#pagination').jqPaginator({
+/*$('#pagination').jqPaginator({
     totalCounts:parseInt($("#postCount").val()),
     totalPages: parseInt($("#pageCount").val()),
     pageSize: 5,
@@ -14,5 +14,23 @@ $('#pagination').jqPaginator({
         if(type == "change"){
             location.href = "/articleList/page=" + num;
         }
+    }
+});
+*/
+$.ajax({
+    type:'POST',
+    url:'http://localhost:3000/api/blog/query',
+    data:{
+        type:'project'
+    },
+    dataType:'json',
+    success:function (data) {
+        console.log(data);
+        var postListData = {
+            postLists:data
+        };
+        //console.log(postListData);
+        var post = template('postList', postListData);
+        $("#postListContainer").html(post);
     }
 });

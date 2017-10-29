@@ -20,3 +20,11 @@
     line-height: 30px;
     color: #666;!important;
 }
+
+ .dropdown-menu{
+     background-color: #222222;
+ }
+
+.dropdown-menu>li>a{
+    color:#fff;
+}
