@@ -23,7 +23,7 @@ module.exports = {
     msg: '无此用户名'
   },
 
-  LOGIN_FAILED_PASSWORD_CHECK_FAILED: {
+  PASSWORD_CHECK_FAILED: {
     status: 1102,
     msg: '密码错误'
   },
@@ -56,6 +56,16 @@ module.exports = {
   USERINFO_IMPORT_FAILED: {
     status: 1301,
     msg: '学生信息导入失败'
+  },
+
+  USER_PWD_MOD_SUCCEEDED: {
+    status: 1400,
+    msg: '密码修改成功'
+  },
+
+  USER_PWD_MOD_FAILED: {
+    status: 1401,
+    msg: '密码修改失败'
   },
 
   PROFILE_MOD_SUCCEEDED: {

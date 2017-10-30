@@ -23,9 +23,6 @@ var objMulter = multer({
 });
 
 router.post('/import', objMulter.any(), function (req, res, next) { // XLS file upload
-  console.log('XLS file upload complete\n', req.files);
-
-
   //rename a file
   var newName = req.files[0].path + pathLib.parse(req.files[0].originalname).ext;
   fs.rename(req.files[0].path, newName, function (err) {
@@ -37,10 +34,7 @@ router.post('/import', objMulter.any(), function (req, res, next) { // XLS file 
       req.fileURL = newName;
       next();
     }
-
   });
-
-
 });
 
 router.post('/import', function (req, res, next) {
@@ -52,10 +46,8 @@ router.post('/import', function (req, res, next) {
       return;
     }
     else {
-
       var userArr = [];
       var sheet = data.sheets[0];
-
       for (var rIdx = 4; rIdx < sheet.row.count; rIdx++) {
         try {
           userArr.push({
@@ -69,55 +61,11 @@ router.post('/import', function (req, res, next) {
           console.log(e.message);
         }
       }
-
       // extract user data & convert to JSON
       req.body.users = userArr;
       next();
-
-      // res.json(statusLib.USERINFO_IMPORT_SUCCEEDED);
-      // console.log('userinfo import succeeded');
-
-
-      // var shtCount = data.sheet.count;
-      // for (var sIdx = 0; sIdx < shtCount; sIdx++) {
-      //   console.log('sheet "%d" ', sIdx);
-      //   console.log('  check loaded : %s', data.sheet.loaded(sIdx));
-      //   var sht = data.sheets[sIdx],
-      //     rCount = sht.row.count,
-      //     cCount = sht.column.count;
-      //   console.log('  name = %s; index = %d; rowCount = %d; columnCount = %d', sht.name, sIdx, rCount, cCount);
-      //   for (var rIdx = 0; rIdx < rCount; rIdx++) {
-      //     for (var cIdx = 0; cIdx < cCount; cIdx++) {
-      //       try {
-      //         console.log('  cell : row = %d, col = %d, value = "%s"', rIdx, cIdx, sht.cell(rIdx, cIdx));
-      //       } catch (e) {
-      //         console.log(e.message);
-      //       }
-      //     }
-      //   }
-
-      //save memory
-      //console.log('  try unloading : index %d', sIdx );
-      //if(data.sheet.loaded(sIdx))
-      //	data.sheet.unload(sIdx);
-      //console.log('  check loaded : %s', data.sheet.loaded(sIdx) );
     }
-    // if onDemand == false, allow function 'workbook.cleanUp()' to be omitted,
-    // because it is called by caller 'node-xlrd.open()' after callback finished.
-    //data.cleanUp();
-
   });
-
-  // excelParser.parse({
-  //   inFile: req.fileURL
-  // }, function (err, worksheets) {
-  //   if (err) console.error(err);
-  //   else {
-  //     console.log(worksheets);
-  //     res.json(statusLib.USERINFO_IMPORT_SUCCEEDED);
-  //     console.log('userinfo import succeeded');
-  //   }
-  // });
 });
 
 router.post('/import', function (req, res) {
@@ -176,7 +124,7 @@ router.post('/import', function (req, res) {
 });
 
 
-//register disabled: use user-importer
+//register disabled: use '/import' instead
 /*
 router.post('/reg', function (req, res) {
   const {action, username, password, identity} = req.body;
@@ -260,8 +208,8 @@ router.post('/login', function (req, res) {
           });
         }
         else {
-          res.json(statusLib.LOGIN_FAILED_PASSWORD_CHECK_FAILED);
-          console.log(user.dataValues.password, password, 'password wrong');
+          res.json(statusLib.PASSWORD_CHECK_FAILED);
+          console.log('password wrong');
         }
       })
       .catch(function (e) {
@@ -281,5 +229,55 @@ router.post('/logout', function (req, res, next) {
   res.json(statusLib.LOGGED_OUT);
 });
 
+router.post('/pwdmod', function (req, res, next) {
+  const {username, password, new_password} = req.body;
+
+  if (!username || !password || !new_password) {
+    console.log('data not complete');
+    res.json(statusLib.USER_PWD_MOD_FAILED);
+  }
+  else {
+    User.findOne({
+      where: {
+        username: username
+      }
+    })
+      .then(function (user) { // do further check
+        if (user.dataValues.password ===
+          crypto.createHash('sha256')
+            .update(config.salt + password)
+            .digest('hex').slice(0, 255)) { // password checked
+          next();
+        }
+        else {
+          res.json(statusLib.USER_PWD_MOD_FAILED);
+          console.log('password wrong');
+        }
+      })
+      .catch(function (e) {
+        console.error(e);
+        res.json(statusLib.CONNECTION_ERROR);
+      });
+  }
+});
+
+router.post('/pwdmod', function (req, res) { // password checked
+  User.update({
+      password: req.body.new_password
+    },
+    {
+      where: {
+        username: req.body.username
+      }
+    })
+    .then(function () {
+      console.log('password mod succeeded');
+      res.json(statusLib.USER_PWD_MOD_SUCCEEDED);
+    })
+    .catch(function (e) {
+      console.error(e);
+      res.json(statusLib.CONNECTION_ERROR);
+    });
+});
 
 module.exports = router;
