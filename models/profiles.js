@@ -20,6 +20,9 @@ const schema = {
   academy: {
     type: Sequelize.STRING(16)
   },
+  class_id: {
+    type: Sequelize.INTEGER(11),
+  },
   birth_date: {
     type: Sequelize.STRING(16)
   },

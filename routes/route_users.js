@@ -7,9 +7,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const multer = require('multer');
 const pathLib = require('path');
-const excelParser = require('excel-parser');
 const xl = require('node-xlrd');
-// const userImporter = require('../middlewares/user_importer');
 const config = require('config-lite')(__dirname).database;
 const router = express.Router();
 
@@ -45,48 +43,68 @@ router.post('/import', objMulter.any(), function (req, res, next) { // XLS file 
 
 });
 
-router.post('/import', function (req, res) {
+router.post('/import', function (req, res, next) {
 
-  var xl = require('node-xlrd');
-
-  xl.open(req.fileURL, function (err, bk) {
+  xl.open(req.fileURL, function (err, data) {
     if (err) {
       console.log(err.name, err.message);
       res.json(statusLib.USERINFO_IMPORT_FAILED);
       return;
     }
     else {
-      var shtCount = bk.sheet.count;
-      for (var sIdx = 0; sIdx < shtCount; sIdx++) {
-        console.log('sheet "%d" ', sIdx);
-        console.log('  check loaded : %s', bk.sheet.loaded(sIdx));
-        var sht = bk.sheets[sIdx],
-          rCount = sht.row.count,
-          cCount = sht.column.count;
-        console.log('  name = %s; index = %d; rowCount = %d; columnCount = %d', sht.name, sIdx, rCount, cCount);
-        for (var rIdx = 0; rIdx < rCount; rIdx++) {
-          for (var cIdx = 0; cIdx < cCount; cIdx++) {
-            try {
-              console.log('  cell : row = %d, col = %d, value = "%s"', rIdx, cIdx, sht.cell(rIdx, cIdx));
-            } catch (e) {
-              console.log(e.message);
-            }
-          }
+
+      var userArr = [];
+      var sheet = data.sheets[0];
+
+      for (var rIdx = 4; rIdx < sheet.row.count; rIdx++) {
+        try {
+          userArr.push({
+            username: sheet.cell(rIdx, 0),
+            password: sheet.cell(rIdx, 0),
+            name: sheet.cell(rIdx, 2),
+            school_id: parseInt(sheet.cell(rIdx, 0)),
+            class_id: parseInt(sheet.cell(rIdx, 4))
+          });
+        } catch (e) {
+          console.log(e.message);
         }
-
-        //save memory
-        //console.log('  try unloading : index %d', sIdx );
-        //if(bk.sheet.loaded(sIdx))
-        //	bk.sheet.unload(sIdx);
-        //console.log('  check loaded : %s', bk.sheet.loaded(sIdx) );
       }
-      // if onDemand == false, allow function 'workbook.cleanUp()' to be omitted,
-      // because it is called by caller 'node-xlrd.open()' after callback finished.
-      //bk.cleanUp();
 
-      res.json(statusLib.USERINFO_IMPORT_SUCCEEDED);
-      console.log('userinfo import succeeded');
+      // extract user data & convert to JSON
+      req.body.users = userArr;
+      next();
+
+      // res.json(statusLib.USERINFO_IMPORT_SUCCEEDED);
+      // console.log('userinfo import succeeded');
+
+
+      // var shtCount = data.sheet.count;
+      // for (var sIdx = 0; sIdx < shtCount; sIdx++) {
+      //   console.log('sheet "%d" ', sIdx);
+      //   console.log('  check loaded : %s', data.sheet.loaded(sIdx));
+      //   var sht = data.sheets[sIdx],
+      //     rCount = sht.row.count,
+      //     cCount = sht.column.count;
+      //   console.log('  name = %s; index = %d; rowCount = %d; columnCount = %d', sht.name, sIdx, rCount, cCount);
+      //   for (var rIdx = 0; rIdx < rCount; rIdx++) {
+      //     for (var cIdx = 0; cIdx < cCount; cIdx++) {
+      //       try {
+      //         console.log('  cell : row = %d, col = %d, value = "%s"', rIdx, cIdx, sht.cell(rIdx, cIdx));
+      //       } catch (e) {
+      //         console.log(e.message);
+      //       }
+      //     }
+      //   }
+
+      //save memory
+      //console.log('  try unloading : index %d', sIdx );
+      //if(data.sheet.loaded(sIdx))
+      //	data.sheet.unload(sIdx);
+      //console.log('  check loaded : %s', data.sheet.loaded(sIdx) );
     }
+    // if onDemand == false, allow function 'workbook.cleanUp()' to be omitted,
+    // because it is called by caller 'node-xlrd.open()' after callback finished.
+    //data.cleanUp();
 
   });
 
@@ -100,6 +118,61 @@ router.post('/import', function (req, res) {
   //     console.log('userinfo import succeeded');
   //   }
   // });
+});
+
+router.post('/import', function (req, res) {
+  const users = req.body.users;
+  const identity = 'student';
+  const academy = '计算机学院';
+
+  for (var userIdx = 0; userIdx < users.length; userIdx++) {
+    (function (userIdx) {
+      User.findOne({ // check record to ensure no duplication
+        where: {
+          username: users[userIdx].username
+        }
+      })
+        .then(function (user) {
+          if (user !== null) { // exists duplication
+            console.log('username already exists');
+          }
+          else
+            User.create({
+              username: users[userIdx].username,
+              password: users[userIdx].password,
+              identity: identity
+            })
+              .then(function () {
+                User.findOne({
+                  where: {
+                    username: users[userIdx].username
+                  }
+                })
+                  .then(function (user) { // create a profile record for a student
+                    const student_id = user.dataValues.id;
+                    Profile.create({
+                      student_id: student_id,
+                      name: users[userIdx].name,
+                      school_id: users[userIdx].school_id,
+                      academy: academy,
+                      class_id: users[userIdx].class_id
+                    });
+                  })
+                  .catch(function (e) {
+                    console.error(e);
+                    res.json(statusLib.CONNECTION_ERROR);
+                  });
+
+              })
+              .catch(function (e) {
+                console.error(e);
+                res.json(statusLib.CONNECTION_ERROR);
+              });
+        });
+    })(userIdx);
+  }
+  res.json(statusLib.REG_SUCCEEDED);
+  console.log('student profile created');
 });
 
 
