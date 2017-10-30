@@ -12,7 +12,6 @@ const statusLib = require('../libs/status');
 
 router.post('/modify', function (req, res) { // modify a profile
   const {
-    student_id,
     sex,
     birth_date,
     phone_num,

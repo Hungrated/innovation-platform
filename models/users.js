@@ -28,9 +28,6 @@ const schema = {
     type: Sequelize.ENUM,
     values: ['student', 'teacher', 'superAdmin'],
     allowNull: false
-  },
-  avatar: {
-    type: Sequelize.STRING(64)
   }
 };
 

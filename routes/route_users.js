@@ -191,7 +191,7 @@ router.post('/login', function (req, res) {
     })
       .then(function (user) { // do further check
         if (user.dataValues === null) { //username does not exist
-          res.json(statusLib.LOGIN_FAILED_INVALID_USERNAME);
+          res.json(statusLib.INVALID_USERNAME);
           console.log('does not exist');
         }
         else if (user.dataValues.password ===

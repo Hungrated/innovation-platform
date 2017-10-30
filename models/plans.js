@@ -38,10 +38,6 @@ Plan.belongsTo(User, {
   foreignKey: 'student_id'
 });
 
-Plan.belongsTo(User, {
-  foreignKey: 'teacher_id'
-});
-
 Plan.sync().then();
 
 module.exports = Plan;

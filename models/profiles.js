@@ -6,6 +6,9 @@ const Sequelize = require('sequelize');
 const mysql = require('../middlewares/sequelize');
 
 const schema = {
+  avatar: {
+    type: Sequelize.STRING(64)
+  },
   name: {
     type: Sequelize.STRING(16)
   },
@@ -21,7 +24,7 @@ const schema = {
     type: Sequelize.STRING(16)
   },
   class_id: {
-    type: Sequelize.INTEGER(11),
+    type: Sequelize.INTEGER(11)
   },
   birth_date: {
     type: Sequelize.STRING(16)

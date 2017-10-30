@@ -18,7 +18,7 @@ module.exports = {
     msg: '登录成功'
   },
 
-  LOGIN_FAILED_INVALID_USERNAME: {
+  INVALID_USERNAME: {
     status: 1101,
     msg: '无此用户名'
   },
@@ -34,7 +34,7 @@ module.exports = {
   },
 
   NOT_YET_LOGGED_IN: {
-    status: 1103,
+    status: 1104,
     msg: '尚未登录状态'
   },
 
