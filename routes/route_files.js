@@ -10,8 +10,10 @@ const fs = require('fs');
 const pathLib = require('path');
 const statusLib = require('../libs/status');
 
+var uploadDir = '../public/upload/sources/';
+
 var objMulter = multer({
-  dest: './public/upload/' // file upload destination
+  dest: uploadDir // file upload destination
 });
 
 router.use(objMulter.any()); // any file type

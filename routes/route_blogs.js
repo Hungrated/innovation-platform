@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 const Blog = require('../models/blogs');
+const Profile = require('../models/profiles');
 const urlLib = require('url');
 const statusLib = require('../libs/status');
 

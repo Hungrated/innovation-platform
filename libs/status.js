@@ -48,6 +48,16 @@ module.exports = {
     msg: '退出异常'
   },
 
+  USERINFO_IMPORT_SUCCEEDED: {
+    status: 1300,
+    msg: '学生信息导入成功'
+  },
+
+  USERINFO_IMPORT_FAILED: {
+    status: 1301,
+    msg: '学生信息导入失败'
+  },
+
   PROFILE_MOD_SUCCEEDED: {
     status: 2000,
     msg: '档案更新成功'
