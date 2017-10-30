@@ -17,7 +17,7 @@ const schema = {
   password: {
     type: Sequelize.STRING(256),
     allowNull: false,
-    set(val){ // 对val加密并返回加密值
+    set(val) { // crypto
       const hash = crypto.createHash('sha256');
       hash.update(config.salt + val);
       const hashedPWD = hash.digest('hex');
@@ -29,10 +29,9 @@ const schema = {
     values: ['student', 'teacher', 'superAdmin'],
     allowNull: false
   },
-  // isLogin: {
-  //     type: Sequelize.ENUM,
-  //     values: ['true', 'false']
-  // }
+  avatar: {
+    type: Sequelize.STRING(64)
+  }
 };
 
 const options = {

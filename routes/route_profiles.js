@@ -4,25 +4,22 @@
 const express = require('express');
 const router = express.Router();
 
+const fs = require('fs');
+const multer = require('multer');
+
 const Profile = require('../models/profiles');
 const statusLib = require('../libs/status');
 
 router.post('/modify', function (req, res) { // modify a profile
   const {
     student_id,
-    name,
     sex,
-    school_id,
-    academy,
     birth_date,
     phone_num,
     description
   } = req.body;
   const modData = {
-    name: name,
     sex: sex,
-    school_id: school_id,
-    academy: academy,
     birth_date: birth_date,
     phone_num: phone_num,
     description: description
@@ -59,6 +56,10 @@ router.post('/getinfo', function (req, res) { // fetch information of a profile
       console.log('profile fetch succeeded');
     }
   });
+});
+
+router.post('/avatar', function (req, res, next) {
+
 });
 
 module.exports = router;
