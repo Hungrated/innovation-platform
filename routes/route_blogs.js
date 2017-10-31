@@ -6,6 +6,7 @@ const router = express.Router();
 
 const Blog = require('../models/blogs');
 const Profile = require('../models/profiles');
+const Comment = require('../models/comments');
 const urlLib = require('url');
 const statusLib = require('../libs/status');
 
@@ -44,7 +45,22 @@ router.post('/query', function (req, res) { // fetch blog list for brief browsin
   Blog.findAll({
     where: {
       type: type
-    }
+    },
+    include: [{
+      model: Profile,
+      where: {
+        id: Sequelize.col('blog.author_id'),
+      },
+      attributes: ['name']
+    }, {
+      model: Comment,
+      where: {
+        article_id: Sequelize.col('blog.id')
+      },
+      attributes: [
+        [Sequelize.fn('COUNT', Sequelize.col('comment')), 'comment_num']
+      ]
+    }]
   })
     .then(function (data) {
       res.json(data);
@@ -62,8 +78,22 @@ router.get('/details', function (req, res) { // fetch blog details
   //needs modifying: aggregate query
 
   const id = urlLib.parse(req.url, true).query.index;
-  console.log('id', id);
-  Blog.findByPrimary(id)
+  Blog.findByPrimary(id, {
+    include: [{
+      model: Comment,
+      where: {
+        article_id: Sequelize.col('blog.id')
+      },
+      attributes: ['student_id', 'content'],
+      include: [{
+        model: Profile,
+        where: {
+          student_id: Sequelize.col('comment.student_id')
+        },
+        attributes: ['name']
+      }]
+    }]
+  })
     .then(function (data) {
       res.json(data);
       console.log('fetch detail succeeded');

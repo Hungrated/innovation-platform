@@ -6,9 +6,7 @@ const Sequelize = require('sequelize');
 
 const mysql = require('../middlewares/sequelize');
 
-const schema = {
-
-};
+const schema = {};
 
 const options = {
   underscored: true
@@ -23,7 +21,7 @@ Relationship.belongsTo(User, {
 });
 
 
-Relationship.sync().then();
+// Relationship.sync().then();
 
 module.exports = Relationship;
 

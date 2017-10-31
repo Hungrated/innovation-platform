@@ -23,7 +23,7 @@ var objMulter = multer({
 });
 
 router.post('/import', objMulter.any(), function (req, res, next) { // XLS file upload
-  //rename a file
+                                                                    //rename a file
   var newName = req.files[0].path + pathLib.parse(req.files[0].originalname).ext;
   fs.rename(req.files[0].path, newName, function (err) {
     if (err) {
@@ -117,10 +117,12 @@ router.post('/import', function (req, res) {
                 res.json(statusLib.CONNECTION_ERROR);
               });
         });
-    })(userIdx);
+    })(userIdx)
   }
-  res.json(statusLib.REG_SUCCEEDED);
-  console.log('student profile created');
+  if(userIdx === users.length) {
+    res.json(statusLib.USERINFO_IMPORT_SUCCEEDED);
+    console.log('student profile created');
+  }
 });
 
 

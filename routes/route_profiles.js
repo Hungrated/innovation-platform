@@ -10,8 +10,15 @@ const multer = require('multer');
 const Profile = require('../models/profiles');
 const statusLib = require('../libs/status');
 
+var uploadDir = '../public/upload/avatars/';
+
+var objMulter = multer({
+  dest: uploadDir // file upload destination
+});
+
 router.post('/modify', function (req, res) { // modify a profile
   const {
+    student_id,
     sex,
     birth_date,
     phone_num,
@@ -49,16 +56,70 @@ router.post('/getinfo', function (req, res) { // fetch information of a profile
     if (profile === null) {
       res.json(statusLib.PROFILE_FETCH_FAILED);
       console.log('profile does not exist');
-    }
-    else {
+    } else {
       res.json(profile);
       console.log('profile fetch succeeded');
     }
   });
 });
 
-router.post('/avatar', function (req, res, next) {
+router.post('/avatar', objMulter.any(), function (req, res, next) {
+  const id = req.body.id;
+  const url = '../public/upload/avatars/' + id + '.jpg';
+  req.avatarURL = url;
+  console.log('avatar upload succeeded');
+  // check existance of previous avatar file
+  Profile.findOne({
+    where: {
+      avatar: url
+    }
+  })
+    .then(function (user) {
+      if (user !== null) { // exists previous avatar file: delete first
+        fs.unlink(url, function (err) {
+          if (err) throw err;
+          else {
+            console.log('previous avatar file deleted');
+            next();
+          }
+        });
+      } else {
+        next();
+      }
+    })
+    .catch(function (e) {
+      console.error(e);
+      res.json(statusLib.CONNECTION_ERROR);
+    });
+});
 
+router.post('/avatar', function (req, res, next) { // rename avatar file
+  fs.rename(req.files[0].path, req.avatarURL, function (err) {
+    if (err) {
+      console.log('avatar file rename error');
+      res.json(statusLib.FILE_RENAME_FAILED);
+    } else
+      next();
+  });
+});
+
+router.post('/avatar', function (req, res) { // update database record
+  Profile.update({
+    avatar: req.avatarURL
+  }, {
+    where: {
+      id: req.body.id
+    }
+  })
+    .then(function () {
+      console.log('avatar modify succeeded');
+      res.json(statusLib.PROFILE_MOD_SUCCEEDED);
+
+    })
+    .catch(function (e) {
+      console.error(e);
+      res.json(statusLib.CONNECTION_ERROR);
+    });
 });
 
 module.exports = router;
