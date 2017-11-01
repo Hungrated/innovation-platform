@@ -43,6 +43,12 @@ const options = {
 
 const User = mysql.define('user', schema, options);
 
+const Profile = require('./profiles');
+
+User.belongsTo(Profile, {
+  foreignKey: 'profile_id'
+});
+
 User.sync().then();
 
 module.exports = User;

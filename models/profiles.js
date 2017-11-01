@@ -6,6 +6,11 @@ const Sequelize = require('sequelize');
 const mysql = require('../middlewares/sequelize');
 
 const schema = {
+  school_id: {
+    type: Sequelize.INTEGER(11),
+    primaryKey: true,
+    unique: true
+  },
   avatar: {
     type: Sequelize.STRING(64)
   },
@@ -16,15 +21,14 @@ const schema = {
     type: Sequelize.ENUM,
     values: ['未知', '男', '女']
   },
-  school_id: {
-    type: Sequelize.INTEGER(11),
-    unique: true
-  },
   academy: {
     type: Sequelize.STRING(16)
   },
   class_id: {
     type: Sequelize.INTEGER(11)
+  },
+  supervisor: {
+    type: Sequelize.STRING(16)
   },
   birth_date: {
     type: Sequelize.STRING(16)
@@ -42,12 +46,6 @@ const options = {
 };
 
 const Profile = mysql.define('profile', schema, options);
-
-const User = require('./users');
-
-Profile.belongsTo(User, {
-  foreignKey: 'student_id'
-});
 
 Profile.sync().then();
 

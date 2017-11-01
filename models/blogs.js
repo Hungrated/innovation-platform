@@ -13,6 +13,7 @@ const schema = {
   },
   title: {
     type: Sequelize.STRING(32),
+    unique: true,
     allowNull: false
   },
   description: {
@@ -37,10 +38,15 @@ const options = {
 const Blog = mysql.define('blog', schema, options);
 
 const User = require('./users');
+// const Profile = require('./profiles');
 
 Blog.belongsTo(User, {
   foreignKey: 'author_id'
 });
+
+// Blog.belongsTo(Profile, {
+//   foreignKey: 'author_profile_id'
+// });
 
 Blog.sync().then();
 

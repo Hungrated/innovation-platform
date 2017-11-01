@@ -4,7 +4,10 @@
 const express = require('express');
 const router = express.Router();
 
+const sequelize = require('sequelize');
+
 const Blog = require('../models/blogs');
+const User = require('../models/users');
 const Profile = require('../models/profiles');
 const Comment = require('../models/comments');
 const urlLib = require('url');
@@ -47,29 +50,29 @@ router.post('/query', function (req, res) { // fetch blog list for brief browsin
       type: type
     },
     include: [{
-      model: Profile,
+      model: User,
       where: {
-        id: Sequelize.col('blog.author_id'),
+        id: sequelize.col('blog.author_id'),
       },
-      attributes: ['name']
-    }, {
-      model: Comment,
-      where: {
-        article_id: Sequelize.col('blog.id')
-      },
-      attributes: [
-        [Sequelize.fn('COUNT', Sequelize.col('comment')), 'comment_num']
-      ]
+      attributes: ['username']
+    // }, {
+    //   model: Comment,
+    //   where: {
+    //     article_id: sequelize.col('blog.id')
+    //   },
+    //   attributes: [
+    //     [sequelize.fn('COUNT', sequelize.col('comment')), 'comment_num']
+    //   ]
     }]
   })
     .then(function (data) {
       res.json(data);
-      console.log('publish succeeded');
+      console.log('query succeeded');
     })
     .catch(function (e) {
       console.error(e);
       res.json(statusLib.BLOG_LIST_FETCH_FAILED);
-      console.log('publish failed');
+      console.log('query failed');
     });
 });
 
@@ -82,13 +85,13 @@ router.get('/details', function (req, res) { // fetch blog details
     include: [{
       model: Comment,
       where: {
-        article_id: Sequelize.col('blog.id')
+        article_id: sequelize.col('blog.id')
       },
       attributes: ['student_id', 'content'],
       include: [{
         model: Profile,
         where: {
-          student_id: Sequelize.col('comment.student_id')
+          student_id: sequelize.col('comment.student_id')
         },
         attributes: ['name']
       }]

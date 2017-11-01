@@ -23,7 +23,7 @@ var objMulter = multer({
 });
 
 router.post('/import', objMulter.any(), function (req, res, next) { // XLS file upload
-                                                                    //rename a file
+  //rename a file
   var newName = req.files[0].path + pathLib.parse(req.files[0].originalname).ext;
   fs.rename(req.files[0].path, newName, function (err) {
     if (err) {
@@ -69,6 +69,8 @@ router.post('/import', function (req, res, next) {
 });
 
 router.post('/import', function (req, res) {
+
+
   const users = req.body.users;
   const identity = 'student';
   const academy = '计算机学院';
@@ -88,7 +90,8 @@ router.post('/import', function (req, res) {
             User.create({
               username: users[userIdx].username,
               password: users[userIdx].password,
-              identity: identity
+              identity: identity,
+              // profile_id: users[userIdx].school_id
             })
               .then(function () {
                 User.findOne({
@@ -104,6 +107,14 @@ router.post('/import', function (req, res) {
                       school_id: users[userIdx].school_id,
                       academy: academy,
                       class_id: users[userIdx].class_id
+                    }).then(function (profile) {
+                      User.update({ // update profile_id
+                        profile_id: profile.school_id
+                      }, {
+                        where: {
+                          username: users[userIdx].username
+                        }
+                      });
                     });
                   })
                   .catch(function (e) {
@@ -119,7 +130,7 @@ router.post('/import', function (req, res) {
         });
     })(userIdx)
   }
-  if(userIdx === users.length) {
+  if (userIdx === users.length) {
     res.json(statusLib.USERINFO_IMPORT_SUCCEEDED);
     console.log('student profile created');
   }
