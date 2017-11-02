@@ -1,6 +1,3 @@
-/**
- * Created by Zihang Zhang on 2017/10/17.
- */
 const Sequelize = require('sequelize');
 
 const mysql = require('../middlewares/sequelize');
@@ -46,7 +43,5 @@ const options = {
 };
 
 const Profile = mysql.define('profile', schema, options);
-
-Profile.sync().then();
 
 module.exports = Profile;

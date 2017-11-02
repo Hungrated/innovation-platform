@@ -1,30 +1,30 @@
-/**
- * Created by Zihang Zhang on 2017/10/17.
- */
-
 const express = require('express');
+const router = express.Router();
+
 const crypto = require('crypto');
 const fs = require('fs');
 const multer = require('multer');
 const pathLib = require('path');
 const xl = require('node-xlrd');
 const config = require('config-lite')(__dirname).database;
-const router = express.Router();
 
-const User = require('../models/users');
-const Profile = require('../models/profiles');
+const sequelize = require('sequelize');
+const db = require('../models/db_global');
 const statusLib = require('../libs/status');
 
-var uploadDir = '../public/upload/userinfo';
+const User = db.User;
+const Profile = db.Profile;
 
+let uploadDir = '../public/upload/userinfo';
 
-var objMulter = multer({
+let objMulter = multer({
   dest: uploadDir // file upload destination
 });
 
 router.post('/import', objMulter.any(), function (req, res, next) { // XLS file upload
+
   //rename a file
-  var newName = req.files[0].path + pathLib.parse(req.files[0].originalname).ext;
+  let newName = req.files[0].path + pathLib.parse(req.files[0].originalname).ext;
   fs.rename(req.files[0].path, newName, function (err) {
     if (err) {
       console.log('file rename error');
@@ -37,18 +37,17 @@ router.post('/import', objMulter.any(), function (req, res, next) { // XLS file 
   });
 });
 
-router.post('/import', function (req, res, next) {
+router.post('/import', function (req, res, next) {  // extract user data & convert to JSON
 
   xl.open(req.fileURL, function (err, data) {
     if (err) {
       console.log(err.name, err.message);
       res.json(statusLib.USERINFO_IMPORT_FAILED);
-      return;
     }
     else {
-      var userArr = [];
-      var sheet = data.sheets[0];
-      for (var rIdx = 4; rIdx < sheet.row.count; rIdx++) {
+      let userArr = [];
+      let sheet = data.sheets[0];
+      for (let rIdx = 4; rIdx < sheet.row.count; rIdx++) {
         try {
           userArr.push({
             username: sheet.cell(rIdx, 0),
@@ -61,79 +60,81 @@ router.post('/import', function (req, res, next) {
           console.log(e.message);
         }
       }
-      // extract user data & convert to JSON
+      req.body.supervisor = sheet.cell(2, 1)
       req.body.users = userArr;
       next();
     }
   });
 });
 
-router.post('/import', function (req, res) {
-
+router.post('/import', function (req, res) { // create database record
 
   const users = req.body.users;
   const identity = 'student';
   const academy = '计算机学院';
+  const supervisor = req.body.supervisor;
 
-  for (var userIdx = 0; userIdx < users.length; userIdx++) {
-    (function (userIdx) {
-      User.findOne({ // check record to ensure no duplication
-        where: {
-          username: users[userIdx].username
+  let flag = 0; // flag of all users imported
+
+  function createUser(userIdx) {
+    User.findOne({ // check record to ensure no duplication
+      where: {
+        username: users[userIdx].username
+      }
+    })
+      .then(function (user) {
+        if (user !== null) { // exists duplication
+          console.log('user already exists');
         }
-      })
-        .then(function (user) {
-          if (user !== null) { // exists duplication
-            console.log('username already exists');
-          }
-          else
-            User.create({
-              username: users[userIdx].username,
-              password: users[userIdx].password,
-              identity: identity,
-              // profile_id: users[userIdx].school_id
-            })
-              .then(function () {
-                User.findOne({
-                  where: {
-                    username: users[userIdx].username
-                  }
-                })
-                  .then(function (user) { // create a profile record for a student
-                    const student_id = user.dataValues.id;
-                    Profile.create({
-                      student_id: student_id,
-                      name: users[userIdx].name,
-                      school_id: users[userIdx].school_id,
-                      academy: academy,
-                      class_id: users[userIdx].class_id
-                    }).then(function (profile) {
-                      User.update({ // update profile_id
-                        profile_id: profile.school_id
-                      }, {
-                        where: {
-                          username: users[userIdx].username
-                        }
-                      });
-                    });
-                  })
-                  .catch(function (e) {
-                    console.error(e);
-                    res.json(statusLib.CONNECTION_ERROR);
-                  });
-
+        else
+          User.create({ // first: create a User record
+            username: users[userIdx].username,
+            password: users[userIdx].password,
+            identity: identity
+          })
+            .then(function (user) {
+              Profile.findOne({ // ensure no duplication
+                where: {
+                  school_id: users[userIdx].school_id
+                }
               })
-              .catch(function (e) {
-                console.error(e);
-                res.json(statusLib.CONNECTION_ERROR);
-              });
-        });
-    })(userIdx)
+                .then(function (profile) { // create a profile record for a student
+                  if (profile !== null) { // exists duplication
+                    console.log('user already exists');
+                  }
+                  else
+                    Profile.create({
+                      school_id: users[userIdx].school_id,
+                      name: users[userIdx].name,
+                      academy: academy,
+                      class_id: users[userIdx].class_id,
+                      supervisor: supervisor,
+                      user_id: user.id
+                    }).then(function () {
+                      flag++;
+                      if (flag === users.length) {
+                        console.log("all users imported");
+                        res.json(statusLib.USERINFO_IMPORT_SUCCEEDED);
+                      }
+                    }).catch(function (e) {
+                      console.error(e);
+                      return res.json(statusLib.USERINFO_IMPORT_FAILED);
+                    });
+                });
+            }).catch(function (e) {
+            console.error(e);
+            return res.json(statusLib.USERINFO_IMPORT_FAILED);
+          });
+      }).catch(function (e) {
+      console.error(e);
+      return res.json(statusLib.USERINFO_IMPORT_FAILED);
+    });
   }
-  if (userIdx === users.length) {
-    res.json(statusLib.USERINFO_IMPORT_SUCCEEDED);
-    console.log('student profile created');
+
+  for (let userIdx = 0; userIdx < users.length; userIdx++) {
+    createUser(userIdx);
   }
+
 });
 
 
@@ -200,7 +201,16 @@ router.post('/login', function (req, res) {
     User.findOne({
       where: {
         username: username
-      }
+      },
+      include: [
+        {
+          model: Profile,
+          where: {
+            user_id: sequelize.col('user.id')
+          },
+          attributes: ['school_id']
+        }
+      ]
     })
       .then(function (user) { // do further check
         if (user.dataValues === null) { //username does not exist
@@ -217,7 +227,8 @@ router.post('/login', function (req, res) {
             status: statusLib.LOGIN_SUCCEEDED.status,
             msg: statusLib.LOGIN_SUCCEEDED.msg,
             id: user.id,
-            username: user.username
+            username: user.username,
+            school_id: user.profile.school_id
           });
         }
         else {
@@ -236,7 +247,7 @@ router.post('/login', function (req, res) {
   }
 });
 
-router.post('/logout', function (req, res, next) {
+router.post('/logout', function (req, res) {
   delete req.session.username;
   req.session.isLogin = false;
   res.json(statusLib.LOGGED_OUT);

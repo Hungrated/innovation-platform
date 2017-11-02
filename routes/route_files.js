@@ -1,14 +1,15 @@
-/**
- * Created by Zihang Zhang on 2017/10/17.
- */
 const express = require('express');
 const router = express.Router();
 
-const File = require('../models/files');
+const db = require('../models/db_global');
+const statusLib = require('../libs/status');
+const pathLib = require('path');
+
 const multer = require('multer');
 const fs = require('fs');
-const pathLib = require('path');
-const statusLib = require('../libs/status');
+
+const File = db.File;
+
 
 var uploadDir = '../public/upload/sources/';
 

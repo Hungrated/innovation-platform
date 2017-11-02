@@ -1,8 +1,5 @@
-/**
- * Created by Zihang Zhang on 2017/10/19.
- */
-
 module.exports = {
+
   REG_SUCCEEDED: {
     status: 1000,
     msg: '注册成功'

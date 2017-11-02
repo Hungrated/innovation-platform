@@ -1,6 +1,3 @@
-/**
- * Created by Zihang Zhang on 2017/10/17.
- */
 const config = require('config-lite')(__dirname).database;
 
 const Sequelize = require('sequelize');
@@ -12,12 +9,13 @@ const crypto = require('crypto');
 const schema = {
   username: {
     type: Sequelize.STRING(32),
+    unique: true,
     allowNull: false
   },
   password: {
     type: Sequelize.STRING(256),
     allowNull: false,
-    set(val) { // crypto
+    set: function (val) { // crypto
       const hash = crypto.createHash('sha256');
       hash.update(config.salt + val);
       const hashedPWD = hash.digest('hex');
@@ -29,26 +27,13 @@ const schema = {
     values: ['student', 'teacher', 'superAdmin'],
     allowNull: false
   }
+
 };
 
 const options = {
-  indexes: [
-    {
-      unique: true,
-      fields: ['username']
-    }
-  ],
   underscored: true
 };
 
 const User = mysql.define('user', schema, options);
-
-const Profile = require('./profiles');
-
-User.belongsTo(Profile, {
-  foreignKey: 'profile_id'
-});
-
-User.sync().then();
 
 module.exports = User;

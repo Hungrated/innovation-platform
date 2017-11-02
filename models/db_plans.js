@@ -1,6 +1,3 @@
-/**
- * Created by Zihang Zhang on 2017/10/17.
- */
 const Sequelize = require('sequelize');
 
 const mysql = require('../middlewares/sequelize');
@@ -31,13 +28,5 @@ const options = {
 };
 
 const Plan = mysql.define('plan', schema, options);
-
-const User = require('./users');
-
-Plan.belongsTo(User, {
-  foreignKey: 'student_id'
-});
-
-Plan.sync().then();
 
 module.exports = Plan;

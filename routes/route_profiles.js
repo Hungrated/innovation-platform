@@ -1,24 +1,22 @@
-/**
- * Created by Zihang Zhang on 2017/10/17.
- */
 const express = require('express');
 const router = express.Router();
+
+const db = require('../models/db_global');
+const statusLib = require('../libs/status');
+const Profile = db.Profile;
 
 const fs = require('fs');
 const multer = require('multer');
 
-const Profile = require('../models/profiles');
-const statusLib = require('../libs/status');
+let uploadDir = '../public/upload/avatars/';
 
-var uploadDir = '../public/upload/avatars/';
-
-var objMulter = multer({
+let objMulter = multer({
   dest: uploadDir // file upload destination
 });
 
 router.post('/modify', function (req, res) { // modify a profile
   const {
-    student_id,
+    school_id,
     sex,
     birth_date,
     phone_num,
@@ -33,7 +31,7 @@ router.post('/modify', function (req, res) { // modify a profile
 
   Profile.update(modData, {
     where: {
-      student_id: student_id
+      school_id: school_id
     }
   })
     .then(function () {
@@ -47,10 +45,10 @@ router.post('/modify', function (req, res) { // modify a profile
 });
 
 router.post('/getinfo', function (req, res) { // fetch information of a profile
-  const student_id = req.body.student_id;
+  const school_id = req.body.school_id;
   Profile.findOne({
     where: {
-      student_id: student_id
+      school_id: school_id
     }
   }).then(function (profile) {
     if (profile === null) {
@@ -64,10 +62,11 @@ router.post('/getinfo', function (req, res) { // fetch information of a profile
 });
 
 router.post('/avatar', objMulter.any(), function (req, res, next) {
-  const id = req.body.id;
-  const url = '../public/upload/avatars/' + id + '.jpg';
+  const school_id = req.body.school_id; // id is school_id
+  const url = '../public/upload/avatars/' + school_id + '.jpg';
   req.avatarURL = url;
   console.log('avatar upload succeeded');
+
   // check existance of previous avatar file
   Profile.findOne({
     where: {
@@ -108,7 +107,7 @@ router.post('/avatar', function (req, res) { // update database record
     avatar: req.avatarURL
   }, {
     where: {
-      id: req.body.id
+      school_id: req.body.school_id
     }
   })
     .then(function () {

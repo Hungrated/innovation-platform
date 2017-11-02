@@ -1,6 +1,3 @@
-/**
- * Created by Zihang Zhang on 2017/10/17.
- */
 module.exports = {
   database: {
     dbName: 'innovation_platform',
@@ -19,10 +16,8 @@ module.exports = {
       timezone: '+08:00'
     }
   },
-
   cookie: {
     secret: 'secret',
     expires: 3600 * 24 * 7
   }
-
 };
