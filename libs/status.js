@@ -150,6 +150,16 @@ module.exports = {
     msg: '计划评价失败'
   },
 
+  PLAN_QUERY_SUCCEEDED: {
+    status: 5200,
+    msg: '计划查询成功'
+  },
+
+  PLAN_QUERY_FAILED: {
+    status: 5201,
+    msg: '计划查询失败'
+  },
+
   CONNECTION_ERROR: {
     status: 9001,
     msg: '通信故障'

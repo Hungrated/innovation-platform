@@ -61,4 +61,43 @@ router.post('/rate', function (req, res) { // a teacher rates a plan
 
 });
 
+router.post('/query', function(req, res) { // get list of all plans // class difference?
+  Plan.findAll()
+    .then(function (plans) {
+      res.json(plans);
+      console.log('plan query succeeded');
+
+    })
+    .catch(function (e) {
+      console.error(e);
+      res.json(statusLib.PLAN_QUERY_FAILED);
+      console.log('plan rate failed');
+    });
+
+});
+
+router.post('/personal', function(req, res) { // get list of personal plans
+  Plan.findAll({
+    where: {
+      student_id: req.body.school_id
+    }
+  })
+    .then(function (plans) {
+      res.json(plans);
+      console.log('plan query succeeded');
+
+    })
+    .catch(function (e) {
+      console.error(e);
+      res.json(statusLib.PLAN_QUERY_FAILED);
+      console.log('plan rate failed');
+    });
+
+});
+
+router.post('/export', function(req, res) { // export plan archive
+
+});
+
+
 module.exports = router;
