@@ -18,6 +18,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	<link href="../css/style.css" rel="stylesheet">
 	<link rel="icon" href="../images/favicon.ico">
+
+	<link href="../lib/beyond/beyond.min.css" rel="stylesheet" type="text/css" />
 <!--webfonts-->
    <!--<link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,400,300,600,700|Six+Caps' rel='stylesheet' type='text/css'>-->
 <!--//webfonts-->
@@ -84,9 +86,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			$('.gallery-bottom a').Chocolat();
 		});
 		</script>
+		<!--上传图文-->
+
 	<!--gallery-starts--> 
 	<div class="gallery" id="gallery">
 		<div class="container">
+			<div class="row" >
+				<div class="col-xs-12 col-md-12">
+					<div class="widget"  id="postP">
+						<div class="widget-header ">
+							<span class="widget-caption">上传活动</span>
+						</div>
+						<div class="widget-body">
+							<div class="row" style="padding-left: 1%">
+								<div class="col-md-4">
+									<div class="row">
+										<input  type="file" name="file" class="element" accept="image/*">
+									</div>
+									<br/>
+									<div class="row">
+										<input type="text" class="form-control" placeholder="标题">
+									</div>
+								</div>
+								<div class="col-md-1"></div>
+								<div class="col-md-6">
+									<textarea style="resize: none;max-height: 200px;height: 70px;" class="form-control" placeholder="活动描述"></textarea>
+								</div>
+								<div class="col-md-1" style="">
+									<center><a href="#" class="btn btn-primary" style="margin-bottom: 5px" ><i class="fa fa-check"></i>提交</a></center>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
 				<h3>活动相册</h3>
 			<div class="gallery-bottom">
 					<div class="col-md-4">
