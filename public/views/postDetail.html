@@ -17,20 +17,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <link href="../css/style.css" rel="stylesheet">
-    <link rel="icon" href="../images/favicon.ico">
-    <title>${article.artTitle}</title>
+    <link href="../styles/postDetail.css" rel="stylesheet">
+
+    <title></title>
 </head>
 <body>
 <!-- Navigation -->
-<style>
-    .dropdown-menu{
-        background-color: #222222;
-    }
-
-    .dropdown-menu>li>a{
-        color:#fff;
-    }
-</style>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -73,15 +65,12 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <article class="blog-post">
-                    <div class="blog-post-image">
-                        <a href="post.jsp"><img src="../images/demo1.jpg" alt=""></a>
-                    </div>
                     <div class="blog-post-body">
-                        <h2><a href="post.jsp">${article.artTitle}</a></h2>
-                        <div class="post-meta"><span>by <a href="#">${article.userName}</a></span>/ <span>${article.artLabel}</span>
-                            /<span><i class="fa fa-clock-o"></i>${article.createTime}</span>/
-                                    <span><i class="fa fa-comment-o"></i> ${article.readNum}</span>
-                                    <span><i class="fa fa-comment-o"></i>  0 </span>
+                        <h2><a href="javascript:void(0)" id="blog_title"></a></h2>
+                        <div class="post-meta">
+                            <span>by <a href="#" id="author_name"></a></span>
+                            / <span><i class="fa fa-clock-o"></i><span id="created_time"></span></span>
+                            /<span><i class="fa fa-comment-o"></i> 0 </span>
                         </div>
                         <div class="blog-post-text">
                             <div id="test-editormd-view">
@@ -118,7 +107,7 @@
 <script src="../editor/lib/flowchart.min.js"></script>
 <script src="../editor/lib/jquery.flowchart.min.js"></script>
 <script type="text/javascript" src="../editor/js/editormd.min.js"></script>
-<script src="../scripts/nav.js"></script>
+<script src="../js/jquery.params.js"></script>
 <script  src="../scripts/postDetail.js"></script>
 </body>
 </html>

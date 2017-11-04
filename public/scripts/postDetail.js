@@ -4,16 +4,23 @@
 $("#post").addClass("active");
 
 $(document).ready(function(){
-
+    var blog_id = $.query.get('index');
+    //console.log(blog_id);
     $.ajax({
-        type: "post",
-        url: '/postDetail/artContent',
+        type: "GET",
+        url: 'http://localhost:3000/api/blog/details',
         data: {
-            id: artId
+            index: blog_id
         },
         dataType: "json",
-        success: function (date) {
-            viewLoad(date.content);
+        success: function (data) {
+            console.log(data);
+            var blogData = data.blog;
+            $("title").text(blogData.title);
+            $("#blog_title").text(blogData.title);
+            $("#author_name").text(blogData.author_id);
+            $("#created_time").text(blogData.created_at);
+            viewLoad(blogData.content);
             //                alert(date.content);              //55555555555555555555555
         },
         error: function (date) {
