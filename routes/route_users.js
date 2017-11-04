@@ -60,7 +60,7 @@ router.post('/import', function (req, res, next) {  // extract user data & conve
           console.log(e.message);
         }
       }
-      req.body.supervisor = sheet.cell(2, 1)
+      req.body.supervisor = sheet.cell(2, 1);
       req.body.users = userArr;
       next();
     }
