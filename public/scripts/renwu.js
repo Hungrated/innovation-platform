@@ -44,3 +44,7 @@ $("#impotInfor").on("click",function () {
         }
     });
 });
+
+$(".edit").on("click",function () {
+    window.location.href = "taskList.html?s_id="+$(this).attr("data-mode");
+});
