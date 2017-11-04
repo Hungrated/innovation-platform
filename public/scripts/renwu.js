@@ -27,7 +27,7 @@ $("#impotInfor").on("click",function () {
         fileElementId: 'file',                        //文件选择框的id属性
         dataType: "json",                       //服务器返回的格式,可以是json或xml等
         data: {
-              users:
+
         //     size:fileSize
          },
         success: function (data) {
