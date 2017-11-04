@@ -15,3 +15,11 @@
 .row{
     margin-top: 10px;
 }
+
+.add_btn{
+   color:#23527c;
+}
+
+a:hover{
+    color:#337ab7
+}
