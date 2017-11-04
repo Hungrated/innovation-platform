@@ -2,11 +2,11 @@
  * Created by wuli等等 on 2017/11/1.
  */
 
-$(".editComment").on("click",function () {
+function rateBTn(obj) {
     $("#pingjia").css("display","block");
-    var p_id = $(this).attr("data-mode");
+    var p_id = $(obj).attr("data-mode");
     $("#rate").attr("data-mode",p_id);
-});
+};
 
 $(function () {
     //get the student id
@@ -15,11 +15,10 @@ $(function () {
         type:'POST',
         url:'http://localhost:3000/api/plan/personal',
         contentType: "application/json",
-        //data:JSON.stringify({'type':'project'}),
+        data:JSON.stringify({
+            'student_id':s_id,
+        }),
         dataType:'json',
-        data:{
-            school_id:s_id,
-        },
         success:function (data) {
             console.log(data);
             var taskListData = {
@@ -27,13 +26,13 @@ $(function () {
             };
             //console.log(postListData);
             var post = template('taskList', taskListData);
-            $("#postListContainer").html(post);
+            $("#taskListContainer").html(post);
         }
     });
 });
 // submit comment
 $("#rate").on("click",function () {
-    var text = $("#xlginput").text();
+    var text = $("#xlginput").val();
     console.log(text);
     console.log($(this).attr("data-mode"));
     $.ajax({
