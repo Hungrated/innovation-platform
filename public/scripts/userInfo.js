@@ -3,19 +3,54 @@
  */
 $("#info_save").hide();
 $("#info_cancel").hide();
-//初始化
-var userInfo = {
+
+var student_id = localStorage.school_id;
+
+//初始化 获取档案
+$.ajax({
+   type:"POST",
+    url:"http://localhost:3000/api/profile/getinfo",
+    data:{
+       school_id:student_id
+    },
+    dataType:"json",
+    success:function (data) {
+        console.log(data);
+        //获取失败
+        if(data.status == 2101){
+            alert(data.msg)
+        }else{
+            var userInfo = {
+                username:data.name,
+                user_sex:data.sex,
+                std_id:data.school_id,
+                std_class:data.class_id,
+                std_school:data.academy,
+                std_teacher:data.supervisor,
+                birth:data.birth_date,
+                phone:data.phone_num,
+                description:data.description
+            };
+            var base_content = template('base_content', userInfo);
+            document.getElementById('userInfo').innerHTML = base_content;
+        }
+    },
+    error:function (err) {
+        console.log(err);
+    }
+});
+
+/*var userInfo = {
     username:"马晓婷",
     user_sex:'女',
     std_id:'15051304',
     std_school:'计算机学院',
-    std_identity:'本科生',
+    std_class:'15052313',
     birth:'1997-10-1',
     phone:'18888888888',
     description:'不忘初心，不忘微笑'
-};
-var base_content = template('base_content', userInfo);
-document.getElementById('userInfo').innerHTML = base_content;
+};*/
+
 
 //编辑
 $("#info_edit").click(function () {
@@ -28,11 +63,7 @@ $("#info_save").click(function () {
 });
 
 $("#info_cancel").click(function () {
-    $("#info_save").toggle();
-    $("#info_cancel").toggle();
-    $("#info_edit").toggle();
-
-    //从后台获取数据
+    window.location.reload();
 });
 
 //获取计划列表
@@ -61,8 +92,9 @@ function getContent() {
     var username = $("#user_name").text();
     var user_sex = $("#user_sex").text();
     var std_id = $("#std_id").text();
+    var std_class = $("#std_class").text();
     var std_school = $("#std_school").text();
-    var std_identity = $("#std_identity").text();
+    var std_teacher = $("#std_teacher").text();
     var birth = $("#birth").text();
     var phone = $("#phone").text();
     var description = $("#description").text();
@@ -70,8 +102,9 @@ function getContent() {
         f_name:username,
         f_sex:user_sex,
         f_stdId:std_id,
+        f_class:std_class,
         f_school:std_school,
-        f_identity:std_identity,
+        f_teacher:std_teacher,
         f_birth:birth,
         f_phone:phone,
         f_description:description
@@ -89,27 +122,52 @@ function getForm() {
     var f_sex = $("#f_sex").val();
     var f_stdId = $("#f_stdId").val();
     var f_school = $("#f_school").val();
-    var f_identity = $("#f_identity").val();
+    var f_class = $("#f_class").val();
+    var f_teacher = $("#f_teacher").val();
     var f_birth = $("#f_birth").val();
     var f_phone = $("#f_phone").val();
     var f_description = $("#f_description").val();
 
     //先把数据发送到后台
+    $.ajax({
+        type:'POST',
+        url:'http://localhost:3000/api/profile/modify',
+        data:{
+            school_id:localStorage.school_id,
+            sex:f_sex,
+            birth_date:f_birth,
+            phone_num:f_phone,
+            class_id:f_class,
+            supervisor:f_teacher,
+            description:f_description
+        },
+        dataType:'json',
+        success:function (data) {
+            if(data.status == 2000){
+                window.location.reload();
+            }else{
+                alert(data.msg);
+            }
+        },
+        error:function (err) {
+            console.log(err);
+        }
+    });
 
-
-    userInfo = {
+   /* userInfo = {
         username:f_name,
         user_sex:f_sex,
         std_id:f_stdId,
+        std_class:f_class,
         std_school:f_school,
-        std_identity:f_identity,
+        std_teacher:f_teacher,
         birth:f_birth,
         phone:f_phone,
         description:f_description
     };
 
     var base_content = template('base_content', userInfo);
-    document.getElementById('userInfo').innerHTML = base_content;
+    document.getElementById('userInfo').innerHTML = base_content;*/
 }
 
 //添加计划
@@ -122,7 +180,7 @@ $("#submit_plan").click(function () {
     var start_date = $("#start_date").val();
     var end_date = $("#end_date").val();
     var plan_details = $("#plan_details").val();
-    var student_id = localStorage.school_id;
+
 
     $.ajax({
         type:'POST',

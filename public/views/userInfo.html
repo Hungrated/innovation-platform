@@ -142,7 +142,7 @@
         <div class="form-group">
             <label for="f_name" class="col-sm-2 control-label">姓名</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="f_name" value="{{f_name}}">
+                <input type="text" class="form-control" id="f_name" readonly="readonly" value="{{f_name}}">
             </div>
         </div>
         <div class="form-group">
@@ -154,7 +154,13 @@
         <div class="form-group">
             <label for="f_stdId" class="col-sm-2 control-label">学号</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="f_stdId" value="{{f_stdId}}">
+                <input type="text" class="form-control" id="f_stdId" readonly="readonly" value="{{f_stdId}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="f_class" class="col-sm-2 control-label">班级号</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="f_class" value="{{f_class}}">
             </div>
         </div>
         <div class="form-group">
@@ -164,12 +170,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="f_identity" class="col-sm-2 control-label">身份</label>
+            <label for="f_teacher" class="col-sm-2 control-label">指导老师</label>
             <div class="col-sm-5">
-                <select class="form-control" id="f_identity">
-                    <option>本科生</option>
-                    <option>研究生</option>
-                </select>
+                <input type="text" class="form-control" id="f_teacher" readonly="readonly"  value="{{f_teacher}}">
             </div>
         </div>
         <div class="form-group">
@@ -214,14 +217,20 @@
     </div>
     <div class="row">
         <div class="col-md-offset-1">
+            <div class="info_name">班级号:</div>
+            <span id="std_class">{{std_class}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-1">
             <div class="info_name">学院:</div>
             <span id="std_school">{{std_school}}</span>
         </div>
     </div>
     <div class="row">
         <div class="col-md-offset-1">
-            <div class="info_name">身份:</div>
-            <span id="std_identity">{{std_identity}}</span>
+            <div class="info_name">指导老师:</div>
+            <span id="std_teacher">{{std_teacher}}</span>
         </div>
     </div>
     <div class="row">
