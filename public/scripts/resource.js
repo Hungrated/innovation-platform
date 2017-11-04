@@ -32,14 +32,19 @@ $("#uploadfile").on("click",function () {
             size:fileSize
         },
         success: function (data) {
-            debugger;
+            window.location.reload();
             if (data.status == 4000) {
-                console.log(data.msg);
-                //window.location.reload();
+                var dialog = art.dialog({
+                    title: '提示',
+                    content: data.msg,
+                    lock:true,
+                    ok:true,
+                    follow: document.getElementById('logoNav')
+                });
             }
             else{
                 debugger;
-                console.log(data.msg)
+                alert(data.msg)
             }
         },
         error: function (msg) {
@@ -49,7 +54,7 @@ $("#uploadfile").on("click",function () {
 });
 
 
-$("#selectF").on("click",function () {;
+$("#selectF").on("click",function () {
     $("#uploadfile").css("display","block");
 
     // this.style.display = "none";

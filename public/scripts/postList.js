@@ -17,20 +17,23 @@ $("#post").addClass("active");
     }
 });
 */
-$.ajax({
-    type:'POST',
-    url:'http://localhost:3000/api/blog/query',
-    data:{
-        type:'project'
-    },
-    dataType:'json',
-    success:function (data) {
-        console.log(data);
-        var postListData = {
-            postLists:data
-        };
-        //console.log(postListData);
-        var post = template('postList', postListData);
-        $("#postListContainer").html(post);
-    }
+$(function () {
+    $.ajax({
+        type:'POST',
+        url:'http://localhost:3000/api/blog/query',
+        data:{
+            type:'project'
+        },
+        dataType:'json',
+        success:function (data) {
+            debugger;
+            console.log(data);
+            var postListData = {
+                postLists:data
+            };
+            //console.log(postListData);
+            var post = template('postList', postListData);
+            $("#postListContainer").html(post);
+        }
+    });
 });
