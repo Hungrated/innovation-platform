@@ -39,17 +39,19 @@ $("#info_cancel").click(function () {
 var list = {
     planList:[{
         date:'2017.10.22-2017.12.12',
-        content:'学习软件设计模式'
+        content:'学习软件设计模式',
+        state:'审核通过'
     },
         {
             date:'2017.9.12-2017.10.20',
-            content:'node.js + Express'
+            content:'node.js + Express',
+            state:'已完成'
         }
     ]
 };
 
-var plan = template('planList', list);
-$("#planContainer").html(plan);
+var planList = template('planList', list);
+$("#planContainer").html(planList);
 
 function getContent() {
     $("#info_save").toggle();
@@ -109,3 +111,39 @@ function getForm() {
     var base_content = template('base_content', userInfo);
     document.getElementById('userInfo').innerHTML = base_content;
 }
+
+//添加计划
+$("#plan_add").click(function () {
+    $("#add_plan_contanier").css("display","block");
+});
+
+//提交计划
+$("#submit_plan").click(function () {
+    var start_date = $("#start_date").val();
+    var end_date = $("#end_date").val();
+    var plan_details = $("#plan_details").val();
+    var student_id = localStorage.school_id;
+
+    $.ajax({
+        type:'POST',
+        url:"http://localhost:3000/api/plan/submit",
+        data:{
+            student_id:student_id,
+            content:plan_details,
+            start_time:start_date,
+            deadline:end_date
+        },
+        dataType:'json',
+        success:function (data) {
+            if(data.status == 5000){
+                window.location.reload();
+            }else{
+                alert(data.msg);
+            }
+        },
+        error:function (err) {          //失败，回调函数
+            alert('计划提交失败');
+            console.log(err);
+        }
+    })
+});

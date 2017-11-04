@@ -73,6 +73,16 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    <h3 class="panel-title base_head">
+                        计划
+                    </h3>
+                    <button type="button" class="btn btn-link info_btn" id="plan_add"><a href="#add_plan_contanier" class="add_btn">添加</a></button>
+                </div>
+                <div class="panel-body" id="planContainer">
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
                     <h3 class="panel-title">
                         学期总评
                     </h3>
@@ -83,15 +93,37 @@
                     <tr><td>2016-2017</td><td>2</td><td>A</td></tr>
                 </table>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title base_head">
-                        计划
-                    </h3>
-                    <button type="button" class="btn btn-link info_btn" id="plan_add">添加</button>
-                </div>
-             <div class="panel-body" id="planContainer">
-             </div>
+            <div id="add_plan_contanier" class="panel panel-default" hidden>
+                    <div class="panel-heading">
+                        <span class="widget-caption">添加计划</span>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="start_date" class="col-sm-2 control-label">开始时间</label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" id="start_date" placeholder="格式:2017-05-20">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="end_date" class="col-sm-2 control-label">截止时间</label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" id="end_date" placeholder="格式:2017-05-20">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="plan_details" class="col-sm-2 control-label">计划内容</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" rows="3" id="plan_details"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-7">
+                                    <button id="submit_plan" class="btn  btn-success">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp提交&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
             </div>
         </div>
     </div>
@@ -214,11 +246,12 @@
 
 <script id="planList" type="text/html">
     <table class="table">
-        <th>开始-截止时间</th><th>计划详情</th>
-        {{each planLists as plan i}}
+        <th>开始-截止时间</th><th>计划详情</th><th>状态</th>
+        {{each planList as plan i}}
             <tr>
                     <td>{{plan.date}}</td>
                     <td>{{plan.content}}</td>
+                    <td>{{plan.state}}</td>
             </tr>
         {{/each}}
     </table>
