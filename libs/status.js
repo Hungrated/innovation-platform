@@ -160,6 +160,16 @@ module.exports = {
     msg: '计划查询失败'
   },
 
+  PLAN_EXPORT_SUCCEEDED: {
+    status: 5300,
+    msg: '计划导出成功'
+  },
+
+  PLAN_EXPORT_FAILED: {
+    status: 5301,
+    msg: '计划导出失败'
+  },
+
   CONNECTION_ERROR: {
     status: 9001,
     msg: '通信故障'
