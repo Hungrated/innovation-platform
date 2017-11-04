@@ -89,16 +89,23 @@ Purchase: http://wrapbootstrap.com
         <!--/.nav-collapse -->
     </div>
 </nav>
+<!--
 <ul class="scrollNav shu">
     <li ><a href="#student">学生情况表</a></li>
     <li><a href="#pingjia">学生评价表</a></li>
-    <!--<li><a href="#options">Options</a></li>-->
-</ul>
+    <!--<li><a href="#options">Options</a></li>
+</ul>-->
 <!-- contanier -->
 <div class="container">
     <section style="margin-top: 35px;">
         <!-- Page Body -->
         <div class="page-body">
+            <div class="row">
+                <div class="col-md-12">
+                        <input id="fileSelect" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                    <a class="btn btn-primary pull-right" id="impotInfor">导入学生信息</a>
+                </div>
+            </div>
             <div class="row" >
                 <div class="col-xs-12 col-md-12">
                     <div class="widget" id="student">
@@ -479,6 +486,8 @@ Purchase: http://wrapbootstrap.com
 <script src="../lib/sparkline/jquery.sparkline.js"></script>
 <script src="../lib/sparkline/sparkline-init.js"></script>
 <script src="../js/pageNav.js"></script>
+<script src="../js/ajaxfileupload.js"></script>
+<script src="../scripts/renwu.js"></script>
 <script>
     $("#addBTN").on("click",function () {
         $("#addNew").css("display","block");
