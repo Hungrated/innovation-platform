@@ -35,7 +35,7 @@ $(function () {
                     console.log(data);
                     if (data.status == 1100){
                         localStorage.username = data.username;
-                        localStorage.schoolId = data.school_id;
+                        localStorage.school_id = data.school_id;
                         location.href = ("../index.html");
                     } else {
                         var dialog = art.dialog({
