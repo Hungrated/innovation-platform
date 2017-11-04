@@ -88,6 +88,9 @@ function mySubmit() {
         }*/
         if (file != null) {
             var articleId=$("#articleId").val();
+            var description= $(".editormd-preview").text();
+            description = description.substring(0,200);
+            console.log(description);
             //alert(articleid);
             if(articleId==""){
                 $.ajax({
@@ -97,8 +100,8 @@ function mySubmit() {
                         type:'project',
                         content: file,
                         title: articleName,
-                        description:"",
-                        author_id:localStorage.schoolId
+                        description:description,
+                        author_id:localStorage.school_id
                         //artLabel: label,
                         //cover:coverAddress
                     },
