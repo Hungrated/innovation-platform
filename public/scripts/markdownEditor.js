@@ -98,7 +98,7 @@ function mySubmit() {
                         content: file,
                         title: articleName,
                         description:"",
-                        authorID:1
+                        author_id:localStorage.schoolId
                         //artLabel: label,
                         //cover:coverAddress
                     },
