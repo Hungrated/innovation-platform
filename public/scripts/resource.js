@@ -18,7 +18,7 @@ $("#uploadfile").on("click",function () {
         console.log(fileSize);
         console.log(fileType);
     }
-
+    // upload file
     $.ajaxFileUpload({
         //处理文件上传操作的服务器端地址
         url: 'http://localhost:3000/api/file/upload',
@@ -49,6 +49,36 @@ $("#uploadfile").on("click",function () {
         },
         error: function (msg) {
             console.log(msg.responseText);
+        }
+    });
+    // supplement data
+    var text = $("#desinput").text();
+    $.ajax({
+        type: "POST",                   //类型，POST或者GET
+        url: "http://localhost:3000/api/file/fillinfo",        //后台url
+        data: {                          //数据
+            uploader_id: localStorage.schoolId,
+            descriptions: text,
+        },
+        dataType: 'json',              //数据返回类型，可以是xml、json等
+        success: function (data) {      //成功，回调函数
+            console.log(data);
+            // 待定
+            if (data.status == 1){
+                window.location.reload();
+            } else {
+                var dialog = art.dialog({
+                    title: '提示',
+                    content: data.msg,
+                    lock:true,
+                    ok:true,
+                    follow: document.getElementById('logoNav')
+                });
+                reset();
+            }
+        },
+        error: function (err) {          //失败，回调函数
+            console.log(err);
         }
     });
 });
