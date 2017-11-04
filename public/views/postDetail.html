@@ -53,16 +53,14 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                    <li id="userLink" class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">username <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/myArticles">我的文章</a></li>
-                            <li><a href="/setting">个人档案</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/logout">退出</a></li>
-                    <li><a href="login.html">登录</a> </li>
-                    <li><a href="register.html">注册</a> </li>
-
+                <li id="userLink" class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="username"><b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="myArticles.html">我的文章</a></li>
+                        <li><a href="userInfo.html">个人档案</a></li>
+                    </ul>
+                </li>
+                <li id="logout"><a href="login.html">退出</a></li>
+                <li id="login"><a href="login.html">登录</a> </li>
             </ul>
 
         </div>
@@ -120,6 +118,7 @@
 <script src="../editor/lib/flowchart.min.js"></script>
 <script src="../editor/lib/jquery.flowchart.min.js"></script>
 <script type="text/javascript" src="../editor/js/editormd.min.js"></script>
+<script src="../scripts/nav.js"></script>
 <script  src="../scripts/postDetail.js"></script>
 </body>
 </html>

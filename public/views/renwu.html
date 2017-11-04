@@ -70,19 +70,15 @@ Purchase: http://wrapbootstrap.com
                 <li><a href="markdownEditor.html">发布</a></li>
                 <li><a href="comments.html">讨论区</a></li>
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
-
-                <li id="userLink" class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">username <b class="caret"></b></a>
+                <li id="userLink" class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="username"><b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/myArticles">我的文章</a></li>
-                        <li><a href="/setting">个人档案</a></li>
+                        <li><a href="myArticles.html">我的文章</a></li>
+                        <li><a href="userInfo.html">个人档案</a></li>
                     </ul>
                 </li>
-                <li><a href="/logout">退出</a></li>
-                <li><a href="/login">登录</a> </li>
-                <li><a href="/register">注册</a> </li>
-
+                <li id="logout"><a href="login.html">退出</a></li>
+                <li id="login"><a href="login.html">登录</a> </li>
             </ul>
 
         </div>
@@ -488,6 +484,7 @@ Purchase: http://wrapbootstrap.com
 <script src="../js/pageNav.js"></script>
 <script src="../scripts/nav.js"></script>
 <script src="../js/ajaxfileupload.js"></script>
+<script src="../scripts/nav.js"></script>
 <script src="../scripts/renwu.js"></script>
 <script>
     $("#addBTN").on("click",function () {

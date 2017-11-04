@@ -21,12 +21,10 @@ $(function () {
     $.ajax({
         type:'POST',
         url:'http://localhost:3000/api/blog/query',
-        data:{
-            type:'project'
-        },
+        contentType: "application/json",
+        data:JSON.stringify({'type':'project'}),
         dataType:'json',
         success:function (data) {
-            debugger;
             console.log(data);
             var postListData = {
                 postLists:data
