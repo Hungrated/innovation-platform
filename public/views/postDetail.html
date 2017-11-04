@@ -19,6 +19,17 @@
     <link href="../css/style.css" rel="stylesheet">
     <link href="../styles/postDetail.css" rel="stylesheet">
 
+    <link rel='stylesheet' id='app-css' href='../styles/comment.css' type='text/css' media='screen' />
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-49937515-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
     <title></title>
 </head>
 <body>
@@ -63,7 +74,7 @@
 <div class="container">
     <section style="margin-top: 60px;">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-10 col-md-offset-1">
                 <article class="blog-post">
                     <div class="blog-post-body">
                         <h2><a href="javascript:void(0)" id="blog_title"></a></h2>
@@ -81,8 +92,106 @@
                     </div>
                 </article>
             </div>
+        </div>
+        <div id="comments" class="responsesWrapper">
+            <h3 class="responses-title">评论数: <span class="commentCount"></span></h3>
+            <ol class="commentlist">
+                <li class="comment" itemtype="http://schema.org/Comment" data-id="1744" itemscope="" itemprop="comment">
+                    <div id="comment-1744" class="comment-block">
+                        <div class="comment-info u-clearfix">
+                            <!-- <div class="comment-avatar">
+                                 <img height=40 width=40 data-lazyr="https://secure.gravatar.com/avatar/bae7710d5271fe63d4dfcf86965afbda?s=40&d=mm&r=x" class="avatar" />
+                             </div>-->
+                            <div class="comment-meta">
+                                <div class="comment-author" itemprop="author"><a href='http://synyan.net' rel='external nofollow' class='url'>synyan</a><span class="comment-reply-link u-cursorPointer" onclick="return addComment.moveForm('comment-1744', '1744', 'respond', '78012')">回复</span></div>
+                                <div class="comment-time" itemprop="datePublished" datetime="2016-03-29T12:26:40+08:00">Mar 29,2016</div>
+                            </div>
+                        </div>
+                        <div class="comment-content" itemprop="description">
+                            <p>想在数字前面加上&#8221;#&#8221;怎么弄？试了几次没成功……</p>
+                        </div>
+                    </div>
+                    <!--<ol class="children">-->
+                        <!--<li class="comment" itemtype="http://schema.org/Comment" data-id="1745" itemscope="" itemprop="comment">-->
+                            <!--<div id="comment-1745" class="comment-block">-->
+                                <!--<div class="comment-info u-clearfix">-->
+                                    <!--<div class="comment-meta">-->
+                                        <!--<div class="comment-author" itemprop="author">Jimmy<span class="comment-reply-link u-cursorPointer" onclick="return addComment.moveForm('comment-1745', '1745', 'respond', '78012')">回复</span></div>-->
+                                        <!--<div class="comment-time" itemprop="datePublished" datetime="2016-03-29T12:39:23+08:00">Mar 29,2016</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="comment-content" itemprop="description">-->
+                                    <!--<p><a href="#comment-1744" rel="nofollow" data-id="1744" class="cute atreply">@synyan</a> </p>-->
+                                    <!--<p>content:"#" counter(b, decimal)</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</li>&lt;!&ndash; #comment-## &ndash;&gt;-->
+                        <!--<li class="comment" itemtype="http://schema.org/Comment" data-id="1746" itemscope="" itemprop="comment">-->
+                            <!--<div id="comment-1746" class="comment-block">-->
+                                <!--<div class="comment-info u-clearfix">-->
+                                    <!--<div class="comment-meta">-->
+                                        <!--<div class="comment-author" itemprop="author"><a href='http://synyan.net' rel='external nofollow' class='url'>synyan</a><span class="comment-reply-link u-cursorPointer" onclick="return addComment.moveForm('comment-1746', '1746', 'respond', '78012')">回复</span></div>-->
+                                        <!--<div class="comment-time" itemprop="datePublished" datetime="2016-03-29T12:52:34+08:00">Mar 29,2016</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="comment-content" itemprop="description">-->
+                                    <!--<p><a href="#comment-1745" rel="nofollow" data-id="1745" class="cute atreply">@Jimmy</a> 原来如此简单，我写成了content:&#8221;#&#8221; . counter(b, decimal) </p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</li>&lt;!&ndash; #comment-## &ndash;&gt;-->
+                        <!--<li class="comment" itemtype="http://schema.org/Comment" data-id="1766" itemscope="" itemprop="comment">-->
+                            <!--<div id="comment-1766" class="comment-block">-->
+                                <!--<div class="comment-info u-clearfix">-->
+                                    <!--<div class="comment-meta">-->
+                                        <!--<div class="comment-author" itemprop="author">chasonma<span class="comment-reply-link u-cursorPointer" onclick="return addComment.moveForm('comment-1766', '1766', 'respond', '78012')">回复</span></div>-->
+                                        <!--<div class="comment-time" itemprop="datePublished" datetime="2016-03-31T15:38:01+08:00">Mar 31,2016</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="comment-content" itemprop="description">-->
+                                    <!--<p><a href="#comment-1746" rel="nofollow" data-id="1746" class="cute atreply">@synyan</a> 连接符</p>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</li>&lt;!&ndash; #comment-## &ndash;&gt;-->
+                    <!--</ol>&lt;!&ndash; .children &ndash;&gt;-->
+                </li><!-- #comment-## -->
+            </ol>
+            <nav class="commentnav u-textAlignCenter" data-id="78012" data-max="2">
+                <span class="cnav-item"  data-paged="1">上一页</span>
+                <span class="chartPage-verticalDivider"></span>
+                <span class="cnav-item disabled">下一页</span>
+            </nav>
+            <div id="respond" class="respond" role="form">
+                <h3 id="reply-title" class="comments-title">发表留言</h3>
+                <form action="https://fatesinger.com/wp-comments-post.php" method="post" id="commentform" class="responsesForm">
+                    <p class="comment-note">
+                        不留下你的想法吗？
+                    </p>
+                    <!-- <div class="info">
+                 <p class="comment-form-author comment-form-input">
+                     <label for="author">昵称</label>
+                     <input id="author" type="text" class="inputGroup" aria-required="true" size="30" value="" name="author">
+                 </p>
+                 <p class="comment-form-email comment-form-input">
+                     <label for="email">邮箱</label>
+                     <input id="email" class="inputGroup" type="text" aria-required="true" size="30" value=""  name="email">
+                 </p>
+                 <p class="comment-form-url comment-form-input">
+                     <label for="url">网址</label>
+                     <input id="url" class="inputGroup" type="text" size="30" value="" name="url">
+                 </p>
+                  </div>-->
 
-</div>
+                    <p class="comment-form-comment comment-form-input">
+                        <label for="comment">评论</label>
+                        <textarea id="comment" class="inputGroup inputTextarea" aria-required="true" rows="8" cols="45" name="comment"></textarea>
+                    </p>
+                    <div class="inputSubmit" data-action="submitComment" id="subComment">发表评论</div>
+                    <a rel="nofollow" id="cancel-comment-reply-link" href="#" style="display:none;">点击取消评论.</a>
+                    <input type='hidden' name='comment_post_ID' value='#' id='comment_post_ID' />
+                    <input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+                </form>
+            </div>
+        </div>
 </section>
 </div><!-- /.container -->
 
@@ -109,5 +218,6 @@
 <script type="text/javascript" src="../editor/js/editormd.min.js"></script>
 <script src="../js/jquery.params.js"></script>
 <script  src="../scripts/postDetail.js"></script>
+<script type='text/javascript' src='../js/comment.js'></script>
 </body>
 </html>

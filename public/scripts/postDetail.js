@@ -55,4 +55,43 @@ $(document).ready(function(){
 
         //alert(testEditormdView.getMarkdown());
     }
+
+    $("#subComment").on("click",function () {
+        debugger;
+        var con = $("#comment").val();
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:3000/api/comment/submit',
+            data: {
+                blog_id: blog_id,
+                student_id:localStorage.school_id,
+                content:con
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if (data.status == 3200){
+                    var dialog = art.dialog({
+                        title: '提示',
+                        content: data.msg,
+                        lock:true,
+                        ok:true,
+                        follow: document.getElementById('logoNav')
+                    });
+                } else {
+                    var dialog = art.dialog({
+                        title: '提示',
+                        content: data.msg,
+                        lock:true,
+                        ok:true,
+                        follow: document.getElementById('logoNav')
+                    });
+                    reset();
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    })
 });
