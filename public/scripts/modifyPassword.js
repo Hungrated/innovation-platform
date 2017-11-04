@@ -5,36 +5,34 @@ $(function () {
     $("#submitBtn").click(function () {
         var username = $("#username").val();
         var password = $("#password").val();
+        var new_password = $("#new_password").val();
         var rpw = $("#rpw").val();
-        if(username != "" && password != "" && rpw != "") {
-            if (password === rpw) {
+        if(username != "" && password != ""&&new_password!="" && rpw != "") {
+            if (new_password === rpw) {
                 console.log(username);
                 $.ajax({
                     type: "POST",                   //类型，POST或者GET
-                    url: "/register",        //后台url
+                    url: "http://localhost:3000/api/user/pwdmod",        //后台url
                     data: {                          //数据
                         username: username,
-                        password: password
+                        password: password,
+                        new_password:new_password
                     },
                     dataType: 'json',              //数据返回类型，可以是xml、json等
                     success: function (data) {      //成功，回调函数
                         console.log(data);
-                        if (data.result == '1') {
+                        if (data.status == 1400) {
                             var dialog = art.dialog({
                                 title: '提示',
-                                content: '注册成功，即将跳转到登录页面！',
+                                content: '修改成功，即将跳转到个人资料页面！',
                                 lock:true,
                                 follow: document.getElementById('logoNav'),
                                 time:3
                             });
-                            location.href = "/login";
-                        } else if (data.result == '2') {
-                            alert("该账号已存在！");
-                            reset();
+                            location.href = "userInfo.html";
                         }
                         else {
-                            alert('未知错误，注册失败！');
-                            reset();
+                            console.log(data.msg);
                         }
                     },
                     error: function (err) {          //失败，回调函数
