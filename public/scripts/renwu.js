@@ -2,8 +2,7 @@
  * Created by Administrator on 2017/11/4 0004.
  */
 $("#impotInfor").on("click",function () {
-    debugger;
-    var fp = $("#fileSelect");
+    var fp = $("#file");
     var lg = fp[0].files.length; // get length
     var items = fp[0].files;
 
@@ -22,16 +21,11 @@ $("#impotInfor").on("click",function () {
     $.ajaxFileUpload({
         //处理文件上传操作的服务器端地址
         url: 'http://localhost:3000/api/user/import',
-        enctype: "multipart/form-data",
+        enctype: 'multipart/form-data',
         secureuri: false,                       //是否启用安全提交,默认为false
         fileElementId: 'file',                        //文件选择框的id属性
-        dataType: "json",                       //服务器返回的格式,可以是json或xml等
-        data: {
-
-        //     size:fileSize
-         },
+        dataType: 'json',                       //服务器返回的格式,可以是json或xml等
         success: function (data) {
-            window.location.reload();
             if (data.status == 1300) {
                 var dialog = art.dialog({
                     title: '提示',
@@ -42,7 +36,6 @@ $("#impotInfor").on("click",function () {
                 });
             }
             else{
-                debugger;
                 alert(data.msg)
             }
         },
