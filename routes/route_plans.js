@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const pathLib = require('path');
 
 const db = require('../models/db_global');
 const statusLib = require('../libs/status');
 
 const Plan = db.Plan;
+const Profile = db.Profile;
 
 const async = require('async');
 const fs = require('fs');
@@ -101,11 +103,58 @@ router.post('/personal', function (req, res) { // get list of personal plans
 });
 
 
-router.post('/export', function (req, res, next) { // fetch records from database
+router.post('/export', function (req, res, next) { // fetch profile records from database
+  const student_id = req.body.student_id;
 
+  Profile.findByPrimary(student_id)
+    .then(function (profile) {
+      req.body.profile = profile.dataValues;
+      next();
+    })
+    .catch(function (e) {
+      console.log(e);
+      res.json(statusLib.PLAN_EXPORT_FAILED);
+    })
+});
+
+router.post('/export', function (req, res, next) { // fetch plan records from database
+  let student_id = req.body.student_id;
+
+  Plan.findAll({
+    where: {
+      student_id: student_id
+    }
+  })
+    .then(function (plans) {
+      let planArr = [];
+      for (let i = 0; i < plans.length; i++) {
+        planArr.push(plans[i].dataValues);
+      }
+      req.body.planArr = planArr;
+      next();
+    })
+    .catch(function (e) {
+      console.log(e);
+      res.json(statusLib.PLAN_EXPORT_FAILED);
+    })
 });
 
 router.post('/export', function (req, res) { // export plan archive
+
+  const student_id = req.body.student_id;
+  const profile = req.body.profile;
+  const planArr = req.body.planArr;
+
+  // get export time & set filename
+  let curTime = new Date();
+
+  let exportTime = new Date(curTime.getTime() - curTime.getTimezoneOffset() * 60 * 1000);
+
+  // set filename
+  let fileName = 'plan_export_' + student_id + '_' + exportTime.getTime() + '.docx';
+
+  // create file
+
   let docx = officeGen('docx');
 
   docx.on('error', function (err) {
@@ -113,7 +162,12 @@ router.post('/export', function (req, res) { // export plan archive
     res.json(statusLib.PLAN_EXPORT_FAILED);
   });
 
-  var table = [
+  // set header
+  let header = docx.getHeader().createP();
+  header.addImage(pathLib.resolve('../static/img/', 'HDU_LOGO.png'));
+  header.addImage(pathLib.resolve('../static/img/', 'innovation_practice.png'));
+
+  let table = [
     [{
       val: "No.",
       opts: {
@@ -159,100 +213,143 @@ router.post('/export', function (req, res) { // export plan archive
     [4, 'watch out for the baobabs!', 'END'],
   ];
 
-  var tableStyle = {
+  let tableStyle = {
     tableColWidth: 4261,
-    tableSize: 24,
-    tableColor: "ada",
+    tableSize: 16,
     tableAlign: "left",
-    tableFontFamily: "Comic Sans MS"
+    tableFontFamily: "Times New Roman"
   };
 
-  var data = [[{
-    type: "text",
-    val: "Simple"
-  }, {
-    type: "text",
-    val: " with color",
-    opt: {color: '000088'}
-  }, {
-    type: "text",
-    val: "  and back color.",
-    opt: {color: '00ffff', back: '000088'}
-  }, {
-    type: "linebreak"
-  }, {
-    type: "text",
-    val: "Bold + underline",
-    opt: {bold: true, underline: true}
-  }], {
-    type: "horizontalline"
-  }, [{backline: 'EDEDED'}, {
-    type: "text",
-    val: "  backline text1.",
-    opt: {bold: true}
-  }, {
-    type: "text",
-    val: "  backline text2.",
-    opt: {color: '000088'}
-  }], {
-    type: "text",
-    val: "Left this text.",
-    lopt: {align: 'left'}
-  }, {
-    type: "text",
-    val: "Center this text.",
-    lopt: {align: 'center'}
-  }, {
-    type: "text",
-    val: "Right this text.",
-    lopt: {align: 'right'}
-  }, {
-    type: "text",
-    val: "Fonts face only.",
-    opt: {font_face: 'Arial'}
-  }, {
-    type: "text",
-    val: "Fonts face and size.",
-    opt: {font_face: 'Arial', font_size: 40}
-  }, {
-    type: "table",
-    val: table,
-    opt: tableStyle
-  }, [{ // arr[0] is common option.
-    align: 'right'
-  }], {
-    type: "pagebreak"
-  }
+  let data = [
+    // title
+    {
+      type: 'text',
+      val: '创新实践个人计划报告',
+      opt: {font_face: '黑体', bold: true, font_size: 24},
+      lopt: {align: 'center'}
+    },
+    {
+      type: "horizontalline"
+    },
+    // personal information
+
+      {
+        type: 'text',
+        val: profile.name + '  ' + profile.school_id + '  ',
+        opt: {bold: true, font_size: 18},
+        lopt: {align: 'left'}
+      },
+      {
+        type: 'text',
+        val: '性别： ' + profile.sex,
+        lopt: {align: 'left'}
+      },
+      {
+        type: 'text',
+        val: '学院： ' + profile.academy,
+        lopt: {align: 'left'}
+      },
+      {
+        type: 'text',
+        val: '班级号： ' + profile.class_id,
+        lopt: {align: 'left'}
+      },
+      {
+        type: 'text',
+        val: '导师： ' + profile.supervisor,
+        lopt: {align: 'left'}
+      },
+
+
+
+    [{
+      type: 'text',
+      val: 'export'
+    },
+
+
+
+      {
+        type: "text",
+        val: " with color",
+        opt: {color: '000088'}
+      }, {
+        type: "text",
+        val: "  and back color.",
+        opt: {color: '00ffff', back: '000088'}
+      }, {
+        type: "linebreak"
+      }, {
+        type: "text",
+        val: "Bold + underline",
+        opt: {bold: true, underline: true}
+      }], {
+      type: "horizontalline"
+    }, [{backline: 'EDEDED'}, {
+      type: "text",
+      val: "  backline text1.",
+      opt: {bold: true}
+    }, {
+      type: "text",
+      val: "  backline text2.",
+      opt: {color: '000088'}
+    }], {
+      type: "text",
+      val: "Left this text.",
+      lopt: {align: 'left'}
+    }, {
+      type: "text",
+      val: "Center this text.",
+      lopt: {align: 'center'}
+    }, {
+      type: "text",
+      val: "Right this text.",
+      lopt: {align: 'right'}
+    }, {
+      type: "text",
+      val: "Fonts face only.",
+      opt: {font_face: 'Arial'}
+    }, {
+      type: "text",
+      val: "Fonts face and size.",
+      opt: {font_face: 'Arial', font_size: 40}
+    }, {
+      type: "table",
+      val: table,
+      opt: tableStyle
+    }, [{ // arr[0] is common option.
+      align: 'right'
+    }], {
+      type: "pagebreak"
+    }
   ];
 
   docx.createByJson(data);
 
-  let fileName = 'export.docx';
+  // export file
+  let out = fs.createWriteStream(fileDir + fileName);
 
-  let out = fs.createWriteStream ( fileDir + fileName );
-
-  out.on ( 'error', function ( err ) {
-    console.log ( err );
+  out.on('error', function (err) {
+    console.log(err);
   });
 
-  async.parallel ([
-    function ( done ) {
-      out.on ( 'close', function () {
-        console.log ( 'plan export succeeded' );
+  async.parallel([
+    function (done) {
+      out.on('close', function () {
+        console.log('plan export succeeded');
         res.json(statusLib.PLAN_EXPORT_SUCCEEDED);
         // res.download(fileDir + fileName, fileName);
-        done ( null );
+        done(null);
       });
-      docx.generate ( out );
+      docx.generate(out);
     }
 
-  ], function ( err ) {
-    if ( err ) {
-      console.log ( 'error: ' + err );
+  ], function (err) {
+    if (err) {
+      console.log('error: ' + err);
     }
   });
 
 });
-
 
 module.exports = router;
