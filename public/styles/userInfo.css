@@ -23,3 +23,12 @@
 a:hover{
     color:#337ab7
 }
+
+.avatar_container{
+    margin-right: 10px;
+}
+
+.upload_avatar{
+    text-align:center;
+    margin-top: 10px;
+}

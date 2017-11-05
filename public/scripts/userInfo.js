@@ -16,6 +16,9 @@ $.ajax({
     dataType:"json",
     success:function (data) {
         console.log(data);
+        if(data.avatar == ""||data.avatar == null){
+            data.avatar = "https://sfault-avatar.b0.upaiyun.com/389/430/3894305104-59fe90aea4ec6_huge256";
+        }
         //获取失败
         if(data.status == 2101){
             alert(data.msg)
@@ -29,7 +32,8 @@ $.ajax({
                 std_teacher:data.supervisor,
                 birth:data.birth_date,
                 phone:data.phone_num,
-                description:data.description
+                description:data.description,
+                avatar:data.avatar
             };
             var base_content = template('base_content', userInfo);
             document.getElementById('userInfo').innerHTML = base_content;
@@ -205,3 +209,36 @@ $("#submit_plan").click(function () {
         }
     })
 });
+
+
+function uploadAvatar() {
+    $("#avatarFile").trigger("click");
+    $("#avatarFile").change(function () {
+        var avatarAddress = $("#avatarFile").val();
+        $.ajaxFileUpload({
+            async: false,
+            type: "POST",
+            //处理文件上传操作的服务器端地址
+            url: 'http://localhost:3000/api/profile/avatar',
+            enctype: "multipart/form-data",
+            secureuri: false,                       //是否启用安全提交,默认为false
+            fileElementId: 'avatarFile',                        //文件选择框的id属性
+            dataType: "json",                       //服务器返回的格式,可以是json或xml等
+            data: {
+                school_id:localStorage.school_id,
+                file: avatarAddress
+            },
+            success: function (data) {
+                if (data.status == 2000) {
+                    window.location.reload();
+                }
+                else{
+                    console.log(data.msg)
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    })
+}

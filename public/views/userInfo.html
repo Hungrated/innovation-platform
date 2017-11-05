@@ -15,6 +15,9 @@
     <!-- Bootstrap core CSS -->
     <link href="../lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- 头像 -->
+    <link href="../css/avatar.css" rel="stylesheet">
+
     <link href="../css/style.css" rel="stylesheet">
 
     <link href="../styles/userInfo.css" rel="stylesheet">
@@ -138,119 +141,144 @@
 <script src="../lib/bootstrap/bootstrap.min.js"></script>
 <script src="../lib/art-template/template.js"></script>
 <script type="text/html" id="base_form">
-    <form class="form-horizontal" role="form">
-        <div class="form-group">
-            <label for="f_name" class="col-sm-2 control-label">姓名</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" id="f_name" readonly="readonly" value="{{f_name}}">
+    <div class="row">
+        <div class="col-md-7">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="f_name" class="col-sm-4 control-label">姓名</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="f_name" readonly="readonly" value="{{f_name}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f_sex" class="col-sm-4 control-label">姓别</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="f_sex" value="{{f_sex}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f_stdId" class="col-sm-4 control-label">学号</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="f_stdId" readonly="readonly" value="{{f_stdId}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f_class" class="col-sm-4 control-label">班级号</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="f_class" value="{{f_class}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f_school" class="col-sm-4 control-label">学院</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="f_school" value="{{f_school}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f_teacher" class="col-sm-4 control-label">指导老师</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="f_teacher" readonly="readonly"  value="{{f_teacher}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f_birth" class="col-sm-4 control-label">出生日期</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="date" id="f_birth" value="{{f_birth}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f_phone" class="col-sm-4 control-label">手机号码</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="f_phone" value="{{f_phone}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="f_description" class="col-sm-4 control-label">个人简介</label>
+                    <div class="col-sm-7">
+                        <textarea class="form-control" rows="3" id="f_description">{{f_description}}</textarea>
+                        <!--<input type="textarea" class="form-control" id="f_description" value="{{f_description}}"> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-5">
+            <div class="row avatar_container">
+                <div class="avatar">
+                    <img id="avatarChange" src="https://sfault-avatar.b0.upaiyun.com/389/430/3894305104-59fe90aea4ec6_huge256">
+                </div>
+                <div class="upload_avatar">
+                        <input type="file" class="file hide" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" id="avatarFile" name="file">
+                    <button id="uploadAvatar2" class="btn btn-default btn-sm " type="button" onclick="uploadAvatar()">
+                        上传头像
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="f_sex" class="col-sm-2 control-label">姓别</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" id="f_sex" value="{{f_sex}}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="f_stdId" class="col-sm-2 control-label">学号</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" id="f_stdId" readonly="readonly" value="{{f_stdId}}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="f_class" class="col-sm-2 control-label">班级号</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" id="f_class" value="{{f_class}}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="f_school" class="col-sm-2 control-label">学院</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" id="f_school" value="{{f_school}}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="f_teacher" class="col-sm-2 control-label">指导老师</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" id="f_teacher" readonly="readonly"  value="{{f_teacher}}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="f_birth" class="col-sm-2 control-label">出生日期</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" name="date" id="f_birth" value="{{f_birth}}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="f_phone" class="col-sm-2 control-label">手机号码</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" id="f_phone" value="{{f_phone}}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="f_description" class="col-sm-2 control-label">个人简介</label>
-            <div class="col-sm-8">
-                <textarea class="form-control" rows="3" id="f_description">{{f_description}}</textarea>
-                <!--<input type="textarea" class="form-control" id="f_description" value="{{f_description}}"> -->
-            </div>
-        </div>
-    </form>
+    </div>
+
 </script>
 <script type="text/html" id="base_content">
-    <div class="row">
-        <div class="col-md-offset-1">
-            <div class="info_name">姓名:</div>
-            <span id="user_name">{{username}}</span>
+<div class="row">
+    <div class="col-md-7">
+        <div class="row">
+            <div class="col-md-offset-1">
+                <div class="info_name">姓名:</div>
+                <span id="user_name">{{username}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1">
+                <div class="info_name">姓别:</div>
+                <span id="user_sex">{{user_sex}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1">
+                <div class="info_name">学号:</div>
+                <span id="std_id">{{std_id}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1">
+                <div class="info_name">班级号:</div>
+                <span id="std_class">{{std_class}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1">
+                <div class="info_name">学院:</div>
+                <span id="std_school">{{std_school}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1">
+                <div class="info_name">指导老师:</div>
+                <span id="std_teacher">{{std_teacher}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1">
+                <div class="info_name">出生日期:</div>
+                <span id="birth">{{birth}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1">
+                <div class="info_name">手机号码:</div>
+                <span id="phone">{{phone}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1">
+                <div class="info_name">个人简介:</div>
+                <span id="description">{{description}}</span>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-offset-1">
-            <div class="info_name">姓别:</div>
-            <span id="user_sex">{{user_sex}}</span>
-        </div>
+    <div class="col-md-5">
+            <img src="{{avatar}}" width="200px" height="200px">
     </div>
-    <div class="row">
-        <div class="col-md-offset-1">
-            <div class="info_name">学号:</div>
-            <span id="std_id">{{std_id}}</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-1">
-            <div class="info_name">班级号:</div>
-            <span id="std_class">{{std_class}}</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-1">
-            <div class="info_name">学院:</div>
-            <span id="std_school">{{std_school}}</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-1">
-            <div class="info_name">指导老师:</div>
-            <span id="std_teacher">{{std_teacher}}</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-1">
-            <div class="info_name">出生日期:</div>
-            <span id="birth">{{birth}}</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-1">
-            <div class="info_name">手机号码:</div>
-            <span id="phone">{{phone}}</span>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-offset-1">
-            <div class="info_name">个人简介:</div>
-            <span id="description">{{description}}</span>
-        </div>
-    </div>
+</div>
 </script>
 
 <script id="planList" type="text/html">
@@ -265,6 +293,7 @@
         {{/each}}
     </table>
 </script>
+<script src="../js/ajaxfileupload.js"></script>
 <script src="../scripts/nav.js"></script>
 <script src="../scripts/userInfo.js"></script>
 </body>
