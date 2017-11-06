@@ -145,16 +145,16 @@ router.post('/export', function (req, res) { // export plan archive
   const profile = req.body.profile;
   const planArr = req.body.planArr;
 
+  let avatarDir = '../public/upload/avatars/' + profile.school_id + '.jpg';
+
   // get export time & set filename
   let curTime = new Date();
-
   let exportTime = new Date(curTime.getTime() - curTime.getTimezoneOffset() * 60 * 1000);
 
   // set filename
   let fileName = 'plan_export_' + student_id + '_' + exportTime.getTime() + '.docx';
 
   // create file
-
   let docx = officeGen('docx');
 
   docx.on('error', function (err) {
@@ -162,166 +162,280 @@ router.post('/export', function (req, res) { // export plan archive
     res.json(statusLib.PLAN_EXPORT_FAILED);
   });
 
-  // set header
-  let header = docx.getHeader().createP();
-  header.addImage(pathLib.resolve('../static/img/', 'HDU_LOGO.png'));
-  header.addImage(pathLib.resolve('../static/img/', 'innovation_practice.png'));
-
-  let table = [
-    [{
-      val: "No.",
-      opts: {
-        cellColWidth: 4261,
-        b: true,
-        sz: '48',
-        shd: {
-          fill: "7F7F7F",
-          themeFill: "text1",
-          "themeFillTint": "80"
-        },
-        fontFamily: "Avenir Book"
-      }
-    }, {
-      val: "Title1",
-      opts: {
-        b: true,
-        color: "A00000",
-        align: "right",
-        shd: {
-          fill: "92CDDC",
-          themeFill: "text1",
-          "themeFillTint": "80"
-        }
-      }
-    }, {
-      val: "Title2",
-      opts: {
-        align: "center",
-        cellColWidth: 42,
-        b: true,
-        sz: '48',
-        shd: {
-          fill: "92CDDC",
-          themeFill: "text1",
-          "themeFillTint": "80"
-        }
-      }
-    }],
-    [1, 'All grown-ups were once children', ''],
-    [2, 'there is no harm in putting off a piece of work until another day.', ''],
-    [3, 'But when it is a matter of baobabs, that always means a catastrophe.', ''],
-    [4, 'watch out for the baobabs!', 'END'],
-  ];
-
-  let tableStyle = {
-    tableColWidth: 4261,
-    tableSize: 16,
-    tableAlign: "left",
-    tableFontFamily: "Times New Roman"
+  let tableHeadOpts = {
+    cellColWidth: 1800,
+    b: true,
+    sz: 32,
+    shd: {
+      fill: 'DDDDDD'
+    },
+    fontFamily: '黑体'
   };
 
-  let data = [
-    // title
+  let tableContentOpts = {
+    cellColWidth: 1800,
+    b: true,
+    sz: 28,
+    fontFamily: '宋体'
+  };
+
+  let objLine = {
+    type: 'horizontalline'
+  };
+
+  let objHeader = [
     {
       type: 'text',
-      val: '创新实践个人计划报告',
-      opt: {font_face: '黑体', bold: true, font_size: 24},
-      lopt: {align: 'center'}
+      val: 'header'
     },
     {
-      type: "horizontalline"
+      type: 'image',
+      path: pathLib.resolve(__dirname, '../public/images/HDU_LOGO.png'),
+      opt: {cx: 150, cy: 50}
     },
-    // personal information
-
-      {
-        type: 'text',
-        val: profile.name + '  ' + profile.school_id + '  ',
-        opt: {bold: true, font_size: 18},
-        lopt: {align: 'left'}
-      },
-      {
-        type: 'text',
-        val: '性别： ' + profile.sex,
-        lopt: {align: 'left'}
-      },
-      {
-        type: 'text',
-        val: '学院： ' + profile.academy,
-        lopt: {align: 'left'}
-      },
-      {
-        type: 'text',
-        val: '班级号： ' + profile.class_id,
-        lopt: {align: 'left'}
-      },
-      {
-        type: 'text',
-        val: '导师： ' + profile.supervisor,
-        lopt: {align: 'left'}
-      },
-
-
-
-    [{
+    {
       type: 'text',
-      val: 'export'
+      // space as blanks
+      val: '                                                                                 '
     },
-
-
-
-      {
-        type: "text",
-        val: " with color",
-        opt: {color: '000088'}
-      }, {
-        type: "text",
-        val: "  and back color.",
-        opt: {color: '00ffff', back: '000088'}
-      }, {
-        type: "linebreak"
-      }, {
-        type: "text",
-        val: "Bold + underline",
-        opt: {bold: true, underline: true}
-      }], {
-      type: "horizontalline"
-    }, [{backline: 'EDEDED'}, {
-      type: "text",
-      val: "  backline text1.",
-      opt: {bold: true}
-    }, {
-      type: "text",
-      val: "  backline text2.",
-      opt: {color: '000088'}
-    }], {
-      type: "text",
-      val: "Left this text.",
-      lopt: {align: 'left'}
-    }, {
-      type: "text",
-      val: "Center this text.",
-      lopt: {align: 'center'}
-    }, {
-      type: "text",
-      val: "Right this text.",
-      lopt: {align: 'right'}
-    }, {
-      type: "text",
-      val: "Fonts face only.",
-      opt: {font_face: 'Arial'}
-    }, {
-      type: "text",
-      val: "Fonts face and size.",
-      opt: {font_face: 'Arial', font_size: 40}
-    }, {
-      type: "table",
-      val: table,
-      opt: tableStyle
-    }, [{ // arr[0] is common option.
-      align: 'right'
-    }], {
-      type: "pagebreak"
+    {
+      type: 'image',
+      path: pathLib.resolve(__dirname, '../public/images/innovation_practice.png'),
+      opt: {cx: 150, cy: 50}
     }
+  ];
+
+  let objTitle = {
+    type: 'text',
+    val: '创新实践个人计划报告',
+    opt: {font_face: '黑体', bold: true, font_size: 24},
+    lopt: {align: 'center'}
+  };
+
+  let studentProfile = [
+    [
+      {
+        val: '姓 名',
+        opts: tableHeadOpts
+      },
+      {
+        val: '学 号',
+        opts: tableHeadOpts
+      },
+      {
+        val: '导 师',
+        opts: tableHeadOpts
+      },
+      {
+        val: '年 级',
+        opts: tableHeadOpts
+      },
+      {
+        val: '学 期',
+        opts: tableHeadOpts
+      }
+    ],
+    [
+      {
+        val: profile.name,
+        opts: tableContentOpts
+      },
+      {
+        val: profile.school_id,
+        opts: tableContentOpts
+      },
+      {
+        val: profile.supervisor,
+        opts: tableContentOpts
+      },
+      {
+        val: '2014',
+        opts: tableContentOpts
+      },
+      {
+        val: '2017-2018-1',
+        opts: tableContentOpts
+      }
+    ]
+  ];
+
+  let studentProfileStyle = {
+    tableColWidth: 4261,
+    tableSize: 16,
+    tableAlign: 'center',
+    tableFontFamily: 'Times New Roman'
+  };
+
+  let objProfile = {
+    type: 'table',
+    val: studentProfile,
+    opt: studentProfileStyle
+  };
+
+  let studentPlans = [
+    [
+      {
+        val: '序号',
+        opts: {
+          cellColWidth: 1000,
+          b: true,
+          sz: 32,
+          shd: {
+            fill: 'DDDDDD'
+          },
+          fontFamily: '黑体'
+        }
+      },
+      {
+        val: '内 容',
+        opts: {
+          cellColWidth: 2500,
+          b: true,
+          sz: 32,
+          shd: {
+            fill: 'DDDDDD'
+          },
+          fontFamily: '黑体'
+        }
+      },
+      {
+        val: '起止时间',
+        opts: {
+          cellColWidth: 1800,
+          b: true,
+          sz: 32,
+          shd: {
+            fill: 'DDDDDD'
+          },
+          fontFamily: '黑体'
+        }
+      },
+      {
+        val: '评 级',
+        opts: {
+          cellColWidth: 1250,
+          b: true,
+          sz: 32,
+          shd: {
+            fill: 'DDDDDD'
+          },
+          fontFamily: '黑体'
+        }
+      },
+      {
+        val: '评 语',
+        opts: {
+          cellColWidth: 2000,
+          b: true,
+          sz: 32,
+          shd: {
+            fill: 'DDDDDD'
+          },
+          fontFamily: '黑体'
+        }
+      }
+    ]
+  ];
+
+  let studentPlansStyle = {
+    tableColWidth: 5000,
+    tableSize: 16,
+    tableAlign: 'left',
+    tableFontFamily: 'Times New Roman'
+  };
+
+  let objPlans = {
+    type: 'table',
+    val: studentPlans,
+    opt: studentPlansStyle
+  };
+
+  let objFooter = {
+    type: 'text',
+    val: '导出时间： ' + curTime.toLocaleString(),
+    opt: {font_face: '宋体',color: 'DDDDDD', bold: true},
+    lopt: {align: 'right'}
+  };
+
+  // fill data to studentPlans
+
+  for (let i = 0; i < planArr.length; i++) {
+    studentPlans.push([
+      {
+        val: i + 1,
+        opts: {
+          cellColWidth: 1000,
+          b: true,
+          sz: 24,
+          fontFamily: '宋体'
+        }
+      },
+      {
+        val: planArr[i].content,
+        opts: {
+          cellColWidth: 4000,
+          b: true,
+          sz: 28,
+          fontFamily: '宋体'
+        }
+      },
+      {
+        val: planArr[i].start_time + '-' + planArr[i].deadline,
+        opts: {
+          cellColWidth: 1800,
+          b: true,
+          sz: 24,
+          fontFamily: '宋体'
+        }
+      },
+      {
+        val: planArr[i].rate,
+        opts: {
+          cellColWidth: 1800,
+          b: true,
+          sz: 24,
+          fontFamily: '宋体'
+        }
+      },
+      {
+        val: planArr[i].remark,
+        opts: {
+          cellColWidth: 2000,
+          b: true,
+          sz: 24,
+          fontFamily: '宋体'
+        }
+      }
+    ]);
+  }
+
+  let data = [
+
+    // header
+    objHeader,
+    objLine,
+
+    // title
+    objTitle,
+
+    // personal information
+    objProfile,
+    {
+      type: 'text',
+      val: '\n'
+    },
+    // personal plans
+    {
+      type: 'text',
+      val: '个人计划详情',
+      opt: {font_face: '黑体', bold: true, font_size: 18},
+      lopt: {align: 'left'}
+    },
+    objPlans,
+    objLine,
+
+    // other information
+    objFooter
   ];
 
   docx.createByJson(data);

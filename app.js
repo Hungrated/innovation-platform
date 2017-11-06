@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({
   }));
 })();
 
-// static pages handler
+// static resources handler
 app.use(express.static(pathLib.join(__dirname, 'public')));
 
 // routes handler
