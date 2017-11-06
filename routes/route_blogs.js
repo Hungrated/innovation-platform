@@ -5,9 +5,9 @@ const sequelize = require('sequelize');
 const db = require('../models/db_global');
 const statusLib = require('../libs/status');
 const urlLib = require('url');
+const timeFormat = require('../middlewares/time_format');
 
 const Blog = db.Blog;
-const User = db.User;
 const Profile = db.Profile;
 const Comment = db.Comment;
 
@@ -57,6 +57,9 @@ router.post('/query', function (req, res) { // fetch blog list for brief browsin
     }]
   })
     .then(function (data) {
+      for(let i = 0; i < data.length; i++) {
+        data[i].dataValues.publishTime = timeFormat(data[i].dataValues.created_at);
+      }
       res.json(data);
       console.log('query succeeded');
     })
@@ -70,8 +73,17 @@ router.post('/query', function (req, res) { // fetch blog list for brief browsin
 router.get('/details', function (req, res) { // fetch blog details
 
   const id = urlLib.parse(req.url, true).query.index;
-  Blog.findByPrimary(id)
+  Blog.findByPrimary(id, {
+    include: [{
+      model: Profile,
+      where: {
+        school_id: sequelize.col('blog.author_id'),
+      },
+      attributes: ['name']
+    }]
+  })
     .then(function (data) {
+      data.dataValues.publishTime = timeFormat(data.dataValues.created_at);
       Comment.findAll({
         where: {
           blog_id: id
@@ -84,10 +96,13 @@ router.get('/details', function (req, res) { // fetch blog details
           attributes: ['name']
         }]
       })
-        .then(function (comment) {
+        .then(function (comments) {
+          for(let i = 0; i < comments.length; i++) {
+            comments[i].dataValues.submitTime = timeFormat(comments[i].dataValues.created_at);
+          }
           res.json({
             blog: data,
-            comment: comment
+            comments: comments
           });
           console.log('fetch detail succeeded');
         })

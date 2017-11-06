@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const pathLib = require('path');
+const timeFormat = require('../middlewares/time_format');
 
 const db = require('../models/db_global');
 const statusLib = require('../libs/status');
@@ -145,7 +146,7 @@ router.post('/export', function (req, res) { // export plan archive
   const profile = req.body.profile;
   const planArr = req.body.planArr;
 
-  let avatarDir = '../public/upload/avatars/' + profile.school_id + '.jpg';
+  // let avatarDir = '../public/upload/avatars/' + profile.school_id + '.jpg';
 
   // get export time & set filename
   let curTime = new Date();
@@ -352,7 +353,7 @@ router.post('/export', function (req, res) { // export plan archive
 
   let objFooter = {
     type: 'text',
-    val: '导出时间： ' + curTime.toLocaleString(),
+    val: '导出时间： ' + timeFormat(curTime),
     opt: {font_face: '宋体',color: 'DDDDDD', bold: true},
     lopt: {align: 'right'}
   };
@@ -463,7 +464,6 @@ router.post('/export', function (req, res) { // export plan archive
       console.log('error: ' + err);
     }
   });
-
 });
 
 module.exports = router;

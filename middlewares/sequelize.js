@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
-const config = require('config-lite')(__dirname);
+const config = require('config-lite')(__dirname).database;
 
-const mysql = new Sequelize(config.database.dbName, config.database.username,
-  config.database.password, config.database.options);
+const mysql = new Sequelize(config.dbName, config.username,
+  config.password, config.options);
 
 module.exports = mysql;

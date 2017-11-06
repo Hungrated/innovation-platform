@@ -78,6 +78,7 @@ router.post('/avatar', objMulter.any(), function (req, res, next) { // upload an
     });
 });
 
+
 router.post('/avatar', function (req, res, next) { // rename avatar file
   fs.rename(req.files[0].path, req.avatarURL, function (err) {
     if (err) {
@@ -87,6 +88,7 @@ router.post('/avatar', function (req, res, next) { // rename avatar file
       next();
   });
 });
+
 
 router.post('/avatar', function (req, res) { // update database record
   Profile.update({
@@ -98,8 +100,11 @@ router.post('/avatar', function (req, res) { // update database record
   })
     .then(function () {
       console.log('avatar modify succeeded');
-      res.json(statusLib.PROFILE_MOD_SUCCEEDED);
-
+      res.json({
+        status: statusLib.PROFILE_MOD_SUCCEEDED.status,
+        msg: statusLib.PROFILE_MOD_SUCCEEDED.msg,
+        avatar_url: pathLib.resolve(__dirname, req.avatarURL)
+      });
     })
     .catch(function (e) {
       console.error(e);
@@ -137,7 +142,7 @@ router.post('/getavatar', function (req, res) { // fetch an avatar
     if (profile === null) {
       res.json(statusLib.PROFILE_FETCH_FAILED);
       console.log('profile does not exist');
-    } else {
+    } else { // convert relative dir to absolute dir
       res.send(pathLib.resolve(__dirname, profile.avatar));
       console.log('avatar fetch succeeded');
     }

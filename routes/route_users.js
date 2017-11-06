@@ -21,6 +21,73 @@ let objMulter = multer({
   dest: uploadDir // file upload destination
 });
 
+
+//register disabled: use '/import' instead
+router.post('/reg', function (req, res) { // only for teachers
+  const {school_id, name, password, identity} = req.body;
+
+  if(identity !== 'teacher') {
+    res.json(statusLib.REG_FAILED);
+    console.log('identity wrong');
+  }
+  else {
+
+  }
+
+
+/*
+
+  User.findOne({ // check record to ensure no duplication
+    where: {
+      username: username
+    }
+  })
+    .then(function (user) {
+      if (!username || !password) { // empty username or password
+        res.json(statusLib.REG_FAILED);
+        console.log('empty username or password');
+      }
+      else if (user !== null) {
+        res.json(statusLib.REG_FAILED);
+        console.log('username already exists');
+      }
+      else
+        User.create({username, password, identity})
+          .then(function () {
+            req.session.username = username; // auto login
+            req.session.isLogin = true;
+            if (req.body.identity === 'student') // a student
+              User.findOne({
+                where: {
+                  username: req.body.username
+                }
+              })
+                .then(function (user) { // create a profile record for a student
+                  const student_id = user.dataValues.id;
+                  Profile.create({student_id: student_id});
+                  res.json(statusLib.REG_SUCCEEDED);
+                  console.log('student profile created');
+                })
+                .catch(function (e) {
+                  console.error(e);
+                  res.json(statusLib.CONNECTION_ERROR);
+                });
+            else { // a teacher
+              res.json(statusLib.REG_SUCCEEDED);
+              console.log('student profile created');
+            }
+          })
+          .catch(function (e) {
+            console.error(e);
+            res.json(statusLib.CONNECTION_ERROR);
+          });
+    })
+
+*/
+
+});
+
+
 router.post('/import', objMulter.any(), function (req, res, next) { // XLS file upload
 
   //rename a file
@@ -138,60 +205,6 @@ router.post('/import', function (req, res) { // create database record
 });
 
 
-//register disabled: use '/import' instead
-/*
-router.post('/reg', function (req, res) {
-  const {action, username, password, identity} = req.body;
-  User.findOne({ // check record to ensure no duplication
-    where: {
-      username: username
-    }
-  })
-    .then(function (user) {
-      if (!username || !password) { // empty username or password
-        res.json(statusLib.REG_FAILED);
-        console.log('empty username or password');
-      }
-      else if (user !== null) {
-        res.json(statusLib.REG_FAILED);
-        console.log('username already exists');
-      }
-      else
-        User.create({username, password, identity})
-          .then(function () {
-            req.session.username = username; // auto login
-            req.session.isLogin = true;
-            if (req.body.identity === 'student') // a student
-              User.findOne({
-                where: {
-                  username: req.body.username
-                }
-              })
-                .then(function (user) { // create a profile record for a student
-                  const student_id = user.dataValues.id;
-                  Profile.create({student_id: student_id});
-                  res.json(statusLib.REG_SUCCEEDED);
-                  console.log('student profile created');
-                })
-                .catch(function (e) {
-                  console.error(e);
-                  res.json(statusLib.CONNECTION_ERROR);
-                });
-            else { // a teacher
-              res.json(statusLib.REG_SUCCEEDED);
-              console.log('student profile created');
-            }
-          })
-          .catch(function (e) {
-            console.error(e);
-            res.json(statusLib.CONNECTION_ERROR);
-          });
-    })
-
-});
-
-*/
-
 router.post('/login', function (req, res) {
   const {username, password} = req.body;
   if (!req.session.isLogin || username !== req.session.username) {
@@ -208,7 +221,7 @@ router.post('/login', function (req, res) {
           where: {
             user_id: sequelize.col('user.id')
           },
-          attributes: ['school_id']
+          attributes: ['school_id', 'name']
         }
       ]
     })
@@ -228,7 +241,8 @@ router.post('/login', function (req, res) {
             msg: statusLib.LOGIN_SUCCEEDED.msg,
             id: user.id,
             username: user.username,
-            school_id: user.profile.school_id
+            school_id: user.profile.school_id,
+            name: user.profile.name
           });
         }
         else {
@@ -247,11 +261,13 @@ router.post('/login', function (req, res) {
   }
 });
 
+
 router.post('/logout', function (req, res) {
   delete req.session.username;
   req.session.isLogin = false;
   res.json(statusLib.LOGGED_OUT);
 });
+
 
 router.post('/pwdmod', function (req, res, next) {
   const {username, password, new_password} = req.body;
@@ -285,6 +301,7 @@ router.post('/pwdmod', function (req, res, next) {
   }
 });
 
+
 router.post('/pwdmod', function (req, res) { // password checked
   User.update({
       password: req.body.new_password
@@ -303,5 +320,6 @@ router.post('/pwdmod', function (req, res) { // password checked
       res.json(statusLib.CONNECTION_ERROR);
     });
 });
+
 
 module.exports = router;
