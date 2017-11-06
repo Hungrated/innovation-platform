@@ -22,69 +22,42 @@ let objMulter = multer({
 });
 
 
-//register disabled: use '/import' instead
-router.post('/reg', function (req, res) { // only for teachers
+//student register interface disabled: use '/import' instead
+
+router.post('/reg', function (req, res) { // only for teachers, only in backend
   const {school_id, name, password, identity} = req.body;
+  if (!(school_id || name || password || identity))
+    return res.json(statusLib.REG_FAILED);
 
   if(identity !== 'teacher') {
     res.json(statusLib.REG_FAILED);
     console.log('identity wrong');
   }
   else {
-
-  }
-
-
-/*
-
-  User.findOne({ // check record to ensure no duplication
-    where: {
-      username: username
-    }
-  })
-    .then(function (user) {
-      if (!username || !password) { // empty username or password
-        res.json(statusLib.REG_FAILED);
-        console.log('empty username or password');
-      }
-      else if (user !== null) {
-        res.json(statusLib.REG_FAILED);
-        console.log('username already exists');
-      }
-      else
-        User.create({username, password, identity})
+    User.create({
+      username: school_id.toString(),
+      password: password,
+      identity: identity
+    })
+      .then(function (user) {
+        Profile.create({
+          school_id: school_id,
+          name: name,
+          user_id: user.id
+        })
           .then(function () {
-            req.session.username = username; // auto login
-            req.session.isLogin = true;
-            if (req.body.identity === 'student') // a student
-              User.findOne({
-                where: {
-                  username: req.body.username
-                }
-              })
-                .then(function (user) { // create a profile record for a student
-                  const student_id = user.dataValues.id;
-                  Profile.create({student_id: student_id});
-                  res.json(statusLib.REG_SUCCEEDED);
-                  console.log('student profile created');
-                })
-                .catch(function (e) {
-                  console.error(e);
-                  res.json(statusLib.CONNECTION_ERROR);
-                });
-            else { // a teacher
-              res.json(statusLib.REG_SUCCEEDED);
-              console.log('student profile created');
-            }
+            res.json(statusLib.REG_SUCCEEDED);
           })
           .catch(function (e) {
             console.error(e);
             res.json(statusLib.CONNECTION_ERROR);
           });
-    })
-
-*/
-
+      })
+      .catch(function (e) {
+        console.error(e);
+        res.json(statusLib.CONNECTION_ERROR);
+      });
+  }
 });
 
 
