@@ -42,12 +42,12 @@ router.post('/publish', function (req, res) { // publish a blog(project or event
 });
 
 router.post('/query', function (req, res) { // fetch blog list for brief browsing
-  const type = req.body.type;
+
+  const request = req.body.request;
+  const where = (typeof request === 'string') ? {type: request} : {author_id: request};
 
   Blog.findAll({
-    where: {
-      type: type
-    },
+    where: where,
     include: [{
       model: Profile,
       where: {
@@ -57,7 +57,7 @@ router.post('/query', function (req, res) { // fetch blog list for brief browsin
     }]
   })
     .then(function (data) {
-      for(let i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         data[i].dataValues.publishTime = timeFormat(data[i].dataValues.created_at);
       }
       res.json(data);
@@ -97,7 +97,7 @@ router.get('/details', function (req, res) { // fetch blog details
         }]
       })
         .then(function (comments) {
-          for(let i = 0; i < comments.length; i++) {
+          for (let i = 0; i < comments.length; i++) {
             comments[i].dataValues.submitTime = timeFormat(comments[i].dataValues.created_at);
           }
           res.json({
@@ -107,10 +107,10 @@ router.get('/details', function (req, res) { // fetch blog details
           console.log('fetch detail succeeded');
         })
         .catch(function (e) {
-        console.error(e);
-        res.json(statusLib.BLOG_DETAILS_FETCH_FAILED);
-        console.log('fetch detail failed');
-      });
+          console.error(e);
+          res.json(statusLib.BLOG_DETAILS_FETCH_FAILED);
+          console.log('fetch detail failed');
+        });
     })
     .catch(function (e) {
       console.error(e);
