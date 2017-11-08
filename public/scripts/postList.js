@@ -22,7 +22,7 @@ $(function () {
         type:'POST',
         url:'http://localhost:3000/api/blog/query',
         contentType: "application/json",
-        data:JSON.stringify({'type':'project'}),
+        data:JSON.stringify({'request':'project'}),
         dataType:'json',
         success:function (data) {
             console.log(data);
