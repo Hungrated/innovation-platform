@@ -19,7 +19,6 @@ function ready() {
         },
         dataType:"json",
         success:function (data) {
-            console.log(data);
             if(data.avatar == ""||data.avatar == null){
                 data.avatar = "https://sfault-avatar.b0.upaiyun.com/389/430/3894305104-59fe90aea4ec6_huge256";
             }
@@ -186,6 +185,22 @@ function getForm() {
     document.getElementById('userInfo').innerHTML = base_content;*/
 }
 
+function editP(obj) {
+    $("#add_plan_contanier").css("display","block");
+    var Inputs = $("#add_plan_contanier input");
+    console.log(Inputs.length);
+    debugger;
+    var $Tr = $(obj).parents("tr");
+    var Tds = $Tr.children("td");
+    Inputs[0].value = Tds[0].innerHTML;
+    Inputs[1].value = Tds[1].innerHTML;
+    var time = Tds[2].innerHTML;
+    var timeD = time.split("至");
+    Inputs[2].value =timeD[0];
+    Inputs[3].value = timeD[1];
+    $("#submit_plan").attr("data-mode",$(obj).attr("data-mode"));
+};
+
 //添加计划
 $("#plan_add").click(function () {
     $("#add_plan_contanier").css("display","block");
@@ -194,37 +209,71 @@ $("#plan_add").click(function () {
 
 //提交计划
 $("#submit_plan").click(function () {
+
     var year = $("#year").val();
     var term = $("#term").val();
     var start_date = $("#start_date").val();
     var end_date = $("#end_date").val();
     var plan_details = $("#plan_details").val();
-
-
-    $.ajax({
-        type:'POST',
-        url:"http://localhost:3000/api/plan/submit",
-        data:{
-            year:year,
-            term:term,
-            student_id:student_id,
-            content:plan_details,
-            start:start_date,
-            deadline:end_date
-        },
-        dataType:'json',
-        success:function (data) {
-            if(data.status == 5000){
-                window.location.reload();
-            }else{
-                alert(data.msg);
+    var pid = $(this).attr("data-mode");
+    if(pid!="")
+    {
+        debugger;
+        $.ajax({
+            type:'POST',
+            url:"http://localhost:3000/api/plan/modify",
+            data:{
+                plan_id:pid,
+                year:year,
+                term:term,
+                student_id:student_id,
+                content:plan_details,
+                start:start_date,
+                deadline:end_date
+            },
+            dataType:'json',
+            success:function (data) {
+                if(data.status == 5100){
+                    window.location.reload();
+                }else{
+                    alert(data.msg);
+                }
+            },
+            error:function (err) {          //失败，回调函数
+                alert('计划提交失败');
+                console.log(err);
             }
-        },
-        error:function (err) {          //失败，回调函数
-            alert('计划提交失败');
-            console.log(err);
-        }
-    })
+        })
+    }
+    else
+    {
+        debugger;
+        $.ajax({
+            type:'POST',
+            url:"http://localhost:3000/api/plan/submit",
+            data:{
+                year:year,
+                term:term,
+                student_id:student_id,
+                content:plan_details,
+                start:start_date,
+                deadline:end_date
+            },
+            dataType:'json',
+            success:function (data) {
+                if(data.status == 5000){
+                    window.location.reload();
+                }else{
+                    alert(data.msg);
+                }
+            },
+            error:function (err) {          //失败，回调函数
+                alert('计划提交失败');
+                console.log(err);
+            }
+        })
+    }
+
 });
 
 

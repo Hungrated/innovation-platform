@@ -215,7 +215,7 @@
                     <img id="avatarChange" src="https://sfault-avatar.b0.upaiyun.com/389/430/3894305104-59fe90aea4ec6_huge256">
                 </div>
                 <div class="upload_avatar">
-                        <input type="file" class="file hide" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" id="avatarFile" name="file">
+                        <input type="file" class="file hide"data-mode="" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" id="avatarFile" name="file">
                     <button id="uploadAvatar2" class="btn btn-default btn-sm " type="button" onclick="uploadAvatar()">
                         上传头像
                     </button>
@@ -290,7 +290,7 @@
 </script>
 
 <script id="planList" type="text/html">
-    <table class="table">
+    <table class="table" id="planTable">
         <th>学年</th><th>学期</th>
         <th>开始-截止时间</th><th>计划详情</th><th>状态</th><th>操作</th>
         {{each planList as plan i}}
@@ -302,7 +302,7 @@
                     <td>{{plan.status}}</td>
                     {{if plan.status == '未通过'}}
                     <td>
-                        <a href="javascript:;" class="btn btn-primary btn-xs modifyPlan" data-mode='{{plan.plan_id}}'><i class="fa fa-edit"></i>编辑 </a>
+                        <a class="btn btn-primary btn-xs modifyPlan" href="#add_plan_contanier" onclick="editP(this)" data-mode='{{plan.plan_id}}'><i class="fa fa-edit"></i>编辑 </a>
                     </td>
                    {{else}}
                      <td>无</td>
