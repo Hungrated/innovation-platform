@@ -3,18 +3,16 @@
  */
 $(function () {
     $("#submitBtn").click(function () {
-        var username = $("#username").val();
         var password = $("#password").val();
         var new_password = $("#new_password").val();
         var rpw = $("#rpw").val();
-        if(username != "" && password != ""&&new_password!="" && rpw != "") {
+        if(password != ""&&new_password!="" && rpw != "") {
             if (new_password === rpw) {
-                console.log(username);
                 $.ajax({
                     type: "POST",                   //类型，POST或者GET
                     url: "http://localhost:3000/api/user/pwdmod",        //后台url
                     data: {                          //数据
-                        username: username,
+                        username: localStorage.username,
                         password: password,
                         new_password:new_password
                     },

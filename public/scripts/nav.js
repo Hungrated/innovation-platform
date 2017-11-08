@@ -2,7 +2,7 @@
  * Created by wuli等等 on 2017/10/28.
  */
 //判断登录状态改变nav
-var username = localStorage.username;
+var username = localStorage.name;
 if(username!=""&&username!=undefined){
     document.getElementById("userLink").style.display = "block";
     document.getElementById("login").style.display = "none";

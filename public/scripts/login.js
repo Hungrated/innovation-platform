@@ -34,6 +34,7 @@ $(function () {
                 success: function (data) {      //成功，回调函数
                     console.log(data);
                     if (data.status == 1100){
+                        localStorage.name = data.name;
                         localStorage.username = data.username;
                         localStorage.school_id = data.school_id;
                         location.href = ("../index.html");

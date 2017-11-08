@@ -11,7 +11,7 @@ $.ajax({
    type:"POST",
     url:"http://localhost:3000/api/profile/getinfo",
     data:{
-       school_id:student_id
+       request:student_id
     },
     dataType:"json",
     success:function (data) {
@@ -24,15 +24,15 @@ $.ajax({
             alert(data.msg)
         }else{
             var userInfo = {
-                username:data.name,
-                user_sex:data.sex,
-                std_id:data.school_id,
-                std_class:data.class_id,
-                std_school:data.academy,
-                std_teacher:data.supervisor,
-                birth:data.birth_date,
-                phone:data.phone_num,
-                description:data.description,
+                username:data[0].name,
+                user_sex:data[0].sex,
+                std_id:data[0].school_id,
+                std_class:data[0].class_id,
+                std_school:data[0].academy,
+                std_teacher:data[0].supervisor,
+                birth:data[0].birth_date,
+                phone:data[0].phone_num,
+                description:data[0].description,
                 avatar:data.avatar
             };
             var base_content = template('base_content', userInfo);
@@ -118,9 +118,6 @@ function getContent() {
 }
 
 function getForm() {
-    $("#info_save").toggle();
-    $("#info_cancel").toggle();
-    $("#info_edit").toggle();
 
     var f_name = $("#f_name").val();
     var f_sex = $("#f_sex").val();
@@ -148,8 +145,12 @@ function getForm() {
         dataType:'json',
         success:function (data) {
             if(data.status == 2000){
+                $("#info_save").toggle();
+                $("#info_cancel").toggle();
+                $("#info_edit").toggle();
                 window.location.reload();
             }else{
+                window.location.reload();
                 alert(data.msg);
             }
         },
