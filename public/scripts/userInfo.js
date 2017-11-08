@@ -6,43 +6,69 @@ $("#info_cancel").hide();
 
 var student_id = localStorage.school_id;
 
+window.onload = function () {
+    ready();
+};
 //初始化 获取档案
-$.ajax({
-   type:"POST",
-    url:"http://localhost:3000/api/profile/getinfo",
-    data:{
-       request:student_id
-    },
-    dataType:"json",
-    success:function (data) {
-        console.log(data);
-        if(data.avatar == ""||data.avatar == null){
-            data.avatar = "https://sfault-avatar.b0.upaiyun.com/389/430/3894305104-59fe90aea4ec6_huge256";
+function ready() {
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:3000/api/profile/getinfo",
+        data:{
+            request:student_id
+        },
+        dataType:"json",
+        success:function (data) {
+            console.log(data);
+            if(data.avatar == ""||data.avatar == null){
+                data.avatar = "https://sfault-avatar.b0.upaiyun.com/389/430/3894305104-59fe90aea4ec6_huge256";
+            }
+            //获取失败
+            if(data.status == 2101){
+                alert(data.msg)
+            }else{
+                var userInfo = {
+                    username:data[0].name,
+                    user_sex:data[0].sex,
+                    std_id:data[0].school_id,
+                    std_class:data[0].class_id,
+                    std_school:data[0].academy,
+                    std_teacher:data[0].supervisor,
+                    birth:data[0].birth_date,
+                    phone:data[0].phone_num,
+                    description:data[0].description,
+                    avatar:data.avatar
+                };
+                var base_content = template('base_content', userInfo);
+                document.getElementById('userInfo').innerHTML = base_content;
+            }
+        },
+        error:function (err) {
+            console.log(err);
         }
-        //获取失败
-        if(data.status == 2101){
-            alert(data.msg)
-        }else{
-            var userInfo = {
-                username:data[0].name,
-                user_sex:data[0].sex,
-                std_id:data[0].school_id,
-                std_class:data[0].class_id,
-                std_school:data[0].academy,
-                std_teacher:data[0].supervisor,
-                birth:data[0].birth_date,
-                phone:data[0].phone_num,
-                description:data[0].description,
-                avatar:data.avatar
-            };
-            var base_content = template('base_content', userInfo);
-            document.getElementById('userInfo').innerHTML = base_content;
+    });
+
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:3000/api/plan/query",
+        data:{
+            request:student_id
+        },
+        dataType:"json",
+        success:function (data) {
+                var planListData = {
+                    planList:data
+                };
+            var planList = template('planList', planListData);
+            $("#planContainer").html(planList);
+
+        },
+        error:function (err) {
+            console.log(err);
         }
-    },
-    error:function (err) {
-        console.log(err);
-    }
-});
+    });
+}
+
 
 /*var userInfo = {
     username:"马晓婷",
@@ -70,23 +96,8 @@ $("#info_cancel").click(function () {
     window.location.reload();
 });
 
-//获取计划列表
-var list = {
-    planList:[{
-        date:'2017.10.22-2017.12.12',
-        content:'学习软件设计模式',
-        state:'审核通过'
-    },
-        {
-            date:'2017.9.12-2017.10.20',
-            content:'node.js + Express',
-            state:'已完成'
-        }
-    ]
-};
 
-var planList = template('planList', list);
-$("#planContainer").html(planList);
+
 
 function getContent() {
     $("#info_save").toggle();
@@ -180,8 +191,11 @@ $("#plan_add").click(function () {
     $("#add_plan_contanier").css("display","block");
 });
 
+
 //提交计划
 $("#submit_plan").click(function () {
+    var year = $("#year").val();
+    var term = $("#term").val();
     var start_date = $("#start_date").val();
     var end_date = $("#end_date").val();
     var plan_details = $("#plan_details").val();
@@ -191,9 +205,11 @@ $("#submit_plan").click(function () {
         type:'POST',
         url:"http://localhost:3000/api/plan/submit",
         data:{
+            year:year,
+            term:term,
             student_id:student_id,
             content:plan_details,
-            start_time:start_date,
+            start:start_date,
             deadline:end_date
         },
         dataType:'json',

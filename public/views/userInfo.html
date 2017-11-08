@@ -101,6 +101,16 @@
                     <div class="panel-body">
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
+                                <label for="year" class="col-sm-2 control-label">学年</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="year" placeholder="如:2016-2017">
+                                </div>
+                                <label for="term" class="col-sm-2 control-label">学期</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="term" placeholder="如:1">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="start_date" class="col-sm-2 control-label">开始时间</label>
                                 <div class="col-sm-5">
                                     <input type="text" class="form-control" id="start_date" placeholder="格式:2017-05-20">
@@ -281,12 +291,22 @@
 
 <script id="planList" type="text/html">
     <table class="table">
-        <th>开始-截止时间</th><th>计划详情</th><th>状态</th>
+        <th>学年</th><th>学期</th>
+        <th>开始-截止时间</th><th>计划详情</th><th>状态</th><th>操作</th>
         {{each planList as plan i}}
             <tr>
-                    <td>{{plan.date}}</td>
+                <td>{{plan.year}}</td>
+                <td>{{plan.term}}</td>
+                    <td>{{plan.start}}至{{plan.deadline}}</td>
                     <td>{{plan.content}}</td>
-                    <td>{{plan.state}}</td>
+                    <td>{{plan.status}}</td>
+                    {{if plan.status == '未通过'}}
+                    <td>
+                        <a href="javascript:;" class="btn btn-primary btn-xs modifyPlan" data-mode='{{plan.plan_id}}'><i class="fa fa-edit"></i>编辑 </a>
+                    </td>
+                   {{else}}
+                     <td>无</td>
+                   {{/if}}
             </tr>
         {{/each}}
     </table>
