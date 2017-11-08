@@ -57,7 +57,7 @@ router.post('/submit', function(req, res) { // a student create a plan
 
 router.post('/modify', function(req, res, next) { // check plan status before modification
 
-    Plan.fineOne({
+    Plan.findOne({
             where: {
                 plan_id: req.body.plan_id
             }
@@ -117,7 +117,7 @@ router.post('/modify', function(req, res) { // a student modifies a plan
 
 router.post('/op', function(req, res, next) { // check plan status before modification
 
-    Plan.fineOne({
+    Plan.findOne({
             where: {
                 plan_id: req.body.plan_id
             }
@@ -139,7 +139,7 @@ router.post('/op', function(req, res, next) { // check plan status before modifi
 
 router.post('/op', function(req, res) { // teacher changes plan status
 
-    const status = operation ? '已通过' : '未通过';
+    const status = req.body.op ? '已通过' : '未通过';
 
     Plan.update({
             status: status
@@ -193,7 +193,7 @@ router.post('/rate', function(req, res) { // a teacher rates a plan
 router.post('/query', function(req, res) { // get list of all (or personal) plans
 
     const request = req.body.request;
-    const where = (typeof request === 'string') ? { type: request } : { student_id: request };
+    const where = (request === 'all') ? {} : { student_id: request };
 
     Plan.findAll({
             where: where
@@ -485,7 +485,7 @@ router.post('/export', function(req, res) { // export plan archive
                 }
             },
             {
-                val: planArr[i].start_time + '-' + planArr[i].deadline,
+                val: planArr[i].start + '-' + planArr[i].deadline,
                 opts: {
                     cellColWidth: 1800,
                     b: true,
