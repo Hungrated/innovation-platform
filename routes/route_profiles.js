@@ -125,7 +125,6 @@ router.post('/getinfo', function(req, res) { // fetch profile information
             res.json(statusLib.PROFILE_FETCH_FAILED);
             console.log('profile does not exist');
         } else {
-            profile.avatar = pathLib.resolve(__dirname, profile.avatar);
             res.json(profile);
             console.log('profile fetch succeeded');
         }
@@ -145,7 +144,7 @@ router.post('/getavatar', function(req, res) { // fetch an avatar
             console.log('profile does not exist');
         } else { // convert relative dir to absolute dir
             res.json({
-                avatar: pathLib.resolve(__dirname, profile.avatar)
+                avatar: profile.avatar
             });
             console.log('avatar fetch succeeded');
         }
