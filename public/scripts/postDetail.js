@@ -7,7 +7,6 @@ var blog_id = $.query.get('index');
 
 getComment();
 
-
     $("#subComment").on("click",function () {
         debugger;
         var con = $("#comment").val();
@@ -25,6 +24,9 @@ getComment();
                 if (data.status == 3200){
                     $("#comment").val("");
                     getComment();
+                    var lastComment = $(".commentlist li:last-child");
+                    $("html, body").animate({
+                        scrollTop: lastComment.offset().top }, {duration: 500,easing: "swing"});
                 } else {
                     console.log(data.msg);
                 }
