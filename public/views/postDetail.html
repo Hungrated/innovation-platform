@@ -17,9 +17,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <link href="../css/style.css" rel="stylesheet">
+    <link rel='stylesheet' id='app-css' href="../css/commentCopy.css">
+
     <link href="../styles/postDetail.css" rel="stylesheet">
 
-    <link rel='stylesheet' id='app-css' href="../css/commentCopy.css">
     <title></title>
 </head>
 <body>
@@ -51,6 +52,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="myArticles.html">我的文章</a></li>
                         <li><a href="userInfo.html">个人档案</a></li>
+                        <li><a href="modifyPassword.html">修改密码</a></li>
                     </ul>
                 </li>
                 <li id="logout"><a href="login.html">退出</a></li>
@@ -72,7 +74,7 @@
                         <div class="post-meta">
                             <span>by <a href="#" id="author_name"></a></span>
                             / <span><i class="fa fa-clock-o"></i><span id="created_time"></span></span>
-                            /<span><i class="fa fa-comment-o"></i> 0 </span>
+                            /<span><i class="fa fa-comment-o"></i><span id="comment_num"></span> </span>
                         </div>
                         <div class="blog-post-text">
                             <div id="test-editormd-view">
@@ -85,67 +87,10 @@
             </div>
         </div>
         <div id="comments" class="responsesWrapper">
-            <h3 class="responses-title">评论数: <span class="commentCount"></span></h3>
-            <ol class="commentlist">
-                <li class="comment" itemtype="http://schema.org/Comment" data-id="1744" itemscope="" itemprop="comment">
-                    <div id="comment-1744" class="comment-block">
-                        <div class="comment-info u-clearfix">
-                            <!-- <div class="comment-avatar">
-                                 <img height=40 width=40 data-lazyr="https://secure.gravatar.com/avatar/bae7710d5271fe63d4dfcf86965afbda?s=40&d=mm&r=x" class="avatar" />
-                             </div>-->
-                            <div class="comment-meta">
-                                <div class="comment-author" itemprop="author"><a href='http://synyan.net' rel='external nofollow' class='url'>synyan</a><span class="comment-reply-link u-cursorPointer" onclick="return addComment.moveForm('comment-1744', '1744', 'respond', '78012')">回复</span></div>
-                                <div class="comment-time" itemprop="datePublished" datetime="2016-03-29T12:26:40+08:00">Mar 29,2016</div>
-                            </div>
-                        </div>
-                        <div class="comment-content" itemprop="description">
-                            <p>想在数字前面加上&#8221;#&#8221;怎么弄？试了几次没成功……</p>
-                        </div>
-                    </div>
-                    <!--<ol class="children">-->
-                        <!--<li class="comment" itemtype="http://schema.org/Comment" data-id="1745" itemscope="" itemprop="comment">-->
-                            <!--<div id="comment-1745" class="comment-block">-->
-                                <!--<div class="comment-info u-clearfix">-->
-                                    <!--<div class="comment-meta">-->
-                                        <!--<div class="comment-author" itemprop="author">Jimmy<span class="comment-reply-link u-cursorPointer" onclick="return addComment.moveForm('comment-1745', '1745', 'respond', '78012')">回复</span></div>-->
-                                        <!--<div class="comment-time" itemprop="datePublished" datetime="2016-03-29T12:39:23+08:00">Mar 29,2016</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="comment-content" itemprop="description">-->
-                                    <!--<p><a href="#comment-1744" rel="nofollow" data-id="1744" class="cute atreply">@synyan</a> </p>-->
-                                    <!--<p>content:"#" counter(b, decimal)</p>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</li>&lt;!&ndash; #comment-## &ndash;&gt;-->
-                        <!--<li class="comment" itemtype="http://schema.org/Comment" data-id="1746" itemscope="" itemprop="comment">-->
-                            <!--<div id="comment-1746" class="comment-block">-->
-                                <!--<div class="comment-info u-clearfix">-->
-                                    <!--<div class="comment-meta">-->
-                                        <!--<div class="comment-author" itemprop="author"><a href='http://synyan.net' rel='external nofollow' class='url'>synyan</a><span class="comment-reply-link u-cursorPointer" onclick="return addComment.moveForm('comment-1746', '1746', 'respond', '78012')">回复</span></div>-->
-                                        <!--<div class="comment-time" itemprop="datePublished" datetime="2016-03-29T12:52:34+08:00">Mar 29,2016</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="comment-content" itemprop="description">-->
-                                    <!--<p><a href="#comment-1745" rel="nofollow" data-id="1745" class="cute atreply">@Jimmy</a> 原来如此简单，我写成了content:&#8221;#&#8221; . counter(b, decimal) </p>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</li>&lt;!&ndash; #comment-## &ndash;&gt;-->
-                        <!--<li class="comment" itemtype="http://schema.org/Comment" data-id="1766" itemscope="" itemprop="comment">-->
-                            <!--<div id="comment-1766" class="comment-block">-->
-                                <!--<div class="comment-info u-clearfix">-->
-                                    <!--<div class="comment-meta">-->
-                                        <!--<div class="comment-author" itemprop="author">chasonma<span class="comment-reply-link u-cursorPointer" onclick="return addComment.moveForm('comment-1766', '1766', 'respond', '78012')">回复</span></div>-->
-                                        <!--<div class="comment-time" itemprop="datePublished" datetime="2016-03-31T15:38:01+08:00">Mar 31,2016</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="comment-content" itemprop="description">-->
-                                    <!--<p><a href="#comment-1746" rel="nofollow" data-id="1746" class="cute atreply">@synyan</a> 连接符</p>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</li>&lt;!&ndash; #comment-## &ndash;&gt;-->
-                    <!--</ol>&lt;!&ndash; .children &ndash;&gt;-->
-                </li><!-- #comment-## -->
-            </ol>
+            <h3 class="responses-title">评论数: <span class="commentCount" id="commentCount"></span></h3>
+            <div id="comment_list_container">
+
+            </div>
             <nav class="commentnav u-textAlignCenter" data-id="78012" data-max="2">
                 <span class="cnav-item"  data-paged="1">上一页</span>
                 <span class="chartPage-verticalDivider"></span>
@@ -191,13 +136,32 @@
         <i class="fa fa-copyright"></i> Copyright 2017. 杭州电子科技大学<br>
     </div>
 </footer>
-
+<script id="comment_List" type="text/html">
+    <ol class="commentlist">
+        {{each commentsList as comment i}}
+        <li class="comment" itemtype="http://schema.org/Comment" data-id="1744" itemscope="" itemprop="comment" id="comment{{comment.id}}">
+            <div id="comment-1744" class="comment-block">
+                <div class="comment-info u-clearfix">
+                    <div class="comment-meta">
+                        <div class="comment-author" itemprop="author"><a href='http://synyan.net' rel='external nofollow' class='url'>{{comment.profile.name}}</a><span class="comment-reply-link u-cursorPointer" onclick="return addComment.moveForm('comment-1744', '1744', 'respond', '78012')">回复</span></div>
+                        <div class="comment-time" itemprop="datePublished" datetime="2016-03-29T12:26:40+08:00">{{comment.created_at}}</div>
+                    </div>
+                </div>
+                <div class="comment-content" itemprop="description">
+                    <p>{{comment.content}}</p>
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </ol>
+</script>
 <!-- Bootstrap core JavaScript
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/bootstrap/bootstrap.min.js"></script>
 
+<!-- markdown editor -->
 <script src="../editor/lib/marked.min.js"></script>
 <script src="../editor/lib/prettify.min.js"></script>
 <script src="../editor/lib/raphael.min.js"></script>
@@ -206,10 +170,11 @@
 <script src="../editor/lib/flowchart.min.js"></script>
 <script src="../editor/lib/jquery.flowchart.min.js"></script>
 <script type="text/javascript" src="../editor/js/editormd.min.js"></script>
-<script src="../js/jquery.params.js"></script>
 
+<script src="../lib/art-template/template.js"></script>
+<script src="../js/jquery.params.js"></script>
 <script src="../scripts/nav.js"></script>
-<script type='text/javascript' src='../js/comment.js'></script>
+
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
