@@ -6,33 +6,21 @@ var fileName = new Array();
 var fileSize = new Array();
 var i=0;
 $(function () {
-    $.ajax({
+     $.ajax({
         type: "POST",                   //类型，POST或者GET
-        url: "http://localhost:3000/api/file/query",        //后台url
-        data: {                          //数据
-            request: localStorage.schoolId
-        },
-        dataType: 'json',              //数据返回类型，可以是xml、json等
-        success: function (data) {      //成功，回调函数
+         url: "http://localhost:3000/api/file/query",        //后台url
+       data: {                          //数据
+            request: 'all'
+         },
+         dataType: 'json',              //数据返回类型，可以是xml、json等
+         success: function (data) {      //成功，回调函数
             console.log(data);
-            // 待定
-            if (data){
-                //window.location.reload();
-            } else {
-                var dialog = art.dialog({
-                    title: '提示',
-                    content: data.msg,
-                    lock:true,
-                    ok:true,
-                    follow: document.getElementById('logoNav')
-                });
-                reset();
-            }
-        },
-        error: function (err) {          //失败，回调函数
-            console.log(err);
-        }
-    });
+             // 待定
+         },
+       error: function (err) {          //失败，回调函数
+             console.log(err);
+         }
+     });
     $('body').on('change',$('#ImportPicInput'),function(){
         $( "#importPicName").val($( "#ImportPicInput").val());
     });
@@ -55,7 +43,7 @@ $("#uploadfile").on("click",function () {
         },
         success: function (data) {
             debugger;
-            window.location.reload();
+            // window.location.reload();
             if (data.status == 4000) {
                 var dialog = art.dialog({
                     title: '提示',
@@ -81,11 +69,11 @@ $("#uploadfile").on("click",function () {
 });
 
 
-$("#selectF").on("click",function () {
-    $(this).css("display","");
-
-    // this.style.display = "none";
-});
+// $("#selectF").on("click",function () {
+//     $(this).css("display","");
+//
+//     // this.style.display = "none";
+// });
 
 
 
