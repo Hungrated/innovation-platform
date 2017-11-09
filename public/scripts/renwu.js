@@ -1,6 +1,30 @@
 /**
  * Created by Administrator on 2017/11/4 0004.
  */
+$(function () {
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:3000/api/profile/getinfo",
+        data:{
+            request:'all'
+        },
+        dataType:"json",
+        success:function (data) {
+            if(data.status == 2101){
+                alert(data.msg)
+            }else {
+                var stuListData = {
+                    stuList:data
+                };
+                var stuList = template('stuList', stuListData);
+                $("#stuContainer").html(stuList);
+            }
+        },
+        error:function (err) {
+            console.log(err);
+        }
+    });
+});
 $("#impotInfor").on("click",function () {
     var fp = $("#file");
     var lg = fp[0].files.length; // get length
@@ -45,6 +69,3 @@ $("#impotInfor").on("click",function () {
     });
 });
 
-$(".edit").on("click",function () {
-    window.location.href = "taskList.html?s_id="+$(this).attr("data-mode");
-});

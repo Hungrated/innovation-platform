@@ -140,29 +140,9 @@ Purchase: http://wrapbootstrap.com
                                 </tr>
                                 </thead>
 
-                                <tbody>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td class="scrollNav"><a  href="#pingjia" data-mode="" class="btn btn-success btn-xs commetD"><i class="fa fa-share"></i>评价详情</a></td>
-                                    <td class="center "><a href="javascript:;" data-mode="14031238"  class="btn btn-success btn-xs edit"><i class="fa fa-share"></i>开会记录</a></td>
-                                    <td>
-                                        <a href="javascript:;" data-mode="" class="btn btn-primary btn-xs more"><i class="fa fa-share"></i>计划详情 </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td class="scrollNav"><a  href="#pingjia" class="btn btn-success btn-xs commetD"><i class="fa fa-share"></i>评价详情</a></td>
-                                    <td class="center "><a href="taskList.html" class="btn btn-success btn-xs edit"><i class="fa fa-share"></i>开会记录</a></td>
-                                    <td>
-                                        <a href="planList.html" class="btn btn-primary btn-xs more"><i class="fa fa-share"></i>计划详情 </a>
-                                    </td>
-                                </tr>
+                                <tbody id="stuContainer">
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -270,8 +250,24 @@ Purchase: http://wrapbootstrap.com
         <!-- /Page Body -->
     </section>
 </div>
-
+<script src="../lib/art-template/template.js"></script>
+<script type="text/html" id="stuList">
+    {{each stuList as stu i}}
+    <tr >
+        <td><a href="userInfo.html?s_id={{stu.school_id}}">{{stu.name}}</a></td>
+        <td>{{stu.school_id}}</td>
+        <td>{{stu.sex}}</td>
+        <td>{{stu.grade}}</td>
+        <td class="scrollNav"><a  href="#pingjia" class="btn btn-success btn-xs commetD" data-mode="{{stu.school_id}}"><i class="fa fa-share"></i>评价详情</a></td>
+        <td class="center "><a href="taskList.html?s_id={{stu.school_id}}&name={{stu.name}}" data-mode="{{stu.school_id}}"  class="btn btn-success btn-xs edit"><i class="fa fa-share"></i>开会记录</a></td>
+        <td>
+            <a href="planList.html?s_id={{stu.school_id}}&name={{stu.name}}" data-mode="{{stu.school_id}}" class="btn btn-primary btn-xs more"><i class="fa fa-share"></i>计划详情 </a>
+        </td>
+    </tr>
+    {{/each}}
+</script>
 <!--Basic Scripts-->
+
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/bootstrap/bootstrap.min.js"></script>
 

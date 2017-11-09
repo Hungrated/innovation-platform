@@ -11,16 +11,19 @@ function rateBTn(obj) {
 $(function () {
     //get the student id
     var s_id = $.query.get("s_id");
+    var s_name =  $.query.get("name");
+    $("#stuName").text(s_name);
     $.ajax({
         type:'POST',
-        url:'http://localhost:3000/api/plan/personal',
+        url:'http://localhost:3000/api/plan/query',
         contentType: "application/json",
         data:JSON.stringify({
-            'student_id':s_id,
+            'request':s_id,
         }),
         dataType:'json',
         success:function (data) {
             console.log(data);
+
             var taskListData = {
                 taskLists:data
             };
@@ -32,6 +35,7 @@ $(function () {
 });
 // submit comment
 $("#rate").on("click",function () {
+    debugger;
     var text = $("#xlginput").val();
     console.log(text);
     console.log($(this).attr("data-mode"));
@@ -46,7 +50,7 @@ $("#rate").on("click",function () {
         dataType: 'json',              //数据返回类型，可以是xml、json等
         success: function (data) {      //成功，回调函数
             console.log(data);
-            if (data.status == 5100){
+            if (data.status == 5300){
                 window.location.reload();
             } else {
                 var dialog = art.dialog({

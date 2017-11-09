@@ -98,12 +98,13 @@ Purchase: http://wrapbootstrap.com
             <div class="row" >
                 <div class="col-xs-12 col-md-12">
                     <div class="widget-header ">
-                        <span class="widget-caption">学生姓名</span>
+                        <span class="widget-caption" >学生姓名:<a id="stuName"></a></span>
                     </div>
                     <div class="widget-body">
                         <div class="table-toolbar">
                             <div class="widget" id="student">
-
+                                <a href="javascript:;" class="btn btn-primary pull-right" id="exportW" onclick="exprotT()">导出为word</a>
+                                <br/>
                             </div>
                             <table class="table table-striped table-hover table-bordered" id="editabledatatable">
                                 <thead>
@@ -129,182 +130,13 @@ Purchase: http://wrapbootstrap.com
                                     <!--<th>-->
                                         <!--老师评语-->
                                     <!--</th>-->
-                                    <!--<th>-->
-                                        <!--操作-->
-                                    <!--</th>-->
+                                    <th>
+                                        操作
+                                    </th>
                                 </tr>
                                 </thead>
 
-                                <tbody>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                        <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
-                                <tr>
-                                    <td>误会风</td>
-                                    <td>131311</td>
-                                    <td>2015</td>
-                                    <td>15052313</td>
-                                    <td>误会风</td>
-                                    <td>误会风</td>
-                                    <!--<td>131311</td>-->
-                                    <!--<td>2015</td>-->
-                                    <!--<td class="scrollNav">-->
-                                    <!--<a href="#pingjia" class="btn btn-primary btn-xs more"><i class="fa fa-edit"></i>编辑 </a>-->
-                                    <!--</td>-->
-                                </tr>
+                                <tbody id="taskListContainer">
                                 </tbody>
                             </table>
                         </div>
@@ -337,6 +169,31 @@ Purchase: http://wrapbootstrap.com
 <!--Basic Scripts-->
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/bootstrap/bootstrap.min.js"></script>
+
+<script src="../lib/art-template/template.js"></script>
+<script src="../scripts/planList.js"></script>
+<script src="../js/jquery.params.js"></script>
+<script id="taskList" type="text/html">
+    {{each taskLists as task i}}
+    <tr>
+        <td>{{task.year}}</td>
+        <td>{{task.term}}</td>
+        <td>{{task.start}}</td>
+        <td>{{task.deadline}}</td>
+        <td>{{task.content}}</td>
+        <td>{{task.remark}}</td>
+        <td class="scrollNav">
+            {{if task.status == '未审核'}}
+            <a href="javascript:;" class="btn btn-success btn-xs " data-mode='{{task.plan_id}}' onclick="cBTn(this)"><i class="fa fa-check"></i>通过 </a>
+            <a href="javascript:;" class="btn btn-danger btn-xs " data-mode='{{task.plan_id}}' onclick="fBTn(this)"><i class="fa fa-times"></i>驳回 </a>
+            {{else}}
+            {{task.status}}
+            {{/if}}
+        </td>
+    </tr>
+    {{/each}}
+</script>
+
 
 <!--Beyond Scripts-->
 <script src="../lib/beyond/beyond.min.js"></script>

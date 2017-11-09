@@ -91,7 +91,7 @@ Purchase: http://wrapbootstrap.com
             <div class="row" >
                 <div class="col-xs-12 col-md-12">
                         <div class="widget-header ">
-                            <span class="widget-caption">学生姓名</span>
+                            <span class="widget-caption" >学生姓名:<a id="stuName"></a></span>
                         </div>
                         <div class="widget-body">
                             <div class="table-toolbar">
@@ -172,15 +172,15 @@ Purchase: http://wrapbootstrap.com
 <script id="taskList" type="text/html">
     {{each taskLists as task i}}
     <tr>
-    <td>{{task.name}}</td>
-    <td>{{task.xueqi}}</td>
-    <td>{{task.start_time}}</td>
+    <td>{{task.year}}</td>
+    <td>{{task.term}}</td>
+    <td>{{task.start}}</td>
     <td>{{task.deadline}}</td>
     <td>{{task.content}}</td>
-    <td>131311</td>
+    <td>{{task.created_at}}</td>
     <td>{{task.remark}}</td>
     <td class="scrollNav">
-        <a href="#pingjia" class="btn btn-primary btn-xs editComment" data-mode='{{task.id}}' onclick="rateBTn(this)"><i class="fa fa-edit"></i>编辑 </a>
+        <a href="#pingjia" class="btn btn-primary btn-xs editComment" data-mode='{{task.plan_id}}' onclick="rateBTn(this)"><i class="fa fa-edit"></i>编辑 </a>
         </td>
         </tr>
         {{/each}}
