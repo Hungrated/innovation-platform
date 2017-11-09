@@ -65,7 +65,7 @@ router.post('/upload', function (req, res) { // upload files: multipart/form-dat
 router.post('/query', function (req, res) { // fetch file list
 
   const request = req.body.request;
-  const where = (request === 'all') ? {} : {school_id: request};
+  const where = (request === 'all') ? {} : {uploader_id: request};
 
   File.findAll({
     where: where
