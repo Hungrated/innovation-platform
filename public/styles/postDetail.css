@@ -6,3 +6,11 @@
 .dropdown-menu>li>a{
     color:#fff;
 }
+
+.blog-post-body{
+    text-align: center;
+}
+
+.blog-post-text{
+    padding-top: 20px;
+}

@@ -262,7 +262,6 @@ $(function () {
         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
         //imageUploadURL: "/img_upload",
         onload: function () {
-            console.log('onload', this);
             //设置工具栏自动固定定位
             testEditor.setToolbarAutoFixed(true);
             //this.fullscreen();

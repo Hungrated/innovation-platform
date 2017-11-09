@@ -18,7 +18,7 @@ $(document).ready(function(){
             var blogData = data.blog;
             $("title").text(blogData.title);
             $("#blog_title").text(blogData.title);
-            $("#author_name").text(blogData.author_id);
+            $("#author_name").text(blogData.profile.name);
             $("#created_time").text(blogData.created_at);
             viewLoad(blogData.content);
             //                alert(date.content);              //55555555555555555555555
