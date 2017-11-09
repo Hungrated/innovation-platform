@@ -38,32 +38,10 @@ $(function () {
     });
 });
 $("#resource").addClass("active");
-$("#uploadDiv").on("click",function(){
-    var uploadFile = '<input name="files" id="file2" class="weui-uploader__input" type="file" multiple/>';
-    $("#fileDiv").append($(uploadFile));
-    $("#uploaderInput").bind("change",function(e){
-        //可以做一些其他的事，比如图片预览
-        $(this).removeAttr("id");
-    });
-    $("#uploaderInput").click();
-});
+
+// 上传多个文件和学号、描述
 $("#uploadfile").on("click",function () {
     debugger;
-    // var str = new Array();
-    //  for(var j=1;j<=i;j++)
-    //  {
-    //      str.push('file'+j);
-    //  }
-    var fp = $(".fileA");
-    var items = fp[0].files;
-    console.log(items);
-    var fileName = items[0].name; // get file name
-    var fileSize = items[0].size; // get file size
-    i++;
-     console.log(str);
-     console.log(fileName);
-     console.log(fileSize);
-    // upload file
     $.ajaxFileUpload({
         //处理文件上传操作的服务器端地址
         url: 'http://localhost:3000/api/file/upload',
@@ -71,15 +49,12 @@ $("#uploadfile").on("click",function () {
         secureuri: false,                       //是否启用安全提交,默认为false
         fileElementId: ['file1','file2'],                        //文件选择框的id属性
         dataType: "json",                       //服务器返回的格式,可以是json或xml等
-        //contentType:"application/json",
         data: {
-            name: 'files',
             school_id:localStorage.school_id,
-            // size:fileSize,
-            // originalname:fileName,
             descriptions:'a,a'
         },
         success: function (data) {
+            debugger;
             window.location.reload();
             if (data.status == 4000) {
                 var dialog = art.dialog({
@@ -96,6 +71,7 @@ $("#uploadfile").on("click",function () {
             }
         },
         error: function (msg) {
+            debugger;
             console.log(msg.responseText);
         }
     });
@@ -106,7 +82,19 @@ $("#uploadfile").on("click",function () {
 
 
 $("#selectF").on("click",function () {
-    $("#uploadfile").css("display","block");
+    $(this).css("display","");
 
     // this.style.display = "none";
+});
+
+
+
+$("#uploadDiv").on("click",function(){
+    var uploadFile = '<input name="files" id="file2" class="weui-uploader__input" type="file" multiple/>';
+    $("#fileDiv").append($(uploadFile));
+    $("#uploaderInput").bind("change",function(e){
+        //可以做一些其他的事，比如图片预览
+        $(this).removeAttr("id");
+    });
+    $("#uploaderInput").click();
 });

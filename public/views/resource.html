@@ -77,14 +77,14 @@
             <div class ="input-append">
                 <label for ="importPicName"> 上传文件：</label >
                 <input type ="text" class="input-large" id= "importPicName" />
-                <a class ="btn btn-default" onclick= "$('#ImportPicInput').click();" > 打开</a>
+                <a class ="btn btn-default" id="openR" > 打开</a>
             </div >
-            <input multiple="multiple" type="file" name="file" id="file1" class="fileA">
-            <a href="javascript:;" class="file pull-right" id="selectF">点击上传文件
 
+            <a  class="file pull-right" id="selectF">选择文件
+                <input multiple="multiple" type="file" name="files" id="file1" class="fileA">
             </a>
-            <a href="javascript:;" class="file pull-right" id="selectF2" style="display: none">点击上传文件
-                <input multiple type="file" name="file" id="file2" class="fileA">
+            <a  class="file pull-right" id="selectF2">选择文件
+                <input multiple type="file" name="files" id="file2" class="fileA">
             </a>
             <a href="javascript:;" id="uploadfile" class="file pull-right" style="display: none">开始上传
                 <input type="" name="" id="st">
