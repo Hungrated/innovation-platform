@@ -13,10 +13,10 @@ const schema = {
     allowNull: false
   },
   url: {
-    type: Sequelize.STRING(64),
+    type: Sequelize.STRING,
     allowNull: false,
     set: function (val) {
-      return pathLib.resolve(__dirname, val);
+      this.setDataValue('url', pathLib.resolve(__dirname, val));
     }
   },
   description: {

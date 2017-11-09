@@ -10,9 +10,9 @@ const schema = {
     unique: true
   },
   avatar: {
-    type: Sequelize.STRING(64),
+    type: Sequelize.STRING,
     set: function (val) {
-      return pathLib.resolve(__dirname, val);
+      this.setDataValue('avatar', pathLib.resolve(__dirname, val));
     }
   },
   name: {
