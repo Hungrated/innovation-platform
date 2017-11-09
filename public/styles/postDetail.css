@@ -14,3 +14,12 @@
 .blog-post-text{
     padding-top: 20px;
 }
+
+.responsesWrapper{
+    background-color: #f4f4f4;
+    padding-right: 30px;
+}
+
+.respond{
+    margin-left: 30px;
+}
