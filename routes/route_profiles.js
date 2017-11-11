@@ -143,11 +143,20 @@ router.post('/getavatar', function (req, res) { // fetch an avatar
     if (profile === null) {
       res.json(statusLib.PROFILE_FETCH_FAILED);
       console.log('profile does not exist');
-    } else { // convert relative dir to absolute dir
-      res.json({
-        avatar: profile.avatar
+    } else {
+      console.log(profile.avatar);
+      fs.readFile(profile.avatar, 'binary', function (err, data) {
+        if (err) {
+          console.log(err);
+          res.json(statusLib.PROFILE_FETCH_FAILED);
+          console.log('avatar fetch failed');
+        }
+        else {
+          res.write(data, 'binary');
+          res.end();
+          console.log('avatar fetch succeeded');
+        }
       });
-      console.log('avatar fetch succeeded');
     }
   });
 });
