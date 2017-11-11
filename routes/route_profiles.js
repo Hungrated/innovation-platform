@@ -101,11 +101,7 @@ router.post('/avatar', function (req, res) { // update database record
   })
     .then(function () {
       console.log('avatar modify succeeded');
-      res.json({
-        status: statusLib.PROFILE_MOD_SUCCEEDED.status,
-        msg: statusLib.PROFILE_MOD_SUCCEEDED.msg,
-        avatar_url: pathLib.resolve(__dirname, req.avatarURL)
-      });
+      res.json(statusLib.PROFILE_MOD_SUCCEEDED);
     })
     .catch(function (e) {
       console.error(e);
