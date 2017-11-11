@@ -79,19 +79,19 @@
                 <input type ="text" class="input-large" id= "importPicName" />
                 <a class ="btn btn-default" id="openR" > 打开</a>
             </div >
+            <div id="uploadArr">
+                <a  class="file pull-right" id="selectF">选择文件
+                    <input multiple="multiple" type="file" name="files" id="file1" class="fileA" onchange="addNew(this)">
+                </a>
 
-            <a  class="file pull-right" id="selectF">选择文件
-                <input multiple="multiple" type="file" name="files" id="file1" class="fileA">
-            </a>
-            <a  class="file pull-right" id="selectF2">选择文件
-                <input multiple type="file" name="files" id="file2" class="fileA">
-            </a>
-            <a href="javascript:;" id="uploadfile" class="file pull-right" >开始上传
-                <input type="" name="" id="st">
-            </a>
-            <div class="form-group">
-                <label for="desinput"><h5>添加介绍</h5></label>
-                <input type="text" class="form-control input-xl" id="desinput" placeholder="">
+                <a href="javascript:;" id="uploadfile" class="file pull-right" >开始上传
+                    <input type="" name="" id="st">
+                </a>
+            </div>
+            <div id="textArr">
+                <div class="form-group" class="desinput1">
+                    <h5>顺序添加介绍</h5>
+                </div>
             </div>
         </div>
 
@@ -102,12 +102,8 @@
         <div class="row">
             <div class="col-md-12">
                             <article class="blog-post down-post">
-                                <div class="blog-post-body">
-                                    <div class="post-meta"><a class="downbtn" href="#">${file.fileName}</a>
-                                        <span>发布者<a href="#">${file.uname}</a></span>/<span><i class="fa fa-clock-o"></i>${file.createTime}</span>
-                                        <span><a  class="btn downloadBtn" href="${file.address}">下载</a>
-                                        <a href="delete/${file.fileId}" style="display: none"></a></span>
-                                    </div>
+                                <div class="blog-post-body" id="taskListContainer">
+
                                        <!--  <%--<div class="read-more"><a href="#">详情阅读</a></div>--%> -->
                                 </div>
                             </article>
@@ -120,6 +116,18 @@
         <i class="fa fa-copyright"></i> Copyright 2017. 杭州电子科技大学<br>
     </div>
 </footer>
+<script src="../lib/art-template/template.js"></script>
+<script id="taskList" type="text/html">
+    {{each taskLists as task i}}
+    <div class="post-meta">
+        <a class="downbtn" href="#">{{task.filename}}</a>
+        <span>发布者<a href="#">{{task.uploader_id}}</a></span>/<span><i class="fa fa-clock-o"></i>{{task.created_at}}</span>
+        <span><a  class="btn downloadBtn" href="{{task.url}}">下载</a>
+                                        <a href="delete/${file.fileId}" style="display: none"></a></span>
+        <p><span>文件说明:</span>{{task.description}}</p>
+    </div>
+    {{/each}}
+</script>
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/bootstrap/bootstrap.min.js"></script>
 <script src="../js/ajaxfileupload.js"></script>
