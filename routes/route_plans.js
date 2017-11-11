@@ -63,7 +63,7 @@ router.post('/modify', function(req, res, next) { // check plan status before mo
             }
         })
         .then(function(plan) {
-            if (plan.status !== '已通过')
+            if (plan.dataValues.status !== '已通过')
                 next();
             else {
                 res.json(statusLib.PLAN_MOD_FAILED);
