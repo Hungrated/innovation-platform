@@ -30,6 +30,7 @@ router.post('/upload', function (req, res) { // upload files: multipart/form-dat
 
     //rename a file
     let newName = req.files[i].path + pathLib.parse(req.files[i].originalname).ext;
+
     fs.rename(req.files[i].path, newName, function (err) {
       if (err) {
         console.log('file rename error');
@@ -40,7 +41,7 @@ router.post('/upload', function (req, res) { // upload files: multipart/form-dat
     let fileInfo = {
       filename: req.files[i].originalname,
       size: req.files[i].size,
-      url: req.files[i].destination + req.files[i].originalname,
+      url: newName,
       uploader_id: school_id,
       description: fileDescriptions[i]
     };
@@ -81,6 +82,19 @@ router.post('/query', function (req, res) { // fetch file list
       console.error(e);
       res.json(statusLib.CONNECTION_ERROR);
     });
+});
+
+
+router.post('/download', function (req, res) { // fetch file list
+
+  const realDir = req.body.url;
+  res.download(realDir, function (err) {
+    if(err) {
+      console.log(err);
+      res.json(statusLib.FILE_DOWNLOAD_FAILED);
+    }
+  });
+
 });
 
 

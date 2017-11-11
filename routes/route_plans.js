@@ -263,6 +263,7 @@ router.post('/export', function(req, res) { // export plan archive
 
     // set filename
     let fileName = 'plan_export_' + student_id + '_' + exportTime.getTime() + '.docx';
+    let filePath = pathLib.resolve(__dirname, fileDir + fileName);
 
     // create file
     let docx = officeGen('docx');
@@ -556,8 +557,7 @@ router.post('/export', function(req, res) { // export plan archive
         function(done) {
             out.on('close', function() {
                 console.log('plan export succeeded');
-                res.json(statusLib.PLAN_EXPORT_SUCCEEDED);
-                // res.download(fileDir + fileName, fileName);
+                res.download(filePath);
                 done(null);
             });
             docx.generate(out);
