@@ -6,39 +6,6 @@ var testEditor;
 function cancel() {
     $("#save").css("display", "none");
 }
-
-/*function uploadCover() {
-    var coverName = $("#coverName").val();
-    console.log(coverName);
-    //执行上传文件操作的函数
-    $.ajaxFileUpload({
-        async: false,
-        type: "POST",
-        //处理文件上传操作的服务器端地址
-        url: '/cover/upload',
-        enctype: "multipart/form-data",
-        secureuri: false,                       //是否启用安全提交,默认为false
-        fileElementId: 'file',                        //文件选择框的id属性
-        dataType: "json",                       //服务器返回的格式,可以是json或xml等
-        data: {
-            coverName: coverName
-        },
-        success: function (data) {
-            //debugger;
-            if (data.success == 1) {
-                console.log('文件上传成功，地址是' + data.url);
-                $("#coverName").val(data.url);
-                $("#coverAddress").val(data.url);
-            }
-            else
-                console.log(data.message)
-        },
-        error: function (msg) {
-            console.log(msg.responseText);
-        }
-    });
-}
-*/
 function selectThis(point) {
     //debugger;
     var selectOne;
@@ -72,25 +39,10 @@ function mySubmit() {
             alert("文章名不能为空");
             return false;
         }
-
-        /*
-         var is_public = document.getElementById("is_public").value;
-         if (is_public == "on")is_public = 1;
-         else is_public = 0;
-         */
-
-        //var label = document.getElementById("label").value;
-        //var coverAddress = document.getElementById("coverAddress").value;
-        //console.log(coverAddress);
-        /*if (label == "") {
-            alert("标签不能为空！");
-            return false;
-        }*/
         if (file != null) {
             var articleId=$("#articleId").val();
             var description= $(".editormd-preview").text();
             description = description.substring(0,200);
-            console.log(description);
             //alert(articleid);
             if(articleId==""){
                 $.ajax({
@@ -146,9 +98,9 @@ function mySubmit() {
     }
     else if(isjudge == "1")
     {
-        var noticeName = document.getElementById("notTitle").value;
-        if (noticeName == "") {
-            alert("公告名不能为空");
+        var problemName = document.getElementById("notTitle").value;
+        if (problemName == "") {
+            alert("问题标题不能为空");
             return false;
         }
 
@@ -161,7 +113,7 @@ function mySubmit() {
                 url: '/addNotice',
                 data: {
                     ncontext: file,
-                    ntitle: noticeName,
+                    ntitle: problemName,
                 },
                 dataType: "json",
                 success: function (date) {
@@ -172,25 +124,6 @@ function mySubmit() {
                     else  alert(date.result);
                 }
             })
-
-            //alert("编辑文章");
-            /*$.ajax({
-             type: "post",
-             url: /modifyBlog',
-             data: {
-             artContent: file,
-             artTitle: articleName,
-             artLabel: label
-             },
-             dataType: "json",
-             success: function (date) {
-             if (date.result == "success") {
-             alert("提交成功，返回文章预览界面！");
-             location.href = "/blogView";//成功后将页面跳转到我的博客
-             }
-             else  alert(date.result);
-             }
-             })*/
 
 
         }

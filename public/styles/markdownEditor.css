@@ -1,0 +1,20 @@
+body{
+    background-color: #222222;
+    padding: 50px;
+}
+.editormd-code-toolbar select {
+    max-width: 36%;
+    display: inline;
+    height: 2.5em;
+}
+
+.editormd-form input[type="text"], .editormd-form input[type="number"]{
+    padding: 0;
+}
+
+.editormd-form input[type="text"]{
+    height:2.5em;
+    box-sizing: border-box;
+    margin: 0 0 5px 0;
+    border-radius:3px;
+}
