@@ -43,7 +43,7 @@ $("#uploadfile").on("click",function () {
     $.ajaxFileUpload({
         //处理文件上传操作的服务器端地址
         url: 'http://localhost:3000/api/file/upload',
-        enctype: "multipart/form-datas",
+        enctype: "multipart/form-data",
         secureuri: false,                       //是否启用安全提交,默认为false
         fileElementId: fileName,                        //文件选择框的id属性
         dataType: "json",                       //服务器返回的格式,可以是json或xml等

@@ -213,7 +213,6 @@ router.post('/query', function(req, res) { // get list of all (or personal) plan
 
 router.post('/export', function(req, res, next) { // fetch profile records from database
     const student_id = req.body.student_id;
-
     Profile.findByPrimary(student_id)
         .then(function(profile) {
             req.body.profile = profile.dataValues;
@@ -263,7 +262,7 @@ router.post('/export', function(req, res) { // export plan archive
 
     // set filename
     let fileName = 'plan_export_' + student_id + '_' + exportTime.getTime() + '.docx';
-    let filePath = pathLib.resolve(__dirname, fileDir + fileName);
+    let filePath = pathLib.resolve("public/output/plans/" + fileName);
 
     // create file
     let docx = officeGen('docx');
@@ -547,7 +546,7 @@ router.post('/export', function(req, res) { // export plan archive
     docx.createByJson(data);
 
     // export file
-    let out = fs.createWriteStream(fileDir + fileName);
+    let out = fs.createWriteStream(filePath);
 
     out.on('error', function(err) {
         console.log(err);
@@ -557,7 +556,11 @@ router.post('/export', function(req, res) { // export plan archive
         function(done) {
             out.on('close', function() {
                 console.log('plan export succeeded');
-                res.download(filePath);
+                res.json({
+                    status: statusLib.PLAN_EXPORT_SUCCEEDED.status,
+                    msg: statusLib.PLAN_EXPORT_SUCCEEDED.msg,
+                    path: fileName
+                });
                 done(null);
             });
             docx.generate(out);

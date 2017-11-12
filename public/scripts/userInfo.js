@@ -204,6 +204,7 @@ function editP(obj) {
 //添加计划
 $("#plan_add").click(function () {
     $("#add_plan_contanier").css("display","block");
+    $("#submit_plan").attr("data-mode","");
 });
 
 
