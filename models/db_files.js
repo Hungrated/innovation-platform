@@ -16,7 +16,7 @@ const schema = {
     type: Sequelize.STRING,
     allowNull: false,
     set: function (val) {
-      this.setDataValue('url', pathLib.resolve(__dirname, val));
+      this.setDataValue('url', pathLib.resolve(val));
     }
   },
   description: {

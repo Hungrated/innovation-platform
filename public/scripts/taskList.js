@@ -6,6 +6,9 @@ function rateBTn(obj) {
     $("#pingjia").css("display","block");
     var p_id = $(obj).attr("data-mode");
     $("#rate").attr("data-mode",p_id);
+    var $Tr = $(obj).parents("tr");
+    var Tds = $Tr.children("td");
+    $("#xlginput").val(Tds[6].innerHTML+';');
 };
 
 $(function () {
@@ -37,8 +40,6 @@ $(function () {
 $("#rate").on("click",function () {
     debugger;
     var text = $("#xlginput").val();
-    console.log(text);
-    console.log($(this).attr("data-mode"));
     $.ajax({
         type: "POST",                   //类型，POST或者GET
         url: "http://localhost:3000/api/plan/rate",        //后台url
@@ -50,6 +51,7 @@ $("#rate").on("click",function () {
         dataType: 'json',              //数据返回类型，可以是xml、json等
         success: function (data) {      //成功，回调函数
             console.log(data);
+
             if (data.status == 5300){
                 window.location.reload();
             } else {
@@ -67,4 +69,7 @@ $("#rate").on("click",function () {
             console.log(err);
         }
     });
+});
+$("#dele").on("click",function () {
+   window.location.reload();
 });

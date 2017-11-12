@@ -6,6 +6,7 @@ var fileName = new Array();
 
 var i;
 $(function () {
+    var uH = 'localhost:3000/upload/sources/';
      $.ajax({
         type: "POST",                   //类型，POST或者GET
          url: "http://localhost:3000/api/file/query",        //后台url
@@ -14,6 +15,13 @@ $(function () {
          },
          dataType: 'json',              //数据返回类型，可以是xml、json等
          success: function (data) {      //成功，回调函数
+             debugger;
+             data.forEach(function (e) {
+                var str = e.url;
+                var na = str.split("sources\\");
+                e.url = uH + na[1];
+                e.file = na[1];
+             });
              var taskListData = {
                  taskLists:data
              };
@@ -26,6 +34,19 @@ $(function () {
          }
      });
      i=1;
+    // $.ajax({
+    //     type: "POST",                   //类型，POST或者GET
+    //     url: "http://localhost:3000/api/file/download",        //后台url
+    //     dataType: 'json',              //数据返回类型，可以是xml、json等
+    //     success: function (data) {      //成功，回调函数
+    //         debugger;
+    //         console.log(data);
+    //     },
+    //     error: function (err) {          //失败，回调函数
+    //         debugger;
+    //         console.log(err);
+    //     }
+    // });
 });
 $("#resource").addClass("active");
 

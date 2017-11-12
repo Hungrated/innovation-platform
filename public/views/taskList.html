@@ -67,6 +67,7 @@ Purchase: http://wrapbootstrap.com
                     <ul class="dropdown-menu">
                         <li><a href="myArticles.html">我的文章</a></li>
                         <li><a href="userInfo.html">个人档案</a></li>
+                        <li><a href="modifyPassword.html">修改密码</a></li>
                     </ul>
                 </li>
                 <li id="logout"><a href="login.html">退出</a></li>
@@ -144,9 +145,14 @@ Purchase: http://wrapbootstrap.com
                             <div class="form-group">
                                 <label for="xlginput">添加评语</label>
                                 <input type="text" class="form-control input-xl" id="xlginput" placeholder="">
-
+                                <br/>
+                                <div class="col-md-offset-5 col-md-6">
+                                    <a href="javascript:;" id="rate" class="btn btn-primary btn-lg" data-mode=""><i class="fa fa-check"></i> 保存 </a>
+                                    <a href="javascript:;" id="dele" class="btn btn-danger btn-lg" data-mode=""><i class="fa fa-times"></i> 取消 </a>
+                                </div>
+                                <br/>
                             </div>
-                            <a href="javascript:;" id="rate" class="btn btn-primary btn-block" data-mode=""> 保存 </a>
+
                         </div>
                     </div>
                 </div>

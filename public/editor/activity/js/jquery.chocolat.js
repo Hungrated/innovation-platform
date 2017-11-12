@@ -12,7 +12,7 @@
 	var calls = 0;
 	$.fn.Chocolat = function(settings) {
 		settings = $.extend({
-			container             : $('body'),
+			container             : $('.galleryContainer'),
 			displayAsALink        : false,
 			linkImages            : true,
 			linksContainer        : 'Choco_links_container',				

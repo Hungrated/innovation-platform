@@ -57,6 +57,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="myArticles.html">我的文章</a></li>
                         <li><a href="userInfo.html">个人档案</a></li>
+                        <li><a href="modifyPassword.html">修改密码</a></li>
                     </ul>
                 </li>
                 <li id="logout"><a href="login.html">退出</a></li>
@@ -80,12 +81,11 @@
                 <!--<a class ="btn btn-default" id="openR" > 打开</a>-->
             <!--</div >-->
             <div id="uploadArr">
-                <a  class="file pull-right" id="selectF">选择文件
-                    <input multiple="multiple" type="file" name="files" id="file1" class="fileA" onchange="addNew(this)">
-                </a>
-
                 <a href="javascript:;" id="uploadfile" class="file pull-right" >开始上传
                     <input type="" name="" id="st">
+                </a>
+                <a  class="file pull-right" id="selectF">选择文件
+                    <input multiple="multiple" type="file" name="files" id="file1" class="fileA" onchange="addNew(this)">
                 </a>
             </div>
             <div id="textArr">
@@ -122,7 +122,8 @@
     <div class="post-meta">
         <a class="downbtn" href="#">{{task.filename}}</a>
         <span>发布者<a href="#">{{task.uploader_id}}</a></span>/<span><i class="fa fa-clock-o"></i>{{task.created_at}}</span>
-        <span><a  class="btn downloadBtn" href="{{task.url}}">下载</a>
+        <span>
+            <a download="{{task.file}}" class="btn downloadBtn" href="{{task.url}}">下载</a>
                                         <a href="delete/${file.fileId}" style="display: none"></a></span>
         <p><span>文件说明:</span>{{task.description}}</p>
     </div>
