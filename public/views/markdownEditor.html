@@ -12,11 +12,11 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link rel="icon" href="../images/favicon.ico">
-    <link href="https://cdn.bootcss.com/materialize/0.100.2/css/materialize.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../lib/materialize/materialize.min.css" media="screen,projection"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../editor/css/editormd.css"/>
     <link rel="stylesheet" href="../styles/markdownEditor.css">
-    <title>文章编辑</title>
+    <title>发布</title>
 
 </head>
 <body>
@@ -30,7 +30,11 @@
                 <div class="card  blue-grey darken-1">
                     <div class="card-content white-text">
                         <span class="card-title">发布</span>
-                        <div class="form-horizontal form-bordered" id="articleF">
+                        <div>
+                            <a class="btn" onclick="selectThis(this)">文章</a>
+                            <a class="btn" onclick="selectThis(this)">问题</a>
+                        </div>
+                        <div class="form-horizontal form-bordered" id="articleF" hidden>
                             <div class="row">
                                 <div class="input-field col s12">
                                     <input type="text" name="artTitle" id="artTitle" value="" class="validate">
@@ -40,8 +44,17 @@
                             <input type="hidden" id="articleId" value="">
                         </div>
 
+                        <div class="form-horizontal form-bordered" id="noticeF" hidden>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" name="artTitle" id="notTitle"  class="validate">
+                                    <label for="artTitle">问题标题：</label>
+                                </div>
+                            </div>
+                            <input type="hidden" id="notieId" >
+                        </div>
                     </div>
-                    <div class="card-action" id="sub">
+                    <div class="card-action" id="sub" hidden>
                         <a class="waves-effect waves-light red-text darken-2" data-dismiss="modal" onclick="cancel()">
                             取消
                         </a>
@@ -58,7 +71,7 @@
     </div>
     <!-- /Page Body -->
     <div class="fixed-action-btn" style="bottom: 100px; right: 30px;">
-        <a class="waves-effect waves-light btn-floating btn-large green tooltipped" data-position="left" data-delay="5" data-tooltip="发布" id="submit">
+        <a class="waves-effect waves-light btn-floating btn-large green tooltipped" data-position="left" data-delay="5" data-tooltip="保存" id="submit">
             <i class="fa fa-location-arrow"></i>
         </a>
         <ul>

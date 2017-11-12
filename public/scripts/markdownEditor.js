@@ -6,10 +6,33 @@ var testEditor;
 function cancel() {
     $("#save").css("display", "none");
 }
+function selectThis(point) {
+    //debugger;
+    var selectOne;
+    selectOne = $(point).html();
+    if(selectOne == "文章")
+    {
+        $("#articleF").show();
+        $("#noticeF").hide();
+        $("#sub").show();
+        $("#submitT").attr("data-mode","0");
+    }
+    else
+    {
+        $("#articleF").hide();
+        $("#noticeF").show();
+        $("#sub").show();
+        $("#submitT").attr("data-mode","1");
+    }
+}
 
 //提交
 function mySubmit() {
+    var isjudge;
+    isjudge = $("#submitT").attr("data-mode");
     var file = testEditor.getMarkdown();
+    if(isjudge == "0")
+    {
         //var articleName = $("#articleName").val();
         var articleName = document.getElementById("artTitle").value;
         if (articleName == "") {
@@ -20,7 +43,6 @@ function mySubmit() {
             var articleId=$("#articleId").val();
             var description= $(".editormd-preview").text();
             description = description.substring(0,200);
-            console.log(description);
             //alert(articleid);
             if(articleId==""){
                 $.ajax({
@@ -50,6 +72,7 @@ function mySubmit() {
                     }
                 })
             }else {
+                //alert("编辑文章");
                 $.ajax({
                     type: "post",
                     url: '../modifyBlog',
@@ -66,14 +89,46 @@ function mySubmit() {
                             alert("提交成功，返回文章预览界面！");
                             location.href = "/postDetail/"+date.artI;//成功后将页面跳转到我的博客
                         }
-                        else {
-                            alert(date.result);
-                        }
+                        else  alert(date.result);
                     }
                 })
             }
 
         }
+    }
+    else if(isjudge == "1")
+    {
+        var problemName = document.getElementById("notTitle").value;
+        if (problemName == "") {
+            alert("问题标题不能为空");
+            return false;
+        }
+
+        if (file != null) {
+            // var articleId=$("#articleId").val();
+            // alert(articleid);
+
+            $.ajax({
+                type: "POST",
+                url: '/addNotice',
+                data: {
+                    ncontext: file,
+                    ntitle: problemName,
+                },
+                dataType: "json",
+                success: function (date) {
+                    if (date.result == "success") {
+                        alert("提交成功，返回首页！");
+                        location.href = "../index";//成功后将页面跳转到我的博客
+                    }
+                    else  alert(date.result);
+                }
+            })
+
+
+        }
+    }
+
     return false;
 }
 
@@ -160,6 +215,15 @@ $(function () {
 
         }
     });
+    //打印
+    /*
+     $("#print-btn").click(function () {
+     /*
+     var html = testEditor.preview.html();
+     document.write('<link rel="stylesheet" href="css/style.css" /><link rel="stylesheet" href="../css/editormd.css" />' + html);
+     window.print();
+     }); */
+
     //返回
     $("#back").click(function () {
         history.back()
