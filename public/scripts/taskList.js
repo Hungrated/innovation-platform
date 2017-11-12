@@ -50,14 +50,13 @@ $(function () {
 });
 // submit comment
 $("#rate").on("click",function () {
-    debugger;
     var text = $("#xlginput").val();
     $.ajax({
         type: "POST",                   //类型，POST或者GET
         url: "http://localhost:3000/api/plan/rate",        //后台url
         data: {                          //数据
             plan_id: $(this).attr("data-mode"),
-            rate: 'A',
+            rate: '',
             remark:text,
         },
         dataType: 'json',              //数据返回类型，可以是xml、json等

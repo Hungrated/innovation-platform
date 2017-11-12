@@ -41,19 +41,6 @@ $(function () {
          }
      });
      i=1;
-    // $.ajax({
-    //     type: "POST",                   //类型，POST或者GET
-    //     url: "http://localhost:3000/api/file/download",        //后台url
-    //     dataType: 'json',              //数据返回类型，可以是xml、json等
-    //     success: function (data) {      //成功，回调函数
-    //         debugger;
-    //         console.log(data);
-    //     },
-    //     error: function (err) {          //失败，回调函数
-    //         debugger;
-    //         console.log(err);
-    //     }
-    // });
 });
 $("#resource").addClass("active");
 
@@ -89,13 +76,14 @@ $("#uploadfile").on("click",function () {
                     ok:true,
                     follow: document.getElementById('logoNav')
                 });
+                alert(data.msg);
             }
             else{
                 alert(data.msg)
             }
         },
-        error: function (msg) {
-            console.log(msg.responseText);
+        error: function (data) {
+            alert(data.msg)
         }
     });
     // supplement data
@@ -104,15 +92,10 @@ $("#uploadfile").on("click",function () {
 });
 
 
-// $("#selectF").on("click",function () {
-//     $(this).css("display","");
-//
-//     // this.style.display = "none";
-// });
 function addNew(obj) {
     $(obj).parent("a").hide();
     fileName.push('file'+i)
-    var dess = '<input type="text" class="form-control input-xl desinput"  placeholder="">';
+    var dess = '第'+i+'个文件描述:<input type="text" class="form-control input-xl desinput"  placeholder="">';
     $("#textArr").append(dess);
     i++;
     var str = '<a  class="file pull-right">选择文件<input onchange="addNew(this)"  type="file" name="files" id="file'+i+'" ></a>';
@@ -120,12 +103,3 @@ function addNew(obj) {
 }
 
 
-$("#uploadDiv").on("click",function(){
-    var uploadFile = '<input name="files" id="file2" class="weui-uploader__input" type="file" multiple/>';
-    $("#fileDiv").append($(uploadFile));
-    $("#uploaderInput").bind("change",function(e){
-        //可以做一些其他的事，比如图片预览
-        $(this).removeAttr("id");
-    });
-    $("#uploaderInput").click();
-});

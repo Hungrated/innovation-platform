@@ -15,7 +15,6 @@ $(function () {
         }),
         dataType:'json',
         success:function (data) {
-            debugger;
             var isZero;
             if(data.length==0)
             {
@@ -139,7 +138,7 @@ function rBtn(obj) {
     $("#pingjiaD").text(Tds[5].innerHTML);
     $("#subRate").on("click",function () {
         var text = $("#pingjiaD").text();
-
+        var str = $("#selectR").val();
         $.ajax({
             type: "POST",                   //类型，POST或者GET
             url: "http://localhost:3000/api/plan/rate",        //后台url
