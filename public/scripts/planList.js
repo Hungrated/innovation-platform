@@ -55,7 +55,7 @@ $(function () {
             if(data.status == 5500)
             {
                 debugger;
-                var ul = "localhost:3000/output/plans/"+data.path;
+                var ul = "../output/plans/"+data.path;
                 $("#exportW").attr("href",ul);
                 $("#exportW").attr("download",data.path);
             }

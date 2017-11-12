@@ -6,7 +6,7 @@ var fileName = new Array();
 
 var i;
 $(function () {
-    var uH = 'localhost:3000/upload/sources/';
+    var uH = '../upload/sources/';
      $.ajax({
         type: "POST",                   //类型，POST或者GET
          url: "http://localhost:3000/api/file/query",        //后台url
