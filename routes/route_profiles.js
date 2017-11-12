@@ -9,7 +9,7 @@ const Profile = db.Profile;
 const fs = require('fs');
 const multer = require('multer');
 
-let uploadDir = '../public/upload/avatars/';
+let uploadDir = 'public/upload/avatars/';
 
 let objMulter = multer({
   dest: uploadDir // file upload destination
@@ -49,7 +49,7 @@ router.post('/modify', function (req, res) { // modify a profile
 
 router.post('/avatar', objMulter.any(), function (req, res, next) { // upload an avatar
   const school_id = req.body.school_id; // id is school_id
-  const url = '../public/upload/avatars/' + school_id + '.jpg';
+  const url = 'public/upload/avatars/' + school_id + '.jpg';
   req.avatarURL = url;
   console.log('avatar upload succeeded');
 
