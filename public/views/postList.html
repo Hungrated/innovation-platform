@@ -70,7 +70,8 @@
     </div>
 </footer>
 <script id="postList" type="text/html">
-    <section style="margin-top: 35px;">
+        {{if isZero === 0}}
+        <section style="margin-top: 35px;">
         {{each postLists as post i}}
         <div class="col-md-8">
             <article class="blog-post">
@@ -94,6 +95,18 @@
         </div>
         {{/each}}
     </section>
+        {{else}}
+        <section style="margin-top: 70px;">
+        <article class="blog-post">
+            <div class="blog-post-body">
+                <div style="display:flex;justify-content:center;align-items:center;" >
+                    <img src="../images/icon_empty_content.png"/>
+                </div>
+            </div>
+        </article>
+        </section>
+        {{/if}}
+
 </script>
 <script src="../lib/art-template/template.js"></script>
 <script src="../lib/jquery/jquery.min.js"></script>

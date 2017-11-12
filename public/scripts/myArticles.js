@@ -21,8 +21,16 @@ $(function () {
         data:JSON.stringify({'request':parseInt(localStorage.school_id)}),
         dataType:'json',
         success:function (data) {
+            var isZero;
+            if(data.length==0)
+            {
+                isZero=1;
+            }else{
+                isZero=0;
+            }
             var postListData = {
-                postLists:data
+                postLists:data,
+                isZero:isZero
             };
             //console.log(postListData);
             var post = template('myPostList', postListData);

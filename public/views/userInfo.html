@@ -290,6 +290,7 @@
 </script>
 
 <script id="planList" type="text/html">
+    {{if isZero === 0}}
     <table class="table" id="planTable">
         <th>学年</th><th>学期</th>
         <th>开始-截止时间</th><th>计划详情</th><th>状态</th><th>操作</th>
@@ -310,6 +311,11 @@
             </tr>
         {{/each}}
     </table>
+    {{else}}
+    <div style="display:flex;justify-content:center;align-items:center;" >
+        <img src="../images/icon_empty_content.png"/>
+    </div>
+    {{/if}}
 </script>
 <script src="../js/ajaxfileupload.js"></script>
 <script src="../scripts/nav.js"></script>

@@ -58,8 +58,16 @@ function ready() {
         },
         dataType:"json",
         success:function (data) {
+            var isZero;
+            if(data.length==0)
+            {
+                isZero=1;
+            }else{
+                isZero=0;
+            }
                 var planListData = {
-                    planList:data
+                    planList:data,
+                    isZero:isZero
                 };
             var planList = template('planList', planListData);
             $("#planContainer").html(planList);
