@@ -7,85 +7,15 @@ function cancel() {
     $("#save").css("display", "none");
 }
 
-/*function uploadCover() {
-    var coverName = $("#coverName").val();
-    console.log(coverName);
-    //执行上传文件操作的函数
-    $.ajaxFileUpload({
-        async: false,
-        type: "POST",
-        //处理文件上传操作的服务器端地址
-        url: '/cover/upload',
-        enctype: "multipart/form-data",
-        secureuri: false,                       //是否启用安全提交,默认为false
-        fileElementId: 'file',                        //文件选择框的id属性
-        dataType: "json",                       //服务器返回的格式,可以是json或xml等
-        data: {
-            coverName: coverName
-        },
-        success: function (data) {
-            //debugger;
-            if (data.success == 1) {
-                console.log('文件上传成功，地址是' + data.url);
-                $("#coverName").val(data.url);
-                $("#coverAddress").val(data.url);
-            }
-            else
-                console.log(data.message)
-        },
-        error: function (msg) {
-            console.log(msg.responseText);
-        }
-    });
-}
-*/
-function selectThis(point) {
-    //debugger;
-    var selectOne;
-    selectOne = $(point).html();
-    if(selectOne == "文章")
-    {
-        $("#articleF").show();
-        $("#noticeF").hide();
-        $("#sub").show();
-        $("#submitT").attr("data-mode","0");
-    }
-    else
-    {
-        $("#articleF").hide();
-        $("#noticeF").show();
-        $("#sub").show();
-        $("#submitT").attr("data-mode","1");
-    }
-}
-
 //提交
 function mySubmit() {
-    var isjudge;
-    isjudge = $("#submitT").attr("data-mode");
     var file = testEditor.getMarkdown();
-    if(isjudge == "0")
-    {
         //var articleName = $("#articleName").val();
         var articleName = document.getElementById("artTitle").value;
         if (articleName == "") {
             alert("文章名不能为空");
             return false;
         }
-
-        /*
-         var is_public = document.getElementById("is_public").value;
-         if (is_public == "on")is_public = 1;
-         else is_public = 0;
-         */
-
-        //var label = document.getElementById("label").value;
-        //var coverAddress = document.getElementById("coverAddress").value;
-        //console.log(coverAddress);
-        /*if (label == "") {
-            alert("标签不能为空！");
-            return false;
-        }*/
         if (file != null) {
             var articleId=$("#articleId").val();
             var description= $(".editormd-preview").text();
@@ -120,7 +50,6 @@ function mySubmit() {
                     }
                 })
             }else {
-                //alert("编辑文章");
                 $.ajax({
                     type: "post",
                     url: '../modifyBlog',
@@ -137,65 +66,14 @@ function mySubmit() {
                             alert("提交成功，返回文章预览界面！");
                             location.href = "/postDetail/"+date.artI;//成功后将页面跳转到我的博客
                         }
-                        else  alert(date.result);
+                        else {
+                            alert(date.result);
+                        }
                     }
                 })
             }
 
         }
-    }
-    else if(isjudge == "1")
-    {
-        var noticeName = document.getElementById("notTitle").value;
-        if (noticeName == "") {
-            alert("公告名不能为空");
-            return false;
-        }
-
-        if (file != null) {
-            // var articleId=$("#articleId").val();
-            // alert(articleid);
-
-            $.ajax({
-                type: "POST",
-                url: '/addNotice',
-                data: {
-                    ncontext: file,
-                    ntitle: noticeName,
-                },
-                dataType: "json",
-                success: function (date) {
-                    if (date.result == "success") {
-                        alert("提交成功，返回首页！");
-                        location.href = "../index";//成功后将页面跳转到我的博客
-                    }
-                    else  alert(date.result);
-                }
-            })
-
-            //alert("编辑文章");
-            /*$.ajax({
-             type: "post",
-             url: /modifyBlog',
-             data: {
-             artContent: file,
-             artTitle: articleName,
-             artLabel: label
-             },
-             dataType: "json",
-             success: function (date) {
-             if (date.result == "success") {
-             alert("提交成功，返回文章预览界面！");
-             location.href = "/blogView";//成功后将页面跳转到我的博客
-             }
-             else  alert(date.result);
-             }
-             })*/
-
-
-        }
-    }
-
     return false;
 }
 
@@ -282,15 +160,6 @@ $(function () {
 
         }
     });
-    //打印
-    /*
-     $("#print-btn").click(function () {
-     /*
-     var html = testEditor.preview.html();
-     document.write('<link rel="stylesheet" href="css/style.css" /><link rel="stylesheet" href="../css/editormd.css" />' + html);
-     window.print();
-     }); */
-
     //返回
     $("#back").click(function () {
         history.back()
