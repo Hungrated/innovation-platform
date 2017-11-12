@@ -15,58 +15,70 @@ $(function () {
         }),
         dataType:'json',
         success:function (data) {
-            console.log(data);
-            $("#stuName").html(data[0].name);
+            debugger;
+            var isZero;
+            if(data.length==0)
+            {
+                isZero=1;
+                $("#exportW").hide();
+            }else{
+                isZero=0;
+                exportD();
+            }
+            console.log(isZero);
             var taskListData = {
-                taskLists:data
+                taskLists:data,
+                isZero:isZero
             };
             //console.log(postListData);
             var post = template('taskList', taskListData);
             $("#taskListContainer").html(post);
         }
     });
-    var s_id = $.query.get("s_id");
-    $.ajax({
-        type: "POST",                   //类型，POST或者GET
-        url: "http://localhost:3000/api/plan/export",        //后台url
-        // processData: false,  // tell jQuery not to process the data
-        // contentType: false,   // tell jQuery not to set contentType
-        data:{student_id: s_id},
-        dataType: "json",
-        /*xhr: function(){        //这是关键  获取原生的xhr对象  做以前做的所有事情
-         var xhr = $.ajaxSettings.xhr();
-         xhr.upload.onload = function (){
-         alert('finish downloading')
-         };
-         xhr.upload.onprogress = function (ev) {
-         if(ev.lengthComputable) {
-         var percent = 100 * ev.loaded/ev.total;
-         console.log(percent,ev)
-         }
-         };
-         return xhr;
-         },*/
-        success:function(data){
-            console.log(data);
-            if(data.status == 5500)
-            {
-                var ul = "../output/plans/"+data.path;
-                $("#exportW").attr("href",ul);
-                $("#exportW").attr("download",data.path);
+
+   function exportD()
+   {
+       $.ajax({
+           type: "POST",                   //类型，POST或者GET
+           url: "http://localhost:3000/api/plan/export",        //后台url
+           // processData: false,  // tell jQuery not to process the data
+           // contentType: false,   // tell jQuery not to set contentType
+           data:{student_id: s_id},
+           dataType: "json",
+           /*xhr: function(){        //这是关键  获取原生的xhr对象  做以前做的所有事情
+            var xhr = $.ajaxSettings.xhr();
+            xhr.upload.onload = function (){
+            alert('finish downloading')
+            };
+            xhr.upload.onprogress = function (ev) {
+            if(ev.lengthComputable) {
+            var percent = 100 * ev.loaded/ev.total;
+            console.log(percent,ev)
             }
-        },
+            };
+            return xhr;
+            },*/
+           success:function(data){
+               console.log(data);
+               if(data.status == 5500)
+               {
+                   var ul = "../output/plans/"+data.path;
+                   $("#exportW").attr("href",ul);
+                   $("#exportW").attr("download",data.path);
+               }
+           },
 
-        error: function (xml) {
-            //     var result = xml.responseText;
-            //     var jsonObject=eval("("+result+")");
-            //     console.log(jsonObject.telephone);
-            //
-            console.log(xml);
-            var str = xml.responseText;
-            $(".container").append(str);
-        }
-    });
-
+           error: function (xml) {
+               //     var result = xml.responseText;
+               //     var jsonObject=eval("("+result+")");
+               //     console.log(jsonObject.telephone);
+               //
+               console.log(xml);
+               var str = xml.responseText;
+               $(".container").append(str);
+           }
+       });
+   }
 
 });
 
@@ -122,29 +134,26 @@ function rBtn(obj) {
     $("#rateA").show();
     var $Tr = $(obj).parents("tr");
     var Tds = $Tr.children("td");
+    var p_id = $(obj).attr("data-mode");
     $("#renwuD").text(Tds[4].innerHTML);
-    $("#pingjiaD").text(Tds[4].innerHTML);
+    $("#pingjiaD").text(Tds[5].innerHTML);
     $("#subRate").on("click",function () {
-        // var str = $("#selectR").find("option:selected").text();
-        debugger;
-        var str = $("#selectR").val();
-        console.log(str);
+        var text = $("#pingjiaD").text();
+
         $.ajax({
             type: "POST",                   //类型，POST或者GET
             url: "http://localhost:3000/api/plan/rate",        //后台url
             data: {                          //数据
-                plan_id: localStorage.school_id,
+                plan_id:p_id,
                 rate: str,
-                remark:$("#pingjiaD").text(),
+                remark:text,
             },
             dataType: 'json',              //数据返回类型，可以是xml、json等
             success: function (data) {      //成功，回调函数
                 console.log(data);
 
                 if (data.status == 5300){
-                    debugger;
-                    console.log(data);
-                    // window.location.reload();
+                    window.location.reload();
                 } else {
                     var dialog = art.dialog({
                         title: '提示',

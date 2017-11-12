@@ -118,6 +118,7 @@
 </footer>
 <script src="../lib/art-template/template.js"></script>
 <script id="taskList" type="text/html">
+    {{if isZero === 0}}
     {{each taskLists as task i}}
     <div class="post-meta">
         <a class="downbtn"href="{{task.url}}">{{task.filename}}</a>
@@ -128,6 +129,11 @@
         <p><span>文件说明:</span>{{task.description}}</p>
     </div>
     {{/each}}
+    {{else}}
+    <div style="display:flex;justify-content:center;align-items:center;" >
+        <img src="../images/icon_empty_content.png"/>
+    </div>
+    {{/if}}
 </script>
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/bootstrap/bootstrap.min.js"></script>

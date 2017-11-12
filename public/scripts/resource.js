@@ -15,15 +15,22 @@ $(function () {
          },
          dataType: 'json',              //数据返回类型，可以是xml、json等
          success: function (data) {      //成功，回调函数
-             debugger;
              data.forEach(function (e) {
                 var str = e.url;
                 var na = str.split("sources\\");
                 e.url = uH + na[1];
                 e.file = na[1];
              });
+             var isZero;
+             if(data.length==0)
+             {
+                 isZero=1;
+             }else{
+                 isZero=0;
+             }
              var taskListData = {
-                 taskLists:data
+                 taskLists:data,
+                 isZero:isZero
              };
              //console.log(postListData);
              var post = template('taskList', taskListData);

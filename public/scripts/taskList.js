@@ -26,9 +26,16 @@ $(function () {
         dataType:'json',
         success:function (data) {
             console.log(data);
-
+            var isZero;
+            if(data.length==0)
+            {
+                isZero=1;
+            }else{
+                isZero=0;
+            }
             var taskListData = {
-                taskLists:data
+                taskLists:data,
+                isZero:isZero
             };
             //console.log(postListData);
             var post = template('taskList', taskListData);
@@ -50,7 +57,7 @@ $("#rate").on("click",function () {
         url: "http://localhost:3000/api/plan/rate",        //后台url
         data: {                          //数据
             plan_id: $(this).attr("data-mode"),
-            rate: '',
+            rate: 'A',
             remark:text,
         },
         dataType: 'json',              //数据返回类型，可以是xml、json等
