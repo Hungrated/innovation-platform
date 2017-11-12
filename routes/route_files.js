@@ -29,8 +29,8 @@ router.post('/upload', function (req, res) { // upload files: multipart/form-dat
   for (let i = 0; i < req.files.length; i++) { // for each file uploaded
 
     //rename a file
-    // let newName = req.files[i].path + pathLib.parse(req.files[i].originalname).ext;
-    let newName = uploadDir + pathLib.parse(req.files[i].originalname).ext;
+     let newName = req.files[i].path + pathLib.parse(req.files[i].originalname).ext;
+
     fs.rename(req.files[i].path, newName, function (err) {
       if (err) {
         console.log('file rename error');
