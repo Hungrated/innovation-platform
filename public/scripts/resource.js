@@ -67,7 +67,7 @@ $("#uploadfile").on("click",function () {
             descriptions:des
         },
         success: function (data) {
-            // window.location.reload();
+            //
             if (data.status == 4000) {
                 var dialog = art.dialog({
                     title: '提示',
@@ -77,6 +77,7 @@ $("#uploadfile").on("click",function () {
                     follow: document.getElementById('logoNav')
                 });
                 alert(data.msg);
+                window.location.reload();
             }
             else{
                 alert(data.msg)
