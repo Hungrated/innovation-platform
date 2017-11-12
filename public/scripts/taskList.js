@@ -8,7 +8,7 @@ function rateBTn(obj) {
     $("#rate").attr("data-mode",p_id);
     var $Tr = $(obj).parents("tr");
     var Tds = $Tr.children("td");
-    $("#xlginput").val(Tds[6].innerHTML+';');
+    $("#xlginput").val(Tds[6].innerHTML+';\n');
 };
 
 $(function () {
@@ -35,6 +35,11 @@ $(function () {
             $("#taskListContainer").html(post);
         }
     });
+    $(document).keyup(function(event){
+        if(event.keyCode ==13){
+            $("#rate").trigger("click");
+        }
+    });
 });
 // submit comment
 $("#rate").on("click",function () {
@@ -45,7 +50,7 @@ $("#rate").on("click",function () {
         url: "http://localhost:3000/api/plan/rate",        //后台url
         data: {                          //数据
             plan_id: $(this).attr("data-mode"),
-            rate: 'A',
+            rate: '',
             remark:text,
         },
         dataType: 'json',              //数据返回类型，可以是xml、json等
@@ -71,5 +76,6 @@ $("#rate").on("click",function () {
     });
 });
 $("#dele").on("click",function () {
-   window.location.reload();
+    $("#xlginput").val("");
+    $("#pingjia").css("display","none");
 });

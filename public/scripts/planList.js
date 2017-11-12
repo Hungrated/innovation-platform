@@ -25,7 +25,6 @@ $(function () {
             $("#taskListContainer").html(post);
         }
     });
-    debugger;
     var s_id = $.query.get("s_id");
     $.ajax({
         type: "POST",                   //类型，POST或者GET
@@ -35,7 +34,6 @@ $(function () {
         data:{student_id: s_id},
         dataType: "json",
         /*xhr: function(){        //这是关键  获取原生的xhr对象  做以前做的所有事情
-         debugger;
          var xhr = $.ajaxSettings.xhr();
          xhr.upload.onload = function (){
          alert('finish downloading')
@@ -49,12 +47,9 @@ $(function () {
          return xhr;
          },*/
         success:function(data){
-            debugger;
-            // var xml= $(data).find("html").text();
             console.log(data);
             if(data.status == 5500)
             {
-                debugger;
                 var ul = "../output/plans/"+data.path;
                 $("#exportW").attr("href",ul);
                 $("#exportW").attr("download",data.path);
@@ -71,6 +66,8 @@ $(function () {
             $(".container").append(str);
         }
     });
+
+
 });
 
 function cBTn(obj) {
@@ -98,7 +95,6 @@ function cBTn(obj) {
 }
 
 function fBTn(obj) {
-    debugger;
     var  p_id = $(obj).attr("data-mode").toString();
     $.ajax({
         type:'POST',
@@ -122,14 +118,48 @@ function fBTn(obj) {
         }
     });
 }
+function rBtn(obj) {
+    $("#rateA").show();
+    var $Tr = $(obj).parents("tr");
+    var Tds = $Tr.children("td");
+    $("#renwuD").text(Tds[4].innerHTML);
+    $("#pingjiaD").text(Tds[4].innerHTML);
+    $("#subRate").on("click",function () {
+        // var str = $("#selectR").find("option:selected").text();
+        debugger;
+        var str = $("#selectR").val();
+        console.log(str);
+        $.ajax({
+            type: "POST",                   //类型，POST或者GET
+            url: "http://localhost:3000/api/plan/rate",        //后台url
+            data: {                          //数据
+                plan_id: localStorage.school_id,
+                rate: str,
+                remark:$("#pingjiaD").text(),
+            },
+            dataType: 'json',              //数据返回类型，可以是xml、json等
+            success: function (data) {      //成功，回调函数
+                console.log(data);
 
-// $("#exportW").on("click",function () {
-
-
-
-
-
-// });
-function exprotT() {
+                if (data.status == 5300){
+                    debugger;
+                    console.log(data);
+                    // window.location.reload();
+                } else {
+                    var dialog = art.dialog({
+                        title: '提示',
+                        content: data.msg,
+                        lock:true,
+                        ok:true,
+                        follow: document.getElementById('logoNav')
+                    });
+                    reset();
+                }
+            },
+            error: function (err) {          //失败，回调函数
+                console.log(err);
+            }
+        });
+    });
 
 }

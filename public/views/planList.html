@@ -132,7 +132,10 @@ Purchase: http://wrapbootstrap.com
                                         <!--老师评语-->
                                     <!--</th>-->
                                     <th>
-                                        操作
+                                        审核情况
+                                    </th>
+                                    <th>
+                                        评级情况
                                     </th>
                                 </tr>
                                 </thead>
@@ -141,26 +144,47 @@ Purchase: http://wrapbootstrap.com
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
                 </div>
             </div>
-            <!--<div class="row">-->
-                <!--<div class="col-xs-12 col-md-12">-->
-                    <!--<div class="widget" id="pingjia">-->
-                        <!--<div class="widget-header ">-->
-                            <!--<span class="widget-caption">学生姓名</span>-->
-                        <!--</div>-->
-                        <!--<div class="widget-body">-->
-                            <!--<div class="form-group">-->
-                                <!--<label for="xlginput">添加评语</label>-->
-                                <!--<input type="text" class="form-control input-xl" id="xlginput" placeholder="">-->
+            <br/>
+            <div class="row" id="rateA" hidden>
+                <div class="col-xs-12 col-md-12">
+                    <div class="widget" id="addNew">
+                        <div class="widget-header ">
+                            <span class="widget-caption">学生姓名</span>
+                        </div>
+                        <div class="widget-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>任务详情</h6>
+                                    <p id="renwuD"></p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h6>任务评价</h6>
+                                    <p id="pingjiaD"></p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h6>等级</h6>
+                                    <select id="selectR" style="width:100%;">
+                                        <option value="A" />优秀
+                                        <option value="B" />良好
+                                        <option value="C" />中等
+                                        <option value="D" />及格
+                                        <option value="E" />不及格
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <h6>确认无误后</h6>
+                                    <a class="btn btn-primary" id="subRate"><i class="fa fa-check"></i>提交</a>
+                                </div>
+                            </div>
 
-                            <!--</div>-->
-                            <!--<a href="#" class="btn btn-primary btn-block"> 保存 </a>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- /Page Body -->
@@ -189,6 +213,13 @@ Purchase: http://wrapbootstrap.com
             <a href="javascript:;" class="btn btn-danger btn-xs " data-mode='{{task.plan_id}}' onclick="fBTn(this)"><i class="fa fa-times"></i>驳回 </a>
             {{else}}
             {{task.status}}
+            {{/if}}
+        </td>
+        <td>
+            {{if task.rate == ''}}
+            <a href="javascript:;" class="btn btn-success btn-xs " data-mode='{{task.plan_id}}' onclick="rBtn(this)"><i class="fa fa-check"></i>计划评级 </a>
+            {{else}}
+            {{task.rate}}
             {{/if}}
         </td>
     </tr>
