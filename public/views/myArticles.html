@@ -17,17 +17,6 @@
     <title>我的文章</title>
 </head>
 <body>
-<!-- Navigation -->
-<!-- <%@ include file="common/menu.jsp" %> -->
-<style>
-    .dropdown-menu{
-        background-color: #222222;
-    }
-
-    .dropdown-menu>li>a{
-        color:#fff;
-    }
-</style>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -45,7 +34,8 @@
                 <li id="activityPage"><a href="activity.html">活动展示</a> </li>
                 <li id="resource"><a href="resource.html">资源下载</a></li>
                 <li id="commentPage"><a href="comments.html">讨论区</a></li>
-                <li><a href="markdownEditor.html">发布</a></li>
+                <li id="publish"><a href="markdownEditor.html">发布</a></li>
+                <li><a href="renwu.html">老师查看</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -54,6 +44,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="myArticles.html">我的文章</a></li>
                         <li><a href="userInfo.html">个人档案</a></li>
+                        <li><a href="modifyPassword.html">修改密码</a></li>
                     </ul>
                 </li>
                 <li id="logout"><a href="login.html">退出</a></li>
@@ -64,46 +55,44 @@
         <!--/.nav-collapse -->
     </div>
 </nav>
+
 <!-- contanier -->
-<div class="container">
-    <section style="margin-top: 35px;">
-        <div class="row" >
-            <div class="col-md-3" style="margin-top: 38px;">
-                        <a href="#"><img src="../images/cxsj2.jpg"> </a>
-                        <a href="#"><img src="${article.cover}"> </a>
-            </div>
-            <div class="col-md-8 ">
-                <article class="blog-post">
-                    <div class="blog-post-body">
-                        <h3>
-                            <a href="/postDetail/${article.artiId}">${article.artTitle}</a>
-                        </h3>
-                        <div class="post-meta">
-                            <span>${article.artLabel}</span>
-                            /
-                            <span><i class="fa fa-clock-o"></i> 发布时间</span>
-                            /
-                                    <span><i class="fa fa-comment-o"></i> ${article.readNum}</span>
-                                    <span><i class="fa fa-comment-o"></i>  0 </span>
-                           <!-- <span class="operation"><i> 编辑 </i></span> -->
-                            <span class="operation"><button  id="${article.artiId}" type="button" class="btn btn-link" onclick="deleteArticle(this.id)" style="padding: 0 12px;">删除</button></span>
-                        </div>
-                        <p>${article.artIntro}</p>
-                        <!-- <p>最近几年，随着比特币的兴起并不断走高的价格，越来越多的投资者和机构开始对数字货币这一新兴概念产生了兴趣。由比特币创建并使用的区块链技术也获得了从创业公司到金融巨头的广泛关注和参与。</p> -->
-                        <a href="/postDetail/${article.artiId}"><button type="button" class="btn btn-success">继续阅读 >></button></a>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
+<div class="container" id="myPostListContainer">
+
 </div>
-<!-- /.contanier -->
-<!-- <%@ include file="common/footer.jsp" %> -->
+
 <footer class="footer">
     <div class="footer-bottom">
         <i class="fa fa-copyright"></i> Copyright 2017. 杭州电子科技大学<br>
     </div>
 </footer>
+<script id="myPostList" type="text/html">
+    <section style="margin-top: 35px;">
+        {{each postLists as post i}}
+        <div class="col-md-8">
+            <article class="blog-post">
+                <div class="blog-post-body">
+                    <h3>
+                        <a href="">{{post.title}}</a>
+                    </h3>
+                    <div class="post-meta">
+                        <span>by <a href="#">{{post.profile.name}}</a></span>
+                        /
+                        <span><i class="fa fa-clock-o"></i>{{post.created_at}}</span>
+                        /
+                        <span><i class="fa fa-comment-o"></i> 1</span>
+
+                    </div>
+                    <p>{{post.description}}</p>
+                    <!-- <p>最近几年，随着比特币的兴起并不断走高的价格，越来越多的投资者和机构开始对数字货币这一新兴概念产生了兴趣。由比特币创建并使用的区块链技术也获得了从创业公司到金融巨头的广泛关注和参与。</p> -->
+                    <a href="postDetail.html?index={{post.id}}"><button type="button" class="btn btn-success" id="{{post.id}}">继续阅读 >></button></a>
+                </div>
+            </article>
+        </div>
+        {{/each}}
+    </section>
+</script>
+<script src="../lib/art-template/template.js"></script>
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/bootstrap/bootstrap.min.js"></script>
 <script src="../scripts/nav.js"></script>

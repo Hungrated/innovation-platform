@@ -12,3 +12,21 @@ function deleteArticle(id) {
         })
     }
 }
+
+$(function () {
+    $.ajax({
+        type:'POST',
+        url:'http://localhost:3000/api/blog/query',
+        contentType: "application/json",
+        data:JSON.stringify({'request':parseInt(localStorage.school_id)}),
+        dataType:'json',
+        success:function (data) {
+            var postListData = {
+                postLists:data
+            };
+            //console.log(postListData);
+            var post = template('myPostList', postListData);
+            $("#myPostListContainer").html(post);
+        }
+    });
+});
