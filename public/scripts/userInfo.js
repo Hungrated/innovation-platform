@@ -19,8 +19,8 @@ function ready() {
         },
         dataType:"json",
         success:function (data) {
-            if(data.avatar == ""||data.avatar == null){
-                data.avatar = "https://sfault-avatar.b0.upaiyun.com/389/430/3894305104-59fe90aea4ec6_huge256";
+            if(data[0].avatar == ""||data[0].avatar == null){
+                data[0].avatar = "https://sfault-avatar.b0.upaiyun.com/389/430/3894305104-59fe90aea4ec6_huge256";
             }
             //获取失败
             if(data.status == 2101){
@@ -36,7 +36,7 @@ function ready() {
                     birth:data[0].birth_date,
                     phone:data[0].phone_num,
                     description:data[0].description,
-                    avatar:data.avatar
+                    avatar:data[0].avatar
                 };
                 var base_content = template('base_content', userInfo);
                 document.getElementById('userInfo').innerHTML = base_content;
@@ -281,7 +281,30 @@ $("#submit_plan").click(function () {
 function uploadAvatar() {
     $("#avatarFile").trigger("click");
     $("#avatarFile").change(function () {
-        var avatarAddress = $("#avatarFile").val();
+        var avatar = $("#avatarFile");
+        var avatarFile = avatar[0].files;
+        console.log(avatarFile);
+        /*$.ajax({
+           type:'POST',
+            url:'http://localhost:3000/api/profile/avatar',
+            data:{
+                school_id:localStorage.school_id,
+                file: avatar
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.status == 2000) {
+                    $("#avatarChange").src(data.avatar_url);
+                    //window.location.reload();
+                }
+                else{
+                    console.log(data.msg)
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });*/
         $.ajaxFileUpload({
             async: false,
             type: "POST",
@@ -292,10 +315,11 @@ function uploadAvatar() {
             fileElementId: 'avatarFile',                        //文件选择框的id属性
             dataType: "json",                       //服务器返回的格式,可以是json或xml等
             data: {
-                school_id:localStorage.school_id,
-                file: avatarAddress
+                school_id:student_id,
+                file: avatarFile
             },
             success: function (data) {
+                console.log(data);
                 if (data.status == 2000) {
                     window.location.reload();
                 }
