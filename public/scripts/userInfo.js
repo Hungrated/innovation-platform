@@ -26,6 +26,9 @@ function ready() {
             if(data.status == 2101){
                 alert(data.msg)
             }else{
+                var str = data[0].avatar;
+                var na = str.split("avatars\\");
+                var uH = '../upload/avatars/';
                 var userInfo = {
                     username:data[0].name,
                     user_sex:data[0].sex,
@@ -36,7 +39,7 @@ function ready() {
                     birth:data[0].birth_date,
                     phone:data[0].phone_num,
                     description:data[0].description,
-                    avatar:data[0].avatar
+                    avatar: uH + na[1]
                 };
                 var base_content = template('base_content', userInfo);
                 document.getElementById('userInfo').innerHTML = base_content;
@@ -281,6 +284,7 @@ $("#submit_plan").click(function () {
 function uploadAvatar() {
     $("#avatarFile").trigger("click");
     $("#avatarFile").change(function () {
+        debugger;
         var avatar = $("#avatarFile");
         var avatarFile = avatar[0].files;
         console.log(avatarFile);
@@ -321,7 +325,8 @@ function uploadAvatar() {
             success: function (data) {
                 console.log(data);
                 if (data.status == 2000) {
-                    window.location.reload();
+                    console.log(data.msg)
+                    // window.location.reload();
                 }
                 else{
                     console.log(data.msg)

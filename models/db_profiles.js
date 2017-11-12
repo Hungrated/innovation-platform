@@ -12,7 +12,7 @@ const schema = {
   avatar: {
     type: Sequelize.STRING,
     set: function (val) {
-      this.setDataValue('avatar', pathLib.resolve(__dirname, val));
+      this.setDataValue('avatar', pathLib.resolve(val));
     }
   },
   name: {
