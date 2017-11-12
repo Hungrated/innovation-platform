@@ -3,42 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,minimal-ui">
-    <title>CSS 实现评论楼层 &#8211; Fatesinger</title>
-<link rel='stylesheet' id='app-css' href='../styles/comment.css' type='text/css' media='screen' />
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <link rel="icon" href="../images/favicon.ico">
+
+    <!-- 评论插件css 放在bootstrap前，避免样式被替换 -->
+    <link href="../css/commentCopy.css" rel="stylesheet"  >
     <!-- Bootstrap core CSS -->
     <link href="../lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
     <!-- Custom styles for this template -->
 
     <link href="../css/style.css" rel="stylesheet">
-    <link rel="icon" href="../images/favicon.ico">
-    <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-49937515-1', 'auto');
-  ga('send', 'pageview');
-
-</script></head>
+    <link href="../styles/commentDetail.css" rel="stylesheet">
+    <title>讨论区</title>
+</head>
 <body class="is-enableBrandingButtons single is-noJs">
-<script>document.body.className = document.body.className.replace(/(^|\s)is-noJs(\s|$)/, "$1is-js$2")</script>
-<style>
-    .dropdown-menu{
-        background-color: #222222;
-    }
-
-    .dropdown-menu>li>a{
-        color:#fff;
-    }
-</style>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -57,6 +38,7 @@
                 <li id="resource"><a href="resource.html">资源下载</a></li>
                 <li id="commentPage"><a href="comments.html">讨论区</a></li>
                 <li><a href="markdownEditor.html">发布</a></li>
+                <li><a href="renwu.html">老师查看</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -83,7 +65,7 @@
             <div class="site-main surface-container">
                 <article class="u-paddingTop50">
                     <div class="entry-header">
-                        <h2 class="entry-title" itemprop="headline">mmm实现</h2>
+                        <h2 class="entry-title" itemprop="headline">两张表怎么能查出如下格式的数组？ 或者如何能组装成如下格式的数组！</h2>
                         <div class="entry-meta">
                             <a href="#"><time datetime="2016-03-15T13:09:29+08:00">Mar 15, 2016</time></a><span class="middotDivider"></span>
                         </div>
@@ -92,11 +74,8 @@
                     <meta itemprop="datePublished" content="2016-03-15T13:09:29+08:00"/>
                     <meta itemprop="dateModified" content="2016-03-15T13:09:29+08:00"/>
                     <div class="grap" itemprop="articleBody">
-                        <p>很早就有的一个功能了，最早是研究出来的已经不可考，我今天带来的方法是几</p>
-                        <h3>实现原理</h3>
-                        <p>主要是使用了本文重点并不是介绍这两个属性，所以就不做详细介绍了。我们可以轻松实现.</p>
-                        <img width=120 src="../images/loading.gif">
-                        <p>欢迎<span class="cute">关注</span>我的公众号</p>
+                        <p>首先第一张表的表名是tableone，第二张就叫tabletwo吧！
+                            第一张表里的template_id 和 第二张表的tem_id相关联！～`～</p>
                     </div>
                 </article>
                 <div id="comments" class="responsesWrapper">
@@ -172,21 +151,6 @@
                             <p class="comment-note">
                                 不留下你的想法吗？
                             </p>
-                            <!-- <div class="info">
-                         <p class="comment-form-author comment-form-input">
-                             <label for="author">昵称</label>
-                             <input id="author" type="text" class="inputGroup" aria-required="true" size="30" value="" name="author">
-                         </p>
-                         <p class="comment-form-email comment-form-input">
-                             <label for="email">邮箱</label>
-                             <input id="email" class="inputGroup" type="text" aria-required="true" size="30" value=""  name="email">
-                         </p>
-                         <p class="comment-form-url comment-form-input">
-                             <label for="url">网址</label>
-                             <input id="url" class="inputGroup" type="text" size="30" value="" name="url">
-                         </p>
-                          </div>-->
-
                             <p class="comment-form-comment comment-form-input">
                                 <label for="comment">评论</label>
                                 <textarea id="comment" class="inputGroup inputTextarea" aria-required="true" rows="8" cols="45" name="comment"></textarea>
@@ -201,20 +165,18 @@
             </div>
         </div>
     </section>
+<footer class="footer">
+    <div class="footer-bottom">
+        <i class="fa fa-copyright"></i> Copyright 2017. 杭州电子科技大学<br>
+    </div>
+</footer>
 </div>
 
-
-<footer class="footer--empty"></footer>
-</div>
-<div class="loadingBar"></div>
 <script src="../lib/jquery/jquery.min.js"></script>
-<script type='text/javascript'>
-/* <![CDATA[ */
-var obvInit = {"api":"https:\/\/fatesinger.com\/__api\/","nonce":"4a8d3d57b4","user":"0","permalink":"https:\/\/fatesinger.com\/78012","id":"78012","single":"1","preview":"","webp":"image\/webp,*\/*;q=0.8"};
-/* ]]> */
-</script>
-<script src="../scripts/nav.js"></script>
+<script src="../lib/bootstrap/bootstrap.min.js"></script>
 <script type='text/javascript' src='../js/comment.js'></script>
+<script src="../scripts/nav.js"></script>
+
 <script src="../scripts/commentDetail.js"></script>
 </body>
 </html>

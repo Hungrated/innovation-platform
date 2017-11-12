@@ -4,18 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <link rel="icon" href="../images/favicon.ico">
     <!-- Bootstrap core CSS -->
     <link href="../lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Custom styles for this template -->
-
     <link href="../css/style.css" rel="stylesheet">
-    <link rel="icon" href="../images/favicon.ico">
-    <!-- artDialog -->
-    <link href="../lib/artDialog/artDialog_simple.css" rel="stylesheet">
+
     <!-- personal styles -->
     <link href="../styles/postList.css" rel="stylesheet">
 
@@ -23,15 +18,7 @@
 </head>
 <body>
 <!-- Navigation -->
-<style>
-    .dropdown-menu{
-        background-color: #222222;
-    }
 
-    .dropdown-menu>li>a{
-        color:#fff;
-    }
-</style>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -50,6 +37,7 @@
                 <li id="resource"><a href="resource.html">资源下载</a></li>
                 <li id="commentPage"><a href="comments.html">讨论区</a></li>
                 <li><a href="markdownEditor.html">发布</a></li>
+                <li><a href="renwu.html">老师查看</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -81,11 +69,8 @@
                     <div class="post-meta">
                         <span>by <a href="#">作者</a></span>
                         /
-                        <span>${article.artLabel}</span>
+                        <span><i class="fa fa-clock-o"></i>2017-10-12</span>
                         /
-                        <span><i class="fa fa-clock-o"></i></span>
-                        /
-                        <span><i class="fa fa-comment-o"></i> 阅读量</span>
                         <span><i class="fa fa-comment-o"></i>  0 </span>
 
                     </div>
@@ -113,7 +98,7 @@
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/bootstrap/bootstrap.min.js"></script>
 <script src="../lib/jqPaginator/jqPaginator.js"></script>
-<script src="../lib/artDialog/jquery.artDialog.js"></script>
 <script src="../scripts/nav.js"></script>
+<script src="../scripts/comments.js"></script>
 </body>
 </html>
