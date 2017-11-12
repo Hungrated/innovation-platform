@@ -9,6 +9,8 @@ var student_id = localStorage.school_id;
 window.onload = function () {
     ready();
 };
+
+var avatar;
 //初始化 获取档案
 function ready() {
     $.ajax({
@@ -20,15 +22,17 @@ function ready() {
         dataType:"json",
         success:function (data) {
             if(data[0].avatar == ""||data[0].avatar == null){
-                data[0].avatar = "https://sfault-avatar.b0.upaiyun.com/389/430/3894305104-59fe90aea4ec6_huge256";
+                avatar = "https://sfault-avatar.b0.upaiyun.com/389/430/3894305104-59fe90aea4ec6_huge256";
+            }else{
+                var str = data[0].avatar;
+                var na = str.split("avatars\\");
+                var uH = '../upload/avatars/';
+                avatar = uH + na[1]
             }
             //获取失败
             if(data.status == 2101){
                 alert(data.msg)
             }else{
-                var str = data[0].avatar;
-                var na = str.split("avatars\\");
-                var uH = '../upload/avatars/';
                 var userInfo = {
                     username:data[0].name,
                     user_sex:data[0].sex,
@@ -39,7 +43,7 @@ function ready() {
                     birth:data[0].birth_date,
                     phone:data[0].phone_num,
                     description:data[0].description,
-                    avatar: uH + na[1]
+                    avatar:avatar
                 };
                 var base_content = template('base_content', userInfo);
                 document.getElementById('userInfo').innerHTML = base_content;
@@ -123,6 +127,7 @@ function getContent() {
     var birth = $("#birth").text();
     var phone = $("#phone").text();
     var description = $("#description").text();
+    var avatar = $("#avatar")[0].src;
     var putInfo = {
         f_name:username,
         f_sex:user_sex,
@@ -132,7 +137,8 @@ function getContent() {
         f_teacher:std_teacher,
         f_birth:birth,
         f_phone:phone,
-        f_description:description
+        f_description:description,
+        f_avatar:avatar
     };
     var base_form = template('base_form', putInfo);
     document.getElementById('userInfo').innerHTML = base_form;
@@ -259,7 +265,6 @@ $("#submit_plan").click(function () {
     }
     else
     {
-        debugger;
         $.ajax({
             type:'POST',
             url:"http://localhost:3000/api/plan/submit",
@@ -333,8 +338,31 @@ function uploadAvatar() {
             success: function (data) {
                 console.log(data);
                 if (data.status == 2000) {
-                    console.log(data.msg)
-                    // window.location.reload();
+                    //console.log(data.msg)
+                    window.location.reload();
+                    /*$.ajax({
+                        type:'POST',
+                        url:'http://localhost:3000/api/profile/getavatar',
+                        data:{
+                            school_id:parseInt(student_id)
+                        },
+                        dataType:"json",
+                        success:function (data) {
+                            //console.log(data);
+                            var src = "data:image/jpeg;base64,"+ data;
+                            console.log(src);
+                            $("#avatarChange").attr("src",src);
+                            //获取失败
+                            if(data.status == 2101){
+                                alert(data.msg)
+                            }else{
+
+                            }
+                        },
+                        error:function (err) {
+                            console.log(err);
+                        }
+                    })*/
                 }
                 else{
                     console.log(data.msg)
