@@ -49,10 +49,12 @@
                 <li id="activityPage"><a href="activity.html">活动展示</a> </li>
                 <li id="resource"><a href="resource.html">资源下载</a></li>
                 <li id="commentPage"><a href="comments.html">讨论区</a></li>
-                <li><a href="markdownEditor.html">发布</a></li>
+                <li id="publish"><a href="markdownEditor.html">发布</a></li>
+                <li><a href="renwu.html">老师查看</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+
                 <li id="userLink" class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="username"><b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="myArticles.html">我的文章</a></li>
@@ -60,7 +62,7 @@
                         <li><a href="modifyPassword.html">修改密码</a></li>
                     </ul>
                 </li>
-                <li id="logout"><a href="login.html">退出</a></li>
+                <li id="logout"><a>退出</a></li>
                 <li id="login"><a href="login.html">登录</a> </li>
             </ul>
 
@@ -89,7 +91,7 @@
                 </a>
             </div>
             <div id="textArr">
-                <div class="form-group" class="desinput1">
+                <div class="form-group" class="desinput1" hidden>
                     <h5>顺序添加介绍</h5>
                 </div>
             </div>
@@ -138,7 +140,6 @@
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/bootstrap/bootstrap.min.js"></script>
 <script src="../js/ajaxfileupload.js"></script>
-<script src="../js/mooz.scripts.min.js"></script>
 <!--<script src="../js/basic.js"></script>-->
 <script src="../scripts/nav.js"></script>
 <script src="../scripts/resource.js"></script>

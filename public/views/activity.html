@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="../editor/activity/css/chocolat.css" type="text/css" media="screen" charset="utf-8" />
 
 	<link href="../styles/activity.css" rel="stylesheet">
+	<script src="../lib/jquery/jquery.min.js"></script>
 	<title>活动展示</title>
 </head>
 <body>
@@ -35,9 +36,12 @@
 				<li id="activityPage"><a href="activity.html">活动展示</a> </li>
 				<li id="resource"><a href="resource.html">资源下载</a></li>
 				<li id="commentPage"><a href="comments.html">讨论区</a></li>
-				<li><a href="markdownEditor.html">发布</a></li>
+				<li id="publish"><a href="markdownEditor.html">发布</a></li>
+				<li><a href="renwu.html">老师查看</a></li>
 			</ul>
+
 			<ul class="nav navbar-nav navbar-right">
+
 				<li id="userLink" class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="username"><b class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="myArticles.html">我的文章</a></li>
@@ -45,7 +49,7 @@
 						<li><a href="modifyPassword.html">修改密码</a></li>
 					</ul>
 				</li>
-				<li id="logout"><a href="login.html">退出</a></li>
+				<li id="logout"><a>退出</a></li>
 				<li id="login"><a href="login.html">登录</a> </li>
 			</ul>
 
@@ -59,47 +63,69 @@
 	<!--gallery-starts-->
 	<div class="gallery" id="gallery">
 		<div class="container">
-			<div class="row" >
-				<div class="col-xs-12 col-md-12">
-					<div class="widget"  id="postP">
-						<div class="widget-header ">
-							<span class="widget-caption">上传照片</span>
-						</div>
-						<div class="widget-body">
-							<div class="row" style="padding-left: 1%">
-								<div class="col-md-4">
-									<div class="row">
-										<input  type="file" name="file" class="element" accept="image/*">
-									</div>
-									<br/>
-									<div class="row">
-										<input type="text" class="form-control" placeholder="标题">
-									</div>
-								</div>
-								<div class="col-md-1"></div>
-								<div class="col-md-6">
-									<textarea style="resize: none;max-height: 200px;height: 70px;" class="form-control" placeholder="活动描述"></textarea>
-								</div>
-								<div class="col-md-1" style="">
-									<center><a href="#" class="btn btn-primary" style="margin-bottom: 5px" ><i class="fa fa-check"></i>提交</a></center>
-								</div>
-							</div>
+			<a class="btn btn-default pull-right" id="addBtn">添加活动</a>
+			<br/>
+			<div class="row" id="addAct" hidden>
+				<div class="col-md-8 col-md-offset-2">
 
+					<div id="add_plan_contanier" class="panel panel-default">
+						<div class="panel-heading">
+							<span class="widget-caption">添加计划</span>
+						</div>
+						<div class="panel-body">
+							<form class="form-horizontal" role="form">
+								<div class="form-group">
+									<label for="upload_file" class="col-sm-2 control-label">上传照片</label>
+									<div class="col-sm-4">
+										<input  multiple type="file" name="file" id="upload_file" class="element" accept="image/*"
+												style="display: none;" onchange="change();">
+										<input type="text" class="form-control" id="upload_file_tmp" name="upload_file_tmp"
+											   readonly="readonly" onclick="$('#upload_file').click();">
+									</div>
+									<div class="col-sm-2">
+										<button type="button" class="btn btn-primary" id="select_file"
+												onclick="$('#upload_file').click();">浏览
+										</button>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="start_date" class="col-sm-2 control-label">活动标题</label>
+									<div class="col-sm-5">
+										<input type="text" class="form-control" id="start_date" placeholder="">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="plan_details" class="col-sm-2 control-label">活动描述</label>
+									<div class="col-sm-8">
+										<textarea class="form-control" rows="3" id="plan_details"></textarea>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-5 col-sm-5">
+										<a class="btn btn-success" id="subBtn">&nbsp;提交&nbsp;</a>
+									    <a class="btn btn-default" id="cancelBtn">&nbsp;取消&nbsp;</a>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
+          <div class="row" style="text-align: center">
+			  <h3 style="color: black">活动相册</h3>
+		  </div>
 
-			<h3>活动相册</h3>
 			<div class="gallery-bottom">
 					<div class="col-md-4">
 						<div class="gallery-left">
 							<a href="../editor/activity/images/g1.jpg">
 								<img src="../editor/activity/images/g1.jpg" alt="name" />
 							</a>
-							<h4>活动标题</h4>
-							<p>发布者 <span>发布时间</span></p>
-							<p>活动描述</p>
+							<div class="" style="text-align: center">
+								<h4>活动标题</h4>
+								<p>发布者 <span>发布时间</span></p>
+								<p>活动描述</p>
+							</div>
 						</div>
 					</div>
 				    <div class="col-md-4">
@@ -107,9 +133,11 @@
 						<a href="../editor/activity/images/g2.jpg">
 							<img src="../editor/activity/images/g2.jpg" alt="name" />
 						</a>
-						<h4>活动标题</h4>
-						<p>发布者 <span>发布时间</span></p>
-						<p>活动描述</p>
+						<div class="" style="text-align: center">
+							<h4>活动标题</h4>
+							<p>发布者 <span>发布时间</span></p>
+							<p>活动描述</p>
+						</div>
 					</div>
 					</div>
 				    <div class="col-md-4">
@@ -117,9 +145,11 @@
 						<a href="../editor/activity/images/g3.jpg">
 							<img src="../editor/activity/images/g3.jpg" alt="name" />
 						</a>
-							<h4>活动标题</h4>
-						<p>发布者 <span>发布时间</span></p>
-						<p>活动描述</p>
+							<div class="" style="text-align: center">
+								<h4>活动标题</h4>
+								<p>发布者 <span>发布时间</span></p>
+								<p>活动描述</p>
+							</div>
 					</div>
 					</div>
 
@@ -128,9 +158,11 @@
 						<a href="../editor/activity/images/g4.jpg">
 							<img src="../editor/activity/images/g4.jpg" alt="name" />
 						</a>
-						<h4>活动标题</h4>
-						<p>发布者 <span>发布时间</span></p>
-						<p>活动描述</p>
+						<div class="" style="text-align: center">
+							<h4>活动标题</h4>
+							<p>发布者 <span>发布时间</span></p>
+							<p>活动描述</p>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -138,9 +170,11 @@
 						<a href="../editor/activity/images/g5.jpg">
 							<img src="../editor/activity/images/g5.jpg" alt="name" />
 						</a>
-						<h4>活动标题</h4>
-						<p>发布者 <span>发布时间</span></p>
-						<p>活动描述</p>
+						<div class="" style="text-align: center">
+							<h4>活动标题</h4>
+							<p>发布者 <span>发布时间</span></p>
+							<p>活动描述</p>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -148,9 +182,11 @@
 						<a href="../editor/activity/images/g6.jpg">
 							<img src="../editor/activity/images/g6.jpg" alt="name" />
 						</a>
-						<h4>活动标题</h4>
-						<p>发布者 <span>发布时间</span></p>
-						<p>活动描述</p>
+						<div class="" style="text-align: center">
+							<h4>活动标题</h4>
+							<p>发布者 <span>发布时间</span></p>
+							<p>活动描述</p>
+						</div>
 					</div>
 				</div>
 					<div class="clearfix"></div>
@@ -164,7 +200,7 @@
 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
 </script>
 
-<script src="../lib/jquery/jquery.min.js"></script>
+
 <script src="../lib/bootstrap/bootstrap.min.js"></script>
 <script src="../editor/activity/js/jquery.chocolat.js"></script>
 <script src="../scripts/nav.js"></script>

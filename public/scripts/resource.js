@@ -46,6 +46,7 @@ $("#resource").addClass("active");
 
 // 上传多个文件和学号、描述
 $("#uploadfile").on("click",function () {
+    $("#desinput1").show();
     var des ='';
     var Texts = $(".desinput");
     for(var j=0;j<Texts.length-1;j++)
@@ -80,11 +81,13 @@ $("#uploadfile").on("click",function () {
                 window.location.reload();
             }
             else{
-                alert(data.msg)
+                alert(data.msg);
+                window.location.reload();
             }
         },
         error: function (data) {
-            alert(data.msg)
+            alert(data.msg);
+            window.location.reload();
         }
     });
     // supplement data

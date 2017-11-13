@@ -64,13 +64,16 @@ Purchase: http://wrapbootstrap.com
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li id="index"><a href="../index.html">首页</a></li>
-                <li id="post"><a href="postList.html">成果展示</a></li>
-
+                <li id="post"><a href="postList.html">文章分享</a></li>
+                <li id="activityPage"><a href="activity.html">活动展示</a> </li>
                 <li id="resource"><a href="resource.html">资源下载</a></li>
-                <li><a href="markdownEditor.html">发布</a></li>
-                <li><a href="comments.html">讨论区</a></li>
+                <li id="commentPage"><a href="comments.html">讨论区</a></li>
+                <li id="publish"><a href="markdownEditor.html">发布</a></li>
+                <li><a href="renwu.html">老师查看</a></li>
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
+
                 <li id="userLink" class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="username"><b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="myArticles.html">我的文章</a></li>
@@ -78,7 +81,7 @@ Purchase: http://wrapbootstrap.com
                         <li><a href="modifyPassword.html">修改密码</a></li>
                     </ul>
                 </li>
-                <li id="logout"><a href="login.html">退出</a></li>
+                <li id="logout"><a>退出</a></li>
                 <li id="login"><a href="login.html">登录</a> </li>
             </ul>
 
@@ -97,10 +100,39 @@ Purchase: http://wrapbootstrap.com
     <section style="margin-top: 35px;">
         <!-- Page Body -->
         <div class="page-body">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="widget-caption">添加学生</span>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="file" class="col-sm-2 control-label"><strong>选择excel文件</strong></label>
+                                <div class="col-sm-4">
+                                    <input id="file" name="file" multiple type="file"
+                                           accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                           style="display: none;"  onchange="change();"/>
+                                    <input type="text" class="form-control" id="upload_file_tmp" name="upload_file_tmp"
+                                           readonly="readonly" onclick="$('#file').click();">
+                                </div>
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-primary" id="select_file"
+                                            onclick="$('#file').click();">浏览
+                                    </button>
+                                </div>
+                                <div class="col-sm-3">
+                                    <a class="btn btn-primary " id="impotInfor">导入学生信息</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
-                        <input id="file" name="file" multiple type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-                    <a href="javascript:;" class="btn btn-primary pull-right" id="impotInfor">导入学生信息</a>
+
+
                 </div>
             </div>
             <div class="row" >
@@ -253,6 +285,7 @@ Purchase: http://wrapbootstrap.com
 </div>
 <script src="../lib/art-template/template.js"></script>
 <script type="text/html" id="stuList">
+    {{if isZero === 0}}
     {{each stuList as stu i}}
     <tr >
         <td><a href="userInfo.html?s_id={{stu.school_id}}">{{stu.name}}</a></td>
@@ -266,6 +299,11 @@ Purchase: http://wrapbootstrap.com
         </td>
     </tr>
     {{/each}}
+    {{else}}
+    <div style="display:flex;justify-content:center;align-items:center;" >
+        <img src="../images/icon_empty_content.png"/>
+    </div>
+    {{/if}}
 </script>
 <!--Basic Scripts-->
 
@@ -273,7 +311,7 @@ Purchase: http://wrapbootstrap.com
 <script src="../lib/bootstrap/bootstrap.min.js"></script>
 
 <!--Beyond Scripts-->
-<script src="../lib/beyond/beyond.min.js"></script>
+<!--<script src="../lib/beyond/beyond.min.js"></script>-->
 
 
 <!--Page Related Scripts-->
@@ -281,7 +319,7 @@ Purchase: http://wrapbootstrap.com
 <script src="../js/jquery.params.js"></script>
 <script src="../lib/sparkline/jquery.sparkline.js"></script>
 <script src="../lib/sparkline/sparkline-init.js"></script>
-<script src="../js/pageNav.js"></script>
+<!--<script src="../js/pageNav.js"></script>-->
 <script src="../scripts/nav.js"></script>
 <script src="../js/ajaxfileupload.js"></script>
 <script src="../scripts/nav.js"></script>

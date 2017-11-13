@@ -8,8 +8,12 @@ var student_id = localStorage.school_id;
 
 window.onload = function () {
     ready();
+
 };
 
+$("#cancel_plan").on("click",function () {
+    $("#add_plan_contanier").hide();
+});
 var avatar;
 //初始化 获取档案
 function ready() {
@@ -206,7 +210,6 @@ function editP(obj) {
     $("#add_plan_contanier").css("display","block");
     var Inputs = $("#add_plan_contanier input");
     console.log(Inputs.length);
-    debugger;
     var $Tr = $(obj).parents("tr");
     var Tds = $Tr.children("td");
     Inputs[0].value = Tds[0].innerHTML;
@@ -236,7 +239,6 @@ $("#submit_plan").click(function () {
     var pid = $(this).attr("data-mode");
     if(pid!="")
     {
-        debugger;
         $.ajax({
             type:'POST',
             url:"http://localhost:3000/api/plan/modify",
@@ -297,7 +299,6 @@ $("#submit_plan").click(function () {
 function uploadAvatar() {
     $("#avatarFile").trigger("click");
     $("#avatarFile").change(function () {
-        debugger;
         var avatar = $("#avatarFile");
         var avatarFile = avatar[0].files;
         console.log(avatarFile);

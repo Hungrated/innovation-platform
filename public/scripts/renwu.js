@@ -1,6 +1,10 @@
 /**
  * Created by Administrator on 2017/11/4 0004.
  */
+
+function change(){
+    document.getElementById("upload_file_tmp").value=document.getElementById("file").value;
+}
 $(function () {
     $.ajax({
         type:"POST",
@@ -13,8 +17,16 @@ $(function () {
             if(data.status == 2101){
                 alert(data.msg)
             }else {
+                var isZero;
+                if(data.length==0)
+                {
+                    isZero=1;
+                }else{
+                    isZero=0;
+                }
                 var stuListData = {
-                    stuList:data
+                    stuList:data,
+                    isZero:isZero
                 };
                 var stuList = template('stuList', stuListData);
                 $("#stuContainer").html(stuList);
@@ -26,6 +38,7 @@ $(function () {
     });
 });
 $("#impotInfor").on("click",function () {
+    debugger;
     var fp = $("#file");
     var lg = fp[0].files.length; // get length
     var items = fp[0].files;
@@ -51,6 +64,7 @@ $("#impotInfor").on("click",function () {
         dataType: 'json',                       //服务器返回的格式,可以是json或xml等
         success: function (data) {
             if (data.status == 1300) {
+                debugger;
                 var dialog = art.dialog({
                     title: '提示',
                     content: data.msg,
@@ -60,11 +74,13 @@ $("#impotInfor").on("click",function () {
                 });
             }
             else{
+                debugger;
                 alert(data.msg)
             }
         },
         error: function (msg) {
-            console.log(msg.responseText);
+            debugger;
+            alert(msg.msg);
         }
     });
 });
