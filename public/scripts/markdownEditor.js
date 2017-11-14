@@ -47,7 +47,7 @@ function mySubmit() {
             if(articleId==""){
                 $.ajax({
                     type: "POST",
-                    url: 'http://localhost:3000/api/blog/publish',
+                    url: '/api/blog/publish',
                     data: {
                         type:'project',
                         content: file,

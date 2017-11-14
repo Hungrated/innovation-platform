@@ -6,7 +6,7 @@ $("#commentPage").addClass("active");
 $(".inputSubmit").on("click",function () {
     $.ajax({
         type: "POST",                   //类型，POST或者GET
-        url: "http://localhost:3000/api/comments/submit",        //后台url
+        url: "/api/comments/submit",        //后台url
         data: {                          //数据
             student_id: localStorage.getItem(username),
             article_id: password

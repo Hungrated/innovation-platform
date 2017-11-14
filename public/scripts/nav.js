@@ -18,7 +18,7 @@ if(username!=""&&username!=undefined){
 document.getElementById("logout").onclick = function () {
     $.ajax({
         type: "POST",                   //类型，POST或者GET
-        url: "http://localhost:3000/api/user/logout",        //后台url
+        url: "/api/user/logout",        //后台url
         data: {                          //数据
             username: username,
         },

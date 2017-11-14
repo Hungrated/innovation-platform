@@ -18,7 +18,7 @@ $(function () {
     $("#stuName").text(s_name);
     $.ajax({
         type:'POST',
-        url:'http://localhost:3000/api/plan/query',
+        url:'/api/plan/query',
         contentType: "application/json",
         data:JSON.stringify({
             'request':s_id,
@@ -53,7 +53,7 @@ $("#rate").on("click",function () {
     var text = $("#xlginput").val();
     $.ajax({
         type: "POST",                   //类型，POST或者GET
-        url: "http://localhost:3000/api/plan/rate",        //后台url
+        url: "/api/plan/rate",        //后台url
         data: {                          //数据
             plan_id: $(this).attr("data-mode"),
             rate: '',

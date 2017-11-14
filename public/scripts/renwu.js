@@ -8,7 +8,7 @@ function change(){
 $(function () {
     $.ajax({
         type:"POST",
-        url:"http://localhost:3000/api/profile/getinfo",
+        url:"/api/profile/getinfo",
         data:{
             request:'all'
         },
@@ -57,7 +57,7 @@ $("#impotInfor").on("click",function () {
 
     $.ajaxFileUpload({
         //处理文件上传操作的服务器端地址
-        url: 'http://localhost:3000/api/user/import',
+        url: '/api/user/import',
         enctype: 'multipart/form-data',
         secureuri: false,                       //是否启用安全提交,默认为false
         fileElementId: 'file',                        //文件选择框的id属性

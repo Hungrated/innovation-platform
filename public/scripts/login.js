@@ -25,7 +25,7 @@ $(function () {
         if(username != "" && password != "") {
             $.ajax({
                 type: "POST",                   //类型，POST或者GET
-                url: "http://localhost:3000/api/user/login",        //后台url
+                url: "/api/user/login",        //后台url
                 data: {                          //数据
                     username: username,
                     password: password

@@ -20,7 +20,7 @@ $("#post").addClass("active");
 $(function () {
     $.ajax({
         type:'POST',
-        url:'http://localhost:3000/api/blog/query',
+        url:'/api/blog/query',
         contentType: "application/json",
         data:JSON.stringify({'request':'project'}),
         dataType:'json',

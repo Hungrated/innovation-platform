@@ -12,7 +12,7 @@ getComment();
         var con = $("#comment").val();
         $.ajax({
             type: "POST",
-            url: 'http://localhost:3000/api/comment/submit',
+            url: '/api/comment/submit',
             data: {
                 blog_id: blog_id,
                 student_id:localStorage.school_id,
@@ -40,7 +40,7 @@ getComment();
 function getComment() {
     $.ajax({
         type: "GET",
-        url: 'http://localhost:3000/api/blog/details',
+        url: '/api/blog/details',
         data: {
             index: blog_id
         },

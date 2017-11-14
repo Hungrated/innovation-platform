@@ -9,7 +9,7 @@ $(function () {
     var uH = '../upload/sources/';
      $.ajax({
         type: "POST",                   //类型，POST或者GET
-         url: "http://localhost:3000/api/file/query",        //后台url
+         url: "/api/file/query",        //后台url
        data: {                          //数据
             request: 'all'
          },
@@ -58,7 +58,7 @@ $("#uploadfile").on("click",function () {
     console.log(fileName);
     $.ajaxFileUpload({
         //处理文件上传操作的服务器端地址
-        url: 'http://localhost:3000/api/file/upload',
+        url: '/api/file/upload',
         enctype: "multipart/form-data",
         secureuri: false,                       //是否启用安全提交,默认为false
         fileElementId: fileName,                        //文件选择框的id属性

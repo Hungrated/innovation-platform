@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const multer = require('multer');
 const pathLib = require('path');
+const path = require('../app_paths');
 const xl = require('node-xlrd');
 const config = require('config-lite')(__dirname).database;
 
@@ -15,12 +16,10 @@ const statusLib = require('../libs/status');
 const User = db.User;
 const Profile = db.Profile;
 
-let uploadDir = '../public/upload/userinfo';
 
 let objMulter = multer({
-    dest: uploadDir // file upload destination
+    dest: path.userinfo // file upload destination
 });
-
 
 //student register interface disabled: use '/import' instead
 

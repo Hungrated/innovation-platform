@@ -10,7 +10,7 @@ $(function () {
             if (new_password === rpw) {
                 $.ajax({
                     type: "POST",                   //类型，POST或者GET
-                    url: "http://localhost:3000/api/user/pwdmod",        //后台url
+                    url: "/api/user/pwdmod",        //后台url
                     data: {                          //数据
                         username: localStorage.username,
                         password: password,

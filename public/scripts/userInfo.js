@@ -19,7 +19,7 @@ var avatar;
 function ready() {
     $.ajax({
         type:"POST",
-        url:"http://localhost:3000/api/profile/getinfo",
+        url:"/api/profile/getinfo",
         data:{
             request:student_id
         },
@@ -60,7 +60,7 @@ function ready() {
 
     $.ajax({
         type:"POST",
-        url:"http://localhost:3000/api/plan/query",
+        url:"/api/plan/query",
         data:{
             request:student_id
         },
@@ -163,7 +163,7 @@ function getForm() {
     //先把数据发送到后台
     $.ajax({
         type:'POST',
-        url:'http://localhost:3000/api/profile/modify',
+        url:'/api/profile/modify',
         data:{
             school_id:localStorage.school_id,
             sex:f_sex,
@@ -241,7 +241,7 @@ $("#submit_plan").click(function () {
     {
         $.ajax({
             type:'POST',
-            url:"http://localhost:3000/api/plan/modify",
+            url:"/api/plan/modify",
             data:{
                 plan_id:pid,
                 year:year,
@@ -269,7 +269,7 @@ $("#submit_plan").click(function () {
     {
         $.ajax({
             type:'POST',
-            url:"http://localhost:3000/api/plan/submit",
+            url:"/api/plan/submit",
             data:{
                 year:year,
                 term:term,
@@ -304,7 +304,7 @@ function uploadAvatar() {
         console.log(avatarFile);
         /*$.ajax({
            type:'POST',
-            url:'http://localhost:3000/api/profile/avatar',
+            url:'/api/profile/avatar',
             data:{
                 school_id:localStorage.school_id,
                 file: avatar
@@ -327,7 +327,7 @@ function uploadAvatar() {
             async: false,
             type: "POST",
             //处理文件上传操作的服务器端地址
-            url: 'http://localhost:3000/api/profile/avatar',
+            url: '/api/profile/avatar',
             enctype: "multipart/form-data",
             secureuri: false,                       //是否启用安全提交,默认为false
             fileElementId: 'avatarFile',                        //文件选择框的id属性
@@ -343,7 +343,7 @@ function uploadAvatar() {
                     window.location.reload();
                     /*$.ajax({
                         type:'POST',
-                        url:'http://localhost:3000/api/profile/getavatar',
+                        url:'/api/profile/getavatar',
                         data:{
                             school_id:parseInt(student_id)
                         },

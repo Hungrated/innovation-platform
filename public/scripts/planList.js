@@ -8,7 +8,7 @@ $(function () {
     $("#stuName").text(s_name);
     $.ajax({
         type:'POST',
-        url:'http://localhost:3000/api/plan/query',
+        url:'/api/plan/query',
         contentType: "application/json",
         data:JSON.stringify({
             'request':s_id,
@@ -39,7 +39,7 @@ $(function () {
    {
        $.ajax({
            type: "POST",                   //类型，POST或者GET
-           url: "http://localhost:3000/api/plan/export",        //后台url
+           url: "/api/plan/export",        //后台url
            // processData: false,  // tell jQuery not to process the data
            // contentType: false,   // tell jQuery not to set contentType
            data:{student_id: s_id},
@@ -86,7 +86,7 @@ function cBTn(obj) {
     var  p_id = $(obj).attr("data-mode").toString();
     $.ajax({
         type:'POST',
-        url:'http://localhost:3000/api/plan/op',
+        url:'/api/plan/op',
         contentType: "application/json",
         data:JSON.stringify({
             'plan_id':p_id,
@@ -110,7 +110,7 @@ function fBTn(obj) {
     var  p_id = $(obj).attr("data-mode").toString();
     $.ajax({
         type:'POST',
-        url:'http://localhost:3000/api/plan/op',
+        url:'/api/plan/op',
         contentType: "application/json",
         data:JSON.stringify({
             'plan_id':p_id,
@@ -142,7 +142,7 @@ function rBtn(obj) {
         var str = $("#selectR").val();
         $.ajax({
             type: "POST",                   //类型，POST或者GET
-            url: "http://localhost:3000/api/plan/rate",        //后台url
+            url: "/api/plan/rate",        //后台url
             data: {                          //数据
                 plan_id:p_id,
                 rate: str,
