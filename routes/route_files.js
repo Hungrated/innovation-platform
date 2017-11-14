@@ -4,6 +4,7 @@ const router = express.Router();
 const db = require('../models/db_global');
 const statusLib = require('../libs/status');
 const pathLib = require('path');
+const path = require('../app_paths');
 
 const multer = require('multer');
 const fs = require('fs');
@@ -11,10 +12,8 @@ const fs = require('fs');
 const File = db.File;
 
 
-let uploadDir = 'public/upload/sources/';
-
 let objMulter = multer({
-  dest: uploadDir // file upload destination
+  dest: path.sources // file upload destination
 });
 
 router.use(objMulter.any()); // any file type

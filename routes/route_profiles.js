@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const path = require('../app_paths');
 const pathLib = require('path');
 
 const db = require('../models/db_global');
@@ -9,12 +10,9 @@ const Profile = db.Profile;
 const fs = require('fs');
 const multer = require('multer');
 
-let uploadDir = 'public/upload/avatars/';
-
 let objMulter = multer({
-  dest: uploadDir // file upload destination
+  dest: path.avatars // file upload destination
 });
-
 
 router.post('/modify', function (req, res) { // modify a profile
   const {
@@ -49,7 +47,7 @@ router.post('/modify', function (req, res) { // modify a profile
 
 router.post('/avatar', objMulter.any(), function (req, res, next) { // upload an avatar
   const school_id = req.body.school_id; // id is school_id
-  const url = 'public/upload/avatars/' + school_id + '.jpg';
+  const url = pathLib.join(path.avatars, school_id + '.jpg');
   req.avatarURL = url;
   console.log('avatar upload succeeded');
 

@@ -61,7 +61,8 @@ $(function () {
                console.log(data);
                if(data.status == 5500)
                {
-                   var ul = "../output/plans/"+data.path;
+                   var ul = "../output/plans/"+data.path.split("plans/")[1];
+                   console.log(ul);
                    $("#exportW").attr("href",ul);
                    $("#exportW").attr("download",data.path);
                }
