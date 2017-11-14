@@ -17,7 +17,7 @@ $(function () {
          success: function (data) {      //成功，回调函数
              data.forEach(function (e) {
                 var str = e.url;
-                var na = str.split("sources\\");
+                var na = str.split("sources/");
                 e.url = uH + na[1];
                 e.file = na[1];
              });

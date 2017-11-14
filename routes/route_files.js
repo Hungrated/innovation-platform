@@ -85,7 +85,7 @@ router.post('/query', function (req, res) { // fetch file list
 });
 
 
-router.post('/download', function (req, res) { // fetch file list
+router.post('/download', function (req, res) { // download a file
 
   const realDir = req.body.url;
   res.download(realDir, function (err) {
