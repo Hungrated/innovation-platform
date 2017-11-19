@@ -28,7 +28,7 @@ document.getElementById("logout").onclick = function () {
             if (data.status == 1200) {
                 localStorage.username = "";
                 localStorage.name = "";
-                window.location.href = "index.html";
+                window.location.href = "../index.html";
             }else{
                 var dialog = art.dialog({
                     title: '提示',
