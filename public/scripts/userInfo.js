@@ -17,11 +17,20 @@ $("#cancel_plan").on("click",function () {
 var avatar;
 //初始化 获取档案
 function ready() {
+    var id;
+    var s_id = $.query.get("s_id");
+    if(s_id != "")
+    {
+        id = s_id;
+    }else
+    {
+        id = student_id
+    }
     $.ajax({
         type:"POST",
         url:"/api/profile/getinfo",
         data:{
-            request:student_id
+            request:id
         },
         dataType:"json",
         success:function (data) {
@@ -62,7 +71,7 @@ function ready() {
         type:"POST",
         url:"/api/plan/query",
         data:{
-            request:student_id
+            request:id
         },
         dataType:"json",
         success:function (data) {
@@ -206,26 +215,40 @@ function getForm() {
     document.getElementById('userInfo').innerHTML = base_content;*/
 }
 
-function editP(obj) {
+function editP(obj,flag) {
     $("#add_plan_contanier").css("display","block");
     var Inputs = $("#add_plan_contanier input");
     console.log(Inputs.length);
     var $Tr = $(obj).parents("tr");
     var Tds = $Tr.children("td");
+    var Texts = $("#add_plan_contanier textarea");
     Inputs[0].value = Tds[0].innerHTML;
     Inputs[1].value = Tds[1].innerHTML;
     var time = Tds[2].innerHTML;
     var timeD = time.split("至");
     Inputs[2].value =timeD[0];
     Inputs[3].value = timeD[1];
+    Texts[0].value = Tds[3].innerHTML;
+    if(flag == 1)
+    {
+    }
+    else
+    {
+       ;
+    }
     $("#submit_plan").attr("data-mode",$(obj).attr("data-mode"));
+
 };
+
+
 
 //添加计划
 $("#plan_add").click(function () {
     $("#add_plan_contanier").css("display","block");
     $("#submit_plan").attr("data-mode","");
 });
+
+
 
 
 //提交计划
@@ -260,8 +283,8 @@ $("#submit_plan").click(function () {
                 }
             },
             error:function (err) {          //失败，回调函数
-                alert('计划提交失败');
-                console.log(err);
+                alert(data.msg);
+                console.log(ajax.status);
             }
         })
     }

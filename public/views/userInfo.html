@@ -307,8 +307,12 @@
                     <td>{{plan.status}}</td>
                     {{if plan.status == '未通过'}}
                     <td>
-                        <a class="btn btn-primary btn-xs modifyPlan" href="#add_plan_contanier" onclick="editP(this)" data-mode='{{plan.plan_id}}'><i class="fa fa-edit"></i>编辑 </a>
+                        <a class="btn btn-primary btn-xs modifyPlan" href="#add_plan_contanier" onclick="editP(this,0)" data-mode='{{plan.plan_id}}'><i class="fa fa-edit"></i>编辑 </a>
                     </td>
+                   {{else if plan.status == '未审核'}}
+                <td>
+                    <a class="btn btn-primary btn-xs modifyPlan" href="#add_plan_contanier" onclick="editP(this,1)" data-mode='{{plan.plan_id}}'><i class="fa fa-edit"></i>编辑 </a>
+                </td>
                    {{else}}
                      <td>无</td>
                    {{/if}}
@@ -321,6 +325,7 @@
     </div>
     {{/if}}
 </script>
+<script src="../js/jquery.params.js"></script>
 <script src="../js/ajaxfileupload.js"></script>
 <script src="../scripts/nav.js"></script>
 <script src="../scripts/userInfo.js"></script>

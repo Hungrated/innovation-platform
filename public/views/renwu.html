@@ -288,7 +288,8 @@ Purchase: http://wrapbootstrap.com
     {{if isZero === 0}}
     {{each stuList as stu i}}
     <tr >
-        <td><a href="userInfo.html?s_id={{stu.school_id}}">{{stu.name}}</a></td>
+        <!--<td><a href="userInfo.html?s_id={{stu.school_id}}">{{stu.name}}</a></td>-->
+        <td>{{stu.name}}</td>
         <td>{{stu.school_id}}</td>
         <td>{{stu.sex}}</td>
         <td>{{stu.grade}}</td>
