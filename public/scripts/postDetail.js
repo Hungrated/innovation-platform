@@ -51,7 +51,7 @@ function getComment() {
             $("title").text(blogData.title);
             $("#blog_title").text(blogData.title);
             $("#author_name").text(blogData.profile.name);
-            $("#created_time").text(blogData.created_at);
+            $("#created_time").text(blogData.publishTime);
             viewLoad(blogData.content);
             var commentArray =  data.comments;
             $("#comment_num").text(commentArray.length);

@@ -200,6 +200,9 @@ router.post('/query', function (req, res) { // get list of all (or personal) pla
     where: where
   })
     .then(function (plans) {
+      for (let i = 0; i <  plans.length; i++) {
+        plans[i].dataValues.submitTime = timeFormat(plans[i].dataValues.created_at);
+      }
       res.json(plans);
       console.log('plan query succeeded');
 

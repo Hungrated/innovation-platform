@@ -8,7 +8,7 @@ Purchase: http://wrapbootstrap.com
 <html xmlns="http://www.w3.org/1999/xhtml">
 <!-- Head -->
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>每周进展记录</title>
 
     <meta charset="utf-8">
@@ -21,18 +21,18 @@ Purchase: http://wrapbootstrap.com
 
     <link href="../css/style.css" rel="stylesheet">
 
-    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
-    <link href="../css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../css/weather-icons.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet"/>
+    <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="../css/weather-icons.min.css" rel="stylesheet"/>
 
 
     <!--Beyond styles-->
-    <link href="../lib/beyond/beyond.min.css" rel="stylesheet" type="text/css" />
-    <link href="../css/demo.min.css" rel="stylesheet" />
-    <link href="../css/typicons.min.css" rel="stylesheet" />
-    <link href="../css/animate.min.css" rel="stylesheet" />
-    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
-    <link href="../css/public.css" rel="stylesheet" />
+    <link href="../lib/beyond/beyond.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/demo.min.css" rel="stylesheet"/>
+    <link href="../css/typicons.min.css" rel="stylesheet"/>
+    <link href="../css/animate.min.css" rel="stylesheet"/>
+    <link id="skin-link" href="" rel="stylesheet" type="text/css"/>
+    <link href="../css/public.css" rel="stylesheet"/>
     <link href="../css/pageNav.css" type="text/css" rel="stylesheet"/>
     <link href="../styles/taskList.css">
 </head>
@@ -43,7 +43,8 @@ Purchase: http://wrapbootstrap.com
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -54,7 +55,7 @@ Purchase: http://wrapbootstrap.com
             <ul class="nav navbar-nav">
                 <li id="index"><a href="../index.html">首页</a></li>
                 <li id="post"><a href="postList.html">文章分享</a></li>
-                <li id="activityPage"><a href="activity.html">活动展示</a> </li>
+                <li id="activityPage"><a href="activity.html">活动展示</a></li>
                 <li id="resource"><a href="resource.html">资源下载</a></li>
                 <li id="commentPage"><a href="comments.html">讨论区</a></li>
                 <li id="publish"><a href="markdownEditor.html">发布</a></li>
@@ -63,7 +64,8 @@ Purchase: http://wrapbootstrap.com
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li id="userLink" class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="username"><b class="caret"></b></a>
+                <li id="userLink" class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle"
+                                                      data-toggle="dropdown" id="username"><b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="myArticles.html">我的文章</a></li>
                         <li><a href="userInfo.html">个人档案</a></li>
@@ -71,7 +73,7 @@ Purchase: http://wrapbootstrap.com
                     </ul>
                 </li>
                 <li id="logout"><a>退出</a></li>
-                <li id="login"><a href="login.html">登录</a> </li>
+                <li id="login"><a href="login.html">登录</a></li>
             </ul>
 
         </div>
@@ -79,7 +81,7 @@ Purchase: http://wrapbootstrap.com
     </div>
 </nav>
 <ul class="scrollNav shu" hidden>
-    <li ><a href="#student">学生情况表</a></li>
+    <li><a href="#student">学生情况表</a></li>
     <li><a href="#pingjia">学生评价表</a></li>
     &lt;!&ndash;<li><a href="#options">Options</a></li>&ndash;&gt
 </ul>
@@ -89,42 +91,44 @@ Purchase: http://wrapbootstrap.com
     <section style="margin-top: 35px;">
         <!-- Page Body -->
         <div class="page-body">
-            <div class="row" >
+            <div class="row">
                 <div class="col-xs-12 col-md-12">
-                        <div class="widget-header ">
-                            <span class="widget-caption" >学生姓名:<a id="stuName"></a></span>
+                    <div class="widget-header ">
+                        <span class="widget-caption">学生姓名:<a id="stuName"></a></span>
+                    </div>
+                    <div class="widget-body">
+                        <div class="table-toolbar">
+                            <div class="widget" id="student">
+                            </div>
                         </div>
-                        <div class="widget-body" >
-                            <div class="table-toolbar">
-                                <div class="widget" id="student">
-                                </div>
-                            </div>
-                            <div id="taskListContainer">
-                            </div>
+                        <div id="taskListContainer">
+                        </div>
 
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-12">
-                    <div class="widget" id="pingjia" hidden>
-                        <div class="widget-header ">
-                            <span class="widget-caption">学生姓名</span>
-                        </div>
-                        <div class="widget-body">
-                            <div class="form-group">
-                                <label for="xlginput">添加评语</label>
-                                <textarea  rows="5" cols="7" style="resize:none;" type="text"  style="overflow-x:hidden;" class="form-control input-xl" id="xlginput" placeholder=""></textarea>
-                                <br/>
-                                <div class="col-md-offset-5 col-md-6">
-                                    <a href="javascript:;" id="rate" class="btn btn-primary btn-lg" data-mode=""><i class="fa fa-check"></i> 保存 </a>
-                                    <a href="javascript:;" id="dele" class="btn btn-danger btn-lg" data-mode=""><i class="fa fa-times"></i> 取消 </a>
-                                </div>
-                                <br/>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="widget" id="pingjia" hidden>
+                    <div class="widget-header ">
+                        <span class="widget-caption">学生姓名</span>
+                    </div>
+                    <div class="widget-body">
+                        <div class="form-group">
+                            <label for="xlginput">添加评语</label>
+                            <textarea rows="5" cols="7" style="resize:none;" type="text" style="overflow-x:hidden;"
+                                      class="form-control input-xl" id="xlginput" placeholder=""></textarea>
+                            <br/>
+                            <div class="col-md-offset-5 col-md-6">
+                                <a href="javascript:;" id="rate" class="btn btn-primary btn-lg" data-mode=""><i
+                                        class="fa fa-check"></i> 保存 </a>
+                                <a href="javascript:;" id="dele" class="btn btn-danger btn-lg" data-mode=""><i
+                                        class="fa fa-times"></i> 取消 </a>
                             </div>
-
+                            <br/>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -147,7 +151,7 @@ Purchase: http://wrapbootstrap.com
 <!--Page Related Scripts-->
 <!--Sparkline Charts Needed Scripts-->
 <script id="taskList" type="text/html">
-    <table class="table table-striped table-hover table-bordered" >
+    <table class="table table-striped table-hover table-bordered">
         {{if isZero === 0}}
         <thead>
         <tr role="row">
@@ -177,7 +181,7 @@ Purchase: http://wrapbootstrap.com
             </th>
         </tr>
         </thead>
-        <tbody >
+        <tbody>
         {{each taskLists as task i}}
         <tr>
             <td>{{task.year}}</td>
@@ -185,16 +189,17 @@ Purchase: http://wrapbootstrap.com
             <td>{{task.start}}</td>
             <td>{{task.deadline}}</td>
             <td>{{task.content}}</td>
-            <td>{{task.created_at}}</td>
+            <td>{{task.submitTime}}</td>
             <td>{{task.remark}}</td>
             <td class="scrollNav">
-                <a href="#pingjia" class="btn btn-primary btn-xs editComment" data-mode='{{task.plan_id}}' onclick="rateBTn(this)"><i class="fa fa-edit"></i>编辑 </a>
+                <a href="#pingjia" class="btn btn-primary btn-xs editComment" data-mode='{{task.plan_id}}'
+                   onclick="rateBTn(this)"><i class="fa fa-edit"></i>编辑 </a>
             </td>
         </tr>
         {{/each}}
         </tbody>
         {{else}}
-        <div style="display:flex;justify-content:center;align-items:center;" >
+        <div style="display:flex;justify-content:center;align-items:center;">
             <img src="../images/icon_empty_content.png"/>
         </div>
         {{/if}}

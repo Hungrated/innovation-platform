@@ -4,6 +4,7 @@ const router = express.Router();
 const db = require('../models/db_global');
 const statusLib = require('../libs/status');
 const pathLib = require('path');
+const timeFormat = require('../middlewares/time_format');
 const path = require('../app_paths');
 
 const multer = require('multer');
@@ -72,7 +73,9 @@ router.post('/query', function (req, res) { // fetch file list
   })
     .then(function (files) {
       // convert to absolute dir
-
+      for (let i = 0; i < files.length; i++) {
+        files[i].dataValues.uploadTime = timeFormat(files[i].dataValues.created_at);
+      }
       res.json(files);
       console.log('file list fetch succeeded');
 

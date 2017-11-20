@@ -29,9 +29,9 @@ function ready() {
                 avatar = "https://sfault-avatar.b0.upaiyun.com/389/430/3894305104-59fe90aea4ec6_huge256";
             }else{
                 var str = data[0].avatar;
-                var na = str.split("avatars\\");
+                var na = str.split("avatars/");
                 var uH = '../upload/avatars/';
-                avatar = uH + na[1]
+                avatar = uH + na[1];
             }
             //获取失败
             if(data.status == 2101){
