@@ -61,7 +61,7 @@ function mySubmit() {
                     success: function (data) {
                         if (data.status == 3000) {
                             alert("提交成功，跳转到我的文章列表！");
-                            location.href = "../index.html";//成功后将页面跳转到我的文章列表
+                            location.href = "myArticles.html";//成功后将页面跳转到我的文章列表
                         }
                         else {
                             alert(data.msg);

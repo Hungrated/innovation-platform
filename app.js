@@ -47,6 +47,7 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res) {
   console.error(err);
   // render the error page
+  document.write('Sorry, the page is missing...');
   res.status(err.status || 500);
   res.json(statusLib.SERVER_INNER_ERROR);
 });

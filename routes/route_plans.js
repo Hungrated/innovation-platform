@@ -42,9 +42,9 @@ router.post('/submit', function (req, res) { // a student create a plan
   })
     .then(function (plan) {
       res.json({
-        status: statusLib.PLAN_SUBMIT_SUCCEEDED.status,
-        msg: statusLib.PLAN_SUBMIT_SUCCEEDED.msg,
-        plan_id: plan.plan_id
+        'status': statusLib.PLAN_SUBMIT_SUCCEEDED.status,
+        'msg': statusLib.PLAN_SUBMIT_SUCCEEDED.msg,
+        'plan_id': plan.plan_id
       });
       console.log('plan submit succeeded');
     })
@@ -90,13 +90,16 @@ router.post('/modify', function (req, res) { // a student modifies a plan
     deadline
   } = req.body;
 
+  const status = '未审核';
+
   const modData = {
     year: year,
     term: term,
     content: content,
     start: start,
     deadline: deadline,
-    student_id: student_id
+    student_id: student_id,
+    status: status
   };
 
   Plan.update(modData, {
